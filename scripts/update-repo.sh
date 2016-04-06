@@ -53,6 +53,6 @@ fi
 # Commit the change and push it
 git commit -a -m "vim: Import $vimver" -m "$vimlog"
 git tag -f $vimver
-git push origin master --tags
+git push origin master --tags --force
 # replace newline by \n
 echo "$vimlog" | sed ':a;N;$!ba;s/\n/\\n/g' > gitlog.txt
