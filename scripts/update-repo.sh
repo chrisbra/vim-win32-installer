@@ -27,6 +27,7 @@ git submodule update
 # Get the latest vim source code
 cd vim
 vimoldver=$(git rev-parse HEAD)
+vimoldver=$(git rev-parse v7.4.1700)
 git checkout master
 git pull
 vimver=$(git describe --tags --abbrev=0)
