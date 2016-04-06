@@ -40,10 +40,10 @@ artifacts:
   - path: gvim_*_x64.exe
     name: gVim_x64_installer
 
-before-deploy:
+before_deploy:
   set /p GITLOG=<"%APPVEYOR_BUILD_FOLDER%\gitlog.txt"
 
-after-deploy:
+after_deploy:
   del /F "%APPVEYOR_BUILD_FOLDER%\gitlog.txt"
 
 deploy:
