@@ -22,7 +22,7 @@ git pull
 if [ ! -d vim/src ]; then
 	git submodule init
 fi
-#git submodule update
+git submodule update
 
 # Get the latest vim source code
 cd vim
@@ -45,10 +45,10 @@ vimlog=$(git log --decorate --graph --pretty=format:%s $vimoldver..HEAD |sed \
 cd -
 
 # Check if it is updated
-if git diff --exit-code > /dev/null; then
-	echo "No changes found."
-	exit 0
-fi
+#if git diff --exit-code > /dev/null; then
+#	echo "No changes found."
+#	exit 0
+#fi
 
 # Commit the change and push it
 # replace newline by \n
