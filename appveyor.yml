@@ -38,12 +38,10 @@ artifacts:
     name: gVim_x64_installer
 
 before_deploy:
-  - set /p GITLOG=<"%APPVEYOR_BUILD_FOLDER%\gitlog.txt"
+  - set /p GITLOG=<gitlog.txt
   - dir %APPVEYOR_BUILD_FOLDER%
   - type %APPVEYOR_BUILD_FOLDER%\gitlog.txt
-
-after_deploy:
-  - echo > "%APPVEYOR_BUILD_FOLDER%\gitlog.txt"
+  - echo %GITLOG%
 
 deploy:
   - provider: GitHub
