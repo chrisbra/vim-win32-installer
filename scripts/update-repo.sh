@@ -22,7 +22,7 @@ git pull
 if [ ! -d vim/src ]; then
 	git submodule init
 fi
-git submodule update
+#git submodule update
 
 # Get the latest vim source code
 cd vim
