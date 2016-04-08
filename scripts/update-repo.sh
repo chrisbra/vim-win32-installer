@@ -51,9 +51,8 @@ if git diff --exit-code > /dev/null; then
 fi
 
 # Commit the change and push it
+# replace newline by \n
 echo "$vimlog" | sed ':a;N;$!ba;s/\n/\\n/g' > gitlog.txt
 git commit -a -m "vim: Import $vimver" -m "$vimlog"
 git tag -f $vimver
 git push origin master --tags --force
-# replace newline by \n
-ls -l .
