@@ -38,11 +38,9 @@ artifacts:
     name: gVim_x64_installer
 
 before_deploy:
-  dir "%APPVEYOR_BUILD_FOLDER%"
   set /p GITLOG=<"%APPVEYOR_BUILD_FOLDER%\gitlog.txt"
 
 after_deploy:
-  dir "%APPVEYOR_BUILD_FOLDER%"
   del /F "%APPVEYOR_BUILD_FOLDER%\gitlog.txt"
 
 deploy:
