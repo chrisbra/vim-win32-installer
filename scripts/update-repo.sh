@@ -1,5 +1,5 @@
 #!/bin/sh
-#set -x
+set -x
 
 # Work directory of this repository.
 if [ "$1" != "" ]; then
@@ -27,6 +27,7 @@ git submodule update
 # Get the latest vim source code
 cd vim
 vimoldver=$(git rev-parse HEAD)
+vimoldver="9e4043757cd2fc18d071fdd98"
 git checkout master
 git pull
 vimver=$(git describe --tags --abbrev=0)
