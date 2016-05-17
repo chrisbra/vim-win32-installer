@@ -44,10 +44,10 @@ vimlog=$(git log --decorate --graph --pretty=format:%s $vimoldver..HEAD |sed \
 cd -
 
 # Check if it is updated
-if git diff --exit-code > /dev/null; then
-	echo "No changes found."
-	exit 0
-fi
+#if git diff --exit-code > /dev/null; then
+#	echo "No changes found."
+#	exit 0
+#fi
 
 # Commit the change and push it
 # replace newline by \n
@@ -55,5 +55,5 @@ echo "$vimlog" | sed \
     -e 's#^\* *\([0-9]\([a-z]\)\?\.[0-9]\([a-z]\)\?\(\.[0-9]\+\)\?\) #* [\1](https://github.com/vim/vim/releases/tag/v\1) #g' | sed \
     -e ':a;N;$!ba;s/\n/\\n/g' > gitlog.txt
 git commit -a -m "vim: Import $vimver" -m "$vimlog"
-git tag $vimver
-git push origin master --tags
+git tag -f $vimver
+git push origin master --tags --force
