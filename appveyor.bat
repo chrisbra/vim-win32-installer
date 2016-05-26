@@ -93,16 +93,23 @@ reg copy HKLM\SOFTWARE\Python\PythonCore\2.7 HKLM\SOFTWARE\Python\PythonCore\2.7
 :: Get Vim source code
 git submodule update --init
 
+:: Python version output
+%PYTHON_DIR%\python --version
+%PYTHON3_DIR%\python3 --version
+
 :: Lua
 curl -f -L %LUA_URL% -o lua.zip || exit 1
 7z x lua.zip -o%LUA_DIR% > nul
+%LUA_DIR%\lua --version
 :: Perl
 curl -f -L %PERL_URL% -o perl.zip || exit 1
 7z x perl.zip -oC:\ > nul
 for /d %%i in (C:\ActivePerl*) do move %%i C:\Perl%PERL_VER%
+%PERL_DIR%\perl --version
 :: Tcl
 curl -f -L %TCL_URL% -o tcl.exe || exit 1
 start /wait tcl.exe --directory %TCL_DIR%
+%TCL_DIR%\tcl --version
 :: Ruby
 :: RubyInstaller is built by MinGW, so we cannot use header files from it.
 :: Download the source files and generate config.h for MSVC.
@@ -113,9 +120,11 @@ echo on
 nmake .config.h.time
 xcopy /s .ext\include %RUBY_DIR%\include\ruby-%RUBY_VER_LONG%
 popd
+%RUBY_DIR%\ruby --version
 :: Racket
 curl -f -L %RACKET_URL% -o racket.exe || exit 1
 start /wait racket.exe /S
+%RACKET_DIR%\racket --version
 
 :: Install libintl.dll and iconv.dll
 curl -f -L %GETTEXT_URL% -o gettext.exe || exit 1
