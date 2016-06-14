@@ -1,7 +1,7 @@
 version: "{build}"
 
 # Build only on tags
-skip_non_tags: true
+#skip_non_tags: true
 
 environment:
   matrix:
@@ -85,8 +85,8 @@ deploy:
     artifact: /gVim/
     draft: false
     prerelease: false
-    on:
-      appveyor_repo_tag: true
+      #    on:
+      #appveyor_repo_tag: true
 
 cache:
   - downloads -> appveyor.bat
