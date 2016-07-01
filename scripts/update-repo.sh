@@ -54,6 +54,10 @@ cd -
 echo "$vimlog" | sed \
     -e 's#^\* *\([0-9]\([a-z]\)\?\.[0-9]\([a-z]\)\?\(\.[0-9]\+\)\?\) #* [\1](https://github.com/vim/vim/releases/tag/v\1) #g' | sed \
     -e ':a;N;$!ba;s/\n/\\n/g' > gitlog.txt
+
+# record applied patches
+( ls patch/*.patch | sed -e ':a;N;$!ba;s/\n/\\n/g' > patches.txt ) 2>/dev/null
+
 git commit -a -m "vim: Import $vimver" -m "$vimlog"
 git tag $vimver
 git push origin master --tags

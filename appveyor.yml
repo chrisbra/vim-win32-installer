@@ -46,6 +46,7 @@ artifacts:
 
 before_deploy:
   - for /f "delims=" %%i in (gitlog.txt) do set GITLOG=%%i
+  - for /f "delims=" %%i in (patches.txt) do set PATCHES=%%i
 
 deploy:
   - provider: GitHub
@@ -79,6 +80,11 @@ deploy:
       * [RubyInstaller](http://rubyinstaller.org/downloads/) 2.2
 
       Make sure that you install the same architecture (32bit/64bit) that matches your Vim installation.
+
+      ### Patches
+
+      $(PATCHES)
+
     auth_token:
       # Update the following key, once this is merged to Vim main repository:
       secure: kH0D/3t+1Mc8OChKhe+voKlMO0aMwnlUr64QoZOJC6BaVwy+Us3ZHq9Oo+aBzjYc
