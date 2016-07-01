@@ -26,9 +26,13 @@ set PERL_URL=!PERL%BIT%_URL!
 set PERL_DIR=C:\Perl%PERL_VER%\perl
 :: Python2
 set PYTHON_VER=27
+set PYTHON32_URL=https://www.python.org/ftp/python/2.7.12/python-2.7.12.msi
+set PYTHON64_URL=https://www.python.org/ftp/python/2.7.12/python-2.7.12.amd64.msi
+set PYTHON_URL=!PYTHON%BIT%_URL!
 set PYTHON_32_DIR=C:\python%PYTHON_VER%
 set PYTHON_64_DIR=C:\python%PYTHON_VER%-x64
 set PYTHON_DIR=!PYTHON_%BIT%_DIR!
+set PYTHON_DIR=C:\Python2712
 :: Python3
 set PYTHON3_VER=34
 set PYTHON3_32_DIR=C:\python%PYTHON3_VER%
@@ -66,7 +70,7 @@ set UPX_URL=http://upx.sourceforge.net/download/upx391w.zip
 :: ----------------------------------------------------------------------
 
 :: Update PATH
-path %PERL_DIR%\bin;%path%;%LUA_DIR%;%TCL_DIR%\bin;%RUBY_DIR%\bin;%RACKET_DIR%;%RACKET_DIR%\lib
+path %PERL_DIR%\bin;%PYTHON_DIR%;%path%;%LUA_DIR%;%TCL_DIR%\bin;%RUBY_DIR%\bin;%RACKET_DIR%;%RACKET_DIR%\lib
 
 if /I "%1"=="" (
   set target=build
@@ -106,6 +110,21 @@ call :downloadfile %PERL_URL% downloads\perl.zip
 7z x downloads\perl.zip -oC:\ > nul || exit 1
 for /d %%i in (C:\ActivePerl*) do move %%i C:\Perl%PERL_VER%
 
+:: Python
+call :downloadfile %PYTHON_URL% downloads\python.msi
+:: install sytemwide /a switch
+start /wait msiexec /a downloads\python.msi TARGETDIR=%PYTHON_DIR% /qn /quiet
+:: copy to windows directory, so that the correct dll is loaded later by vim
+if /i "%ARCH%"=="x64" (
+    dir c:\Windows\system32\python27.dll
+    copy %PYTHON_DIR%\python27.dll C:\Windows\system32\python27.dll
+    dir c:\Windows\system32\python27.dll
+) else (
+    dir c:\Windows\SysWOW64\python27.dll
+    copy %PYTHON_DIR%\python27.dll C:\Windows\SysWOW64\python27.dll
+    dir c:\Windows\SysWOW64\python27.dll
+)
+
 :: Tcl
 call :downloadfile %TCL_URL% downloads\tcl.exe
 start /wait downloads\tcl.exe --directory %TCL_DIR%
@@ -128,8 +147,6 @@ start /wait downloads\racket.exe /S
 :: Install libintl.dll and iconv.dll
 call :downloadfile %GETTEXT_URL% downloads\gettext.exe
 start /wait downloads\gettext.exe /verysilent /dir=c:\gettext
-:: libwinpthread is needed on Win64 for localizing messages
-::copy c:\gettext\libwinpthread-1.dll ..\runtime
 
 :: Install UPX
 call :downloadfile %UPX_URL% downloads\upx.zip
@@ -137,6 +154,9 @@ call :downloadfile %UPX_URL% downloads\upx.zip
 
 :: Show PATH for debugging
 path
+
+:: Some python debugging
+python -c "import sys; print sys.version"
 
 :: Install additional packages for Racket
 raco pkg install --auto r5rs-lib
