@@ -6,7 +6,7 @@ index cd9f31e21..353b0a732 100644
  	PostMessage(s_hwnd, WM_CHAR, (WPARAM)*keys, (LPARAM)0);
  	keys++;
      }
-+    update_screen(CLEAR);
++    redraw_later(CLEAR);
  }
  
  /*
