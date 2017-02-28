@@ -1,0 +1,12 @@
+diff --git a/src/gui_w32.c b/src/gui_w32.c
+index cd9f31e21..353b0a732 100644
+--- a/src/gui_w32.c
++++ b/src/gui_w32.c
+@@ -2637,6 +2637,7 @@ ex_simalt(exarg_T *eap)
+ 	PostMessage(s_hwnd, WM_CHAR, (WPARAM)*keys, (LPARAM)0);
+ 	keys++;
+     }
++    update_screen(CLEAR);
+ }
+ 
+ /*
