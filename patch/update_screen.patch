@@ -1,12 +1,12 @@
 diff --git a/src/gui_w32.c b/src/gui_w32.c
-index fc566abee..7c263b2dd 100644
+index fc566abee..0261bc467 100644
 --- a/src/gui_w32.c
 +++ b/src/gui_w32.c
 @@ -2637,6 +2637,7 @@ ex_simalt(exarg_T *eap)
  	PostMessage(s_hwnd, WM_CHAR, (WPARAM)*keys, (LPARAM)0);
  	keys++;
      }
-+    PostMessage(s_hwnd, WM_NULL, 0, 0);
++    SendMessage(s_tabhwnd, WM_SETREDRAW, (WPARAM)TRUE, 0);
  }
  
  /*
