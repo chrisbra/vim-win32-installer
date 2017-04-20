@@ -1,5 +1,5 @@
 diff --git a/src/gui_w32.c b/src/gui_w32.c
-index fc566abee..c4a9e9698 100644
+index fc566abee..4d9eaab92 100644
 --- a/src/gui_w32.c
 +++ b/src/gui_w32.c
 @@ -2627,7 +2627,9 @@ gui_mch_set_curtab(int nr)
@@ -25,7 +25,7 @@ index fc566abee..c4a9e9698 100644
 +	key_name[1] = KS_EXTRA;
 +	key_name[2] = KE_IGNORE;
 +	typebuf_was_filled = TRUE;
-+	(void)ins_typebuf(str, REMAP_NONE, 0, TRUE, FALSE);
++	(void)ins_typebuf(key_name, REMAP_NONE, 0, TRUE, FALSE);
      }
  }
  
