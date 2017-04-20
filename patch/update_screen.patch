@@ -6,7 +6,7 @@ index fc566abee..0261bc467 100644
  	PostMessage(s_hwnd, WM_CHAR, (WPARAM)*keys, (LPARAM)0);
  	keys++;
      }
-+    SendMessage(s_tabhwnd, WM_SETREDRAW, (WPARAM)TRUE, 0);
++    PostMessage(s_hwnd, WM_SETREDRAW, (WPARAM)TRUE, 0);
  }
  
  /*
