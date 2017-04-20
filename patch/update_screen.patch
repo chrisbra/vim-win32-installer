@@ -6,7 +6,7 @@ index fc566abee..9aac174f2 100644
  	PostMessage(s_hwnd, WM_CHAR, (WPARAM)*keys, (LPARAM)0);
  	keys++;
      }
-+    server_to_input_buf((char_u *)"<Nop>");
++    server_to_input_buf((char_u *)"<C-\><C-G>");
  }
  
  /*
