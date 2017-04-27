@@ -20,7 +20,7 @@ index 52db8f4a3..e119355c7 100644
 -	key_name[3] = NUL;
  	typebuf_was_filled = TRUE;
 -	(void)ins_typebuf(key_name, REMAP_NONE, 0, TRUE, FALSE);
-+	(void)ins_typebuf(KS_IGNORE_STRING, REMAP_NONE, 0, TRUE, FALSE);
++	(void)ins_typebuf(K_SELECT_STRING, REMAP_NONE, 0, TRUE, FALSE);
      }
  }
  
