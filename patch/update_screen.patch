@@ -1,21 +1,38 @@
 diff --git a/src/gui_w32.c b/src/gui_w32.c
-index 52db8f4a3..d03e8f852 100644
+index 52db8f4a3..e119355c7 100644
 --- a/src/gui_w32.c
 +++ b/src/gui_w32.c
-@@ -2629,7 +2629,7 @@ ex_simalt(exarg_T *eap)
+@@ -2629,7 +2629,6 @@ ex_simalt(exarg_T *eap)
  {
      char_u	*keys = eap->arg;
      int		fill_typebuf = FALSE;
 -    char_u	key_name[4];
-+    char_u	key_name[3];
  
      PostMessage(s_hwnd, WM_SYSCOMMAND, (WPARAM)SC_KEYMENU, (LPARAM)0);
      while (*keys)
-@@ -2647,7 +2647,6 @@ ex_simalt(exarg_T *eap)
- 	key_name[0] = K_SPECIAL;
- 	key_name[1] = KS_EXTRA;
- 	key_name[2] = KE_IGNORE;
+@@ -2644,12 +2643,8 @@ ex_simalt(exarg_T *eap)
+     {
+ 	/* Put something in the typeahead buffer so that the message will get
+ 	 * processed. */
+-	key_name[0] = K_SPECIAL;
+-	key_name[1] = KS_EXTRA;
+-	key_name[2] = KE_IGNORE;
 -	key_name[3] = NUL;
  	typebuf_was_filled = TRUE;
- 	(void)ins_typebuf(key_name, REMAP_NONE, 0, TRUE, FALSE);
+-	(void)ins_typebuf(key_name, REMAP_NONE, 0, TRUE, FALSE);
++	(void)ins_typebuf(KS_IGNORE_STRING, REMAP_NONE, 0, TRUE, FALSE);
      }
+ }
+ 
+diff --git a/src/keymap.h b/src/keymap.h
+index 776a53276..3743aa75f 100644
+--- a/src/keymap.h
++++ b/src/keymap.h
+@@ -447,6 +447,7 @@ enum key_extra
+ #define K_X2RELEASE     TERMCAP2KEY(KS_EXTRA, KE_X2RELEASE)
+ 
+ #define K_IGNORE	TERMCAP2KEY(KS_EXTRA, KE_IGNORE)
++#define KS_IGNORE_STRING (char_u *)"\200\3755"
+ #define K_NOP		TERMCAP2KEY(KS_EXTRA, KE_NOP)
+ 
+ #define K_MOUSEDOWN	TERMCAP2KEY(KS_EXTRA, KE_MOUSEDOWN)
