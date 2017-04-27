@@ -1,5 +1,5 @@
 diff --git a/src/gui_w32.c b/src/gui_w32.c
-index 52db8f4a3..e119355c7 100644
+index 52db8f4a3..8f9b8535f 100644
 --- a/src/gui_w32.c
 +++ b/src/gui_w32.c
 @@ -2629,7 +2629,6 @@ ex_simalt(exarg_T *eap)
@@ -10,20 +10,24 @@ index 52db8f4a3..e119355c7 100644
  
      PostMessage(s_hwnd, WM_SYSCOMMAND, (WPARAM)SC_KEYMENU, (LPARAM)0);
      while (*keys)
-@@ -2644,12 +2643,8 @@ ex_simalt(exarg_T *eap)
-     {
+@@ -2641,16 +2640,9 @@ ex_simalt(exarg_T *eap)
+ 	fill_typebuf = TRUE;
+     }
+     if (fill_typebuf)
+-    {
  	/* Put something in the typeahead buffer so that the message will get
  	 * processed. */
 -	key_name[0] = K_SPECIAL;
 -	key_name[1] = KS_EXTRA;
 -	key_name[2] = KE_IGNORE;
 -	key_name[3] = NUL;
- 	typebuf_was_filled = TRUE;
+-	typebuf_was_filled = TRUE;
 -	(void)ins_typebuf(key_name, REMAP_NONE, 0, TRUE, FALSE);
-+	(void)ins_typebuf(K_SELECT_STRING, REMAP_NONE, 0, TRUE, FALSE);
-     }
+-    }
++	(void)ins_typebuf(KS_IGNORE_STRING, REMAP_NONE, 0, TRUE, FALSE);
  }
  
+ /*
 diff --git a/src/keymap.h b/src/keymap.h
 index 776a53276..3743aa75f 100644
 --- a/src/keymap.h
