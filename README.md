@@ -38,3 +38,10 @@ Note: The zip archive might be considered unsecure in Windows, causing Windows t
 Note: If you want to test some patches, place them in the patch directory with the extension `.patch`. They will be applied before building Vim and the binary will then be tested against the test suite.
 
 See: https://github.com/vim/vim
+
+# License & Copyright
+
+Most work was done by Ken Takata (@k-takata) and Christian Brabandt (@chrisbra).
+
+The Vim license applies (see [:h license](http://vimhelp.appspot.com/uganda.txt.html#license)) to all the build scripts in this repository.
+Note, that Vim is included as a submodule and comes with its own license (although is also released under the Vim license).
