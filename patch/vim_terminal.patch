@@ -1,4 +1,4 @@
-From 482f88b6e4139f13fed18d5db4c480d7425fba6b Mon Sep 17 00:00:00 2001
+From edfc32bde1cb56f1e6ebb405f619f79f41fbacd6 Mon Sep 17 00:00:00 2001
 From: Christian Brabandt <cb@256bit.org>
 Date: Sat, 9 Jun 2018 17:43:09 +0200
 Subject: [PATCH] Set VIM_TERMINAL variable in the terminal
@@ -6,8 +6,8 @@ Subject: [PATCH] Set VIM_TERMINAL variable in the terminal
 ---
  runtime/doc/terminal.txt |  1 +
  src/os_unix.c            |  2 ++
- src/os_win32.c           | 17 +++++++++++++++--
- 3 files changed, 18 insertions(+), 2 deletions(-)
+ src/os_win32.c           | 18 ++++++++++++++++--
+ 3 files changed, 19 insertions(+), 2 deletions(-)
 
 diff --git a/runtime/doc/terminal.txt b/runtime/doc/terminal.txt
 index b3fe52286..0dbd7d7b9 100644
@@ -35,7 +35,7 @@ index 1609bb8e2..b385843be 100644
      setenv("VIM_SERVERNAME", serverName == NULL ? "" : (char *)serverName, 1);
  #  endif
 diff --git a/src/os_win32.c b/src/os_win32.c
-index 602ef8aa2..5b1c580bb 100644
+index 602ef8aa2..fd5bda153 100644
 --- a/src/os_win32.c
 +++ b/src/os_win32.c
 @@ -5280,9 +5280,16 @@ win32_build_env(dict_T *env, garray_T *gap, int is_terminal)
@@ -50,26 +50,27 @@ index 602ef8aa2..5b1c580bb 100644
 +	 * VIM_TERMINAL and value
 +	 * plus terminating null
 +	 */
-+	size_t	n = 15 + 13 + 1 + lval + lval2;
++	size_t	n = 15 + 13 + 2 + lval + lval2;
  
 -	if (ga_grow(gap, (int)(14 + lval + 2)) == OK)
 +	if (ga_grow(gap, (int)n) == OK)
  	{
  	    for (n = 0; n < 15; n++)
  		*((WCHAR*)gap->ga_data + gap->ga_len++) =
-@@ -5290,6 +5297,12 @@ win32_build_env(dict_T *env, garray_T *gap, int is_terminal)
- 	    for (n = 0; n < lval; n++)
+@@ -5291,6 +5298,13 @@ win32_build_env(dict_T *env, garray_T *gap, int is_terminal)
  		*((WCHAR*)gap->ga_data + gap->ga_len++) =
  		    (WCHAR)servername[n];
+ 	    *((WCHAR*)gap->ga_data + gap->ga_len++) = L'\0';
 +	    for (n = 0; n < 13; n++)
 +		*((WCHAR*)gap->ga_data + gap->ga_len++) =
 +		    (WCHAR)"VIM_TERMINAL="[n];
 +	    for (n = 0; n < lval2; n++)
 +		*((WCHAR*)gap->ga_data + gap->ga_len++) =
 +		    (WCHAR)version[n];
- 	    *((WCHAR*)gap->ga_data + gap->ga_len++) = L'\0';
++	    *((WCHAR*)gap->ga_data + gap->ga_len++) = L'\0';
  	}
      }
+ # endif
 -- 
 2.17.0
 
