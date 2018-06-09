@@ -30,43 +30,51 @@ set PYTHON_32_DIR=C:\python%PYTHON_VER%
 set PYTHON_64_DIR=C:\python%PYTHON_VER%-x64
 set PYTHON_DIR=!PYTHON_%BIT%_DIR!
 :: Python3
-set PYTHON3_VER=35
+set PYTHON3_VER=36
 set PYTHON3_32_DIR=C:\python%PYTHON3_VER%
 set PYTHON3_64_DIR=C:\python%PYTHON3_VER%-x64
 set PYTHON3_DIR=!PYTHON3_%BIT%_DIR!
 :: Racket
-set RACKET_VER=3m_a0solc
-set RACKET32_URL=https://mirror.racket-lang.org/releases/6.6/installers/racket-minimal-6.6-i386-win32.exe
-set RACKET64_URL=https://mirror.racket-lang.org/releases/6.6/installers/racket-minimal-6.6-x86_64-win32.exe
+set RACKET_VER=3m_a36fs8
+set RACKET32_URL=https://mirror.racket-lang.org/releases/6.10.1/installers/racket-minimal-6.10.1-i386-win32.exe
+set RACKET64_URL=https://mirror.racket-lang.org/releases/6.10.1/installers/racket-minimal-6.10.1-x86_64-win32.exe
 set RACKET_URL=!RACKET%BIT%_URL!
 set RACKET32_DIR=%PROGRAMFILES(X86)%\Racket
 set RACKET64_DIR=%PROGRAMFILES%\Racket
 set RACKET_DIR=!RACKET%BIT%_DIR!
 set MZSCHEME_VER=%RACKET_VER%
 :: Ruby
-set RUBY_VER=22
-set RUBY_VER_LONG=2.2.0
-set RUBY_BRANCH=ruby_2_2
+set RUBY_VER=24
+set RUBY_API_VER_LONG=2.4.0
+set RUBY_BRANCH=ruby_2_4
 set RUBY32_DIR=C:\Ruby%RUBY_VER%
 set RUBY64_DIR=C:\Ruby%RUBY_VER%-x64
 set RUBY_DIR=!RUBY%BIT%_DIR!
 :: Tcl
 set TCL_VER_LONG=8.6
 set TCL_VER=%TCL_VER_LONG:.=%
-set TCL32_URL=http://downloads.activestate.com/ActiveTcl/releases/8.6.4.1/ActiveTcl8.6.4.1.299124-win32-ix86-threaded.exe
-set TCL64_URL=http://downloads.activestate.com/ActiveTcl/releases/8.6.4.1/ActiveTcl8.6.4.1.299124-win32-x86_64-threaded.exe
+set TCL32_URL=http://downloads.activestate.com/ActiveTcl/releases/8.6.6.8607/ActiveTcl-8.6.6.8607-MSWin32-x86-403667.exe
+set TCL64_URL=http://downloads.activestate.com/ActiveTcl/releases/8.6.6.8606/ActiveTcl-8.6.6.8606-MSWin32-x64-401995.exe
 set TCL_URL=!TCL%BIT%_URL!
 set TCL_DIR=C:\Tcl
+set TCL_DLL=tcl%TCL_VER%t.dll
+set TCL_LIBRARY=%TCL_DIR%\lib\tcl%TCL_VER_LONG%
 :: Gettext
-set GETTEXT32_URL=https://github.com/mlocati/gettext-iconv-windows/releases/download/v0.19.6-v1.14/gettext0.19.6-iconv1.14-shared-32.exe
-set GETTEXT64_URL=https://github.com/mlocati/gettext-iconv-windows/releases/download/v0.19.6-v1.14/gettext0.19.6-iconv1.14-shared-64.exe
-set GETTEXT_URL=!GETTEXT%BIT%_URL!
+set GETTEXT32_URL=https://github.com/mlocati/gettext-iconv-windows/releases/download/v0.19.8.1-v1.14/gettext0.19.8.1-iconv1.14-shared-32.zip
+set GETTEXT64_URL=https://github.com/mlocati/gettext-iconv-windows/releases/download/v0.19.8.1-v1.14/gettext0.19.8.1-iconv1.14-shared-64.zip
+:: winpty
+set WINPTY_URL=https://github.com/rprichard/winpty/releases/download/0.4.3/winpty-0.4.3-msvc2015.zip
 :: UPX
-set UPX_URL=http://upx.sourceforge.net/download/upx391w.zip
+set UPX_URL=https://github.com/upx/upx/releases/download/v3.94/upx394w.zip
+
+:: Subsystem version (targeting Windows XP)
+set SUBSYSTEM_VER32=5.01
+set SUBSYSTEM_VER64=5.02
+set SUBSYSTEM_VER=!SUBSYSTEM_VER%BIT%!
 :: ----------------------------------------------------------------------
 
 :: Update PATH
-path %PYTHON_DIR%;%PYTHON3_DIR%;%PERL_DIR%\bin;%path%;%LUA_DIR%;%TCL_DIR%\bin;%RUBY_DIR%\bin;%RACKET_DIR%;%RACKET_DIR%\lib
+path %PYTHON_DIR%;%PYTHON3_DIR%;%PERL_DIR%\bin;%path%;%LUA_DIR%;%RUBY_DIR%\bin;%RUBY_DIR%\bin\ruby_builtin_dlls;%RACKET_DIR%;%RACKET_DIR%\lib
 
 if /I "%1"=="" (
   set target=build
@@ -106,7 +114,10 @@ for /d %%i in (c:\ActivePerlTemp\*) do move %%i %PERL_DIR%
 
 :: Tcl
 call :downloadfile %TCL_URL% downloads\tcl.exe
-start /wait downloads\tcl.exe --directory %TCL_DIR%
+mkdir c:\ActiveTclTemp
+start /wait downloads\tcl.exe /extract:c:\ActiveTclTemp /exenoui /exenoupdates /quiet /norestart
+for /d %%i in (c:\ActiveTclTemp\*) do move %%i %TCL_DIR%
+copy %TCL_DIR%\bin\%TCL_DLL% vim\src\
 
 :: Ruby
 :: RubyInstaller is built by MinGW, so we cannot use header files from it.
@@ -116,7 +127,7 @@ pushd ..\ruby
 call win32\configure.bat
 echo on
 nmake .config.h.time
-xcopy /s .ext\include %RUBY_DIR%\include\ruby-%RUBY_VER_LONG%
+xcopy /s .ext\include %RUBY_DIR%\include\ruby-%RUBY_API_VER_LONG%
 popd
 
 :: Racket
@@ -124,8 +135,21 @@ call :downloadfile %RACKET_URL% downloads\racket.exe
 start /wait downloads\racket.exe /S
 
 :: Install libintl.dll and iconv.dll
-call :downloadfile %GETTEXT_URL% downloads\gettext.exe
-start /wait downloads\gettext.exe /verysilent /dir=c:\gettext
+call :downloadfile %GETTEXT32_URL% downloads\gettext32.zip
+7z e -y downloads\gettext32.zip -oc:\gettext32
+call :downloadfile %GETTEXT64_URL% downloads\gettext64.zip
+7z e -y downloads\gettext64.zip -oc:\gettext64
+
+:: Install winpty
+call :downloadfile %WINPTY_URL% downloads\winpty.zip
+7z x -y downloads\winpty.zip -oc:\winpty
+if /i "%ARCH%"=="x64" (
+	copy /Y c:\winpty\x64_xp\bin\winpty.dll        vim\src\winpty64.dll
+	copy /Y c:\winpty\x64_xp\bin\winpty-agent.exe  vim\src\
+) else (
+	copy /Y c:\winpty\ia32_xp\bin\winpty.dll       vim\src\winpty32.dll
+	copy /Y c:\winpty\ia32_xp\bin\winpty-agent.exe vim\src\
+)
 
 :: Install UPX
 call :downloadfile %UPX_URL% downloads\upx.zip
@@ -136,6 +160,7 @@ path
 
 :: Install additional packages for Racket
 raco pkg install --auto r5rs-lib
+
 @echo off
 goto :eof
 
@@ -145,6 +170,17 @@ goto :eof
 :: ----------------------------------------------------------------------
 @echo on
 cd vim\src
+
+:: Setting for targeting Windows XP
+set WinSdk71=%ProgramFiles(x86)%\Microsoft SDKs\Windows\v7.1A
+set INCLUDE=%WinSdk71%\Include;%INCLUDE%
+if /i "%ARCH%"=="x64" (
+	set "LIB=%WinSdk71%\Lib\x64;%LIB%"
+) else (
+	set "LIB=%WinSdk71%\Lib;%LIB%"
+)
+set CL=/D_USING_V110_SDK71_
+
 :: Remove progress bar from the build log
 sed -e "s/\$(LINKARGS2)/\$(LINKARGS2) | sed -e 's#.*\\\\r.*##'/" Make_mvc.mak > Make_mvc2.mak
 :: Build GUI version
@@ -158,7 +194,7 @@ nmake -f Make_mvc2.mak ^
 	DYNAMIC_TCL=yes TCL=%TCL_DIR% ^
 	DYNAMIC_RUBY=yes RUBY=%RUBY_DIR% RUBY_MSVCRT_NAME=msvcrt ^
 	DYNAMIC_MZSCHEME=yes "MZSCHEME=%RACKET_DIR%" ^
-	TERMINAL=yes WINVER=0x500 ^
+	TERMINAL=yes ^
 	|| exit 1
 :: Build CUI version
 nmake -f Make_mvc2.mak ^
@@ -171,7 +207,7 @@ nmake -f Make_mvc2.mak ^
 	DYNAMIC_TCL=yes TCL=%TCL_DIR% ^
 	DYNAMIC_RUBY=yes RUBY=%RUBY_DIR% RUBY_MSVCRT_NAME=msvcrt ^
 	DYNAMIC_MZSCHEME=yes "MZSCHEME=%RACKET_DIR%" ^
-	TERMINAL=yes WINVER=0x500 ^
+	TERMINAL=yes ^
 	|| exit 1
 :: Build translations
 pushd po
@@ -197,31 +233,47 @@ goto :eof
 @echo on
 cd vim\src
 
+mkdir GvimExt64
+mkdir GvimExt32
 :: Build both 64- and 32-bit versions of gvimext.dll for the installer
-start /wait cmd /c "setenv /x64 && cd GvimExt && nmake clean all"
-move GvimExt\gvimext.dll GvimExt\gvimext64.dll
-start /wait cmd /c "setenv /x86 && cd GvimExt && nmake clean all"
+start /wait cmd /c ""C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64 && cd GvimExt && nmake clean all"
+copy GvimExt\gvimext.dll   GvimExt\gvimext64.dll
+move GvimExt\gvimext.dll   GvimExt64\gvimext.dll
+copy /Y GvimExt\README.txt GvimExt64\
+copy /Y GvimExt\*.inf      GvimExt64\
+copy /Y GvimExt\*.reg      GvimExt64\
+start /wait cmd /c ""C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x86 && cd GvimExt && nmake clean all"
+copy GvimExt\gvimext.dll   GvimExt32\gvimext.dll
+copy /Y GvimExt\README.txt GvimExt32\
+copy /Y GvimExt\*.inf      GvimExt32\
+copy /Y GvimExt\*.reg      GvimExt32\
+
 :: Create zip packages
-7z a ..\..\gvim_%APPVEYOR_REPO_TAG_NAME:v=%_%ARCH%_pdb.zip *.pdb
+7z a ..\..\gvim_%APPVEYOR_REPO_TAG_NAME:~1%_%ARCH%_pdb.zip *.pdb
 copy /Y ..\README.txt ..\runtime
 copy /Y ..\vimtutor.bat ..\runtime
 copy /Y *.exe ..\runtime\
 copy /Y xxd\*.exe ..\runtime
 copy /Y tee\*.exe ..\runtime
-mkdir ..\runtime\GvimExt
-copy /Y GvimExt\gvimext*.dll ..\runtime\GvimExt\
-copy /Y GvimExt\README.txt   ..\runtime\GvimExt\
-copy /Y GvimExt\*.inf        ..\runtime\GvimExt\
-copy /Y GvimExt\*.reg        ..\runtime\GvimExt\
+mkdir ..\runtime\GvimExt64
+mkdir ..\runtime\GvimExt32
+copy /Y GvimExt64\*.*                    ..\runtime\GvimExt64\
+copy /Y c:\gettext64\libiconv-2.dll      ..\runtime\GvimExt64\
+copy /Y c:\gettext64\libintl-8.dll       ..\runtime\GvimExt64\
+copy /Y GvimExt32\*.*                    ..\runtime\GvimExt32\
+copy /Y c:\gettext32\libiconv-2.dll      ..\runtime\GvimExt32\
+copy /Y c:\gettext32\libintl-8.dll       ..\runtime\GvimExt32\
+copy /Y c:\gettext32\libgcc_s_sjlj-1.dll ..\runtime\GvimExt32\
 copy /Y ..\..\diff.exe ..\runtime\
-copy /Y c:\gettext\libiconv*.dll ..\runtime\
-copy /Y c:\gettext\libintl-8.dll ..\runtime\
-:: libwinpthread is needed on Win64 for localizing messages
-if exist c:\gettext\libwinpthread-1.dll copy /Y c:\gettext\libwinpthread-1.dll ..\runtime\
+copy /Y c:\gettext%BIT%\libiconv-2.dll   ..\runtime\
+copy /Y c:\gettext%BIT%\libintl-8.dll    ..\runtime\
+if exist c:\gettext%BIT%\libgcc_s_sjlj-1.dll copy /Y c:\gettext%BIT%\libgcc_s_sjlj-1.dll ..\runtime\
+copy /Y winpty* ..\runtime\
+copy /Y winpty* ..\..\
 set dir=vim%APPVEYOR_REPO_TAG_NAME:~1,1%%APPVEYOR_REPO_TAG_NAME:~3,1%
 mkdir ..\vim\%dir%
 xcopy ..\runtime ..\vim\%dir% /Y /E /V /I /H /R /Q
-7z a ..\..\gvim_%APPVEYOR_REPO_TAG_NAME:v=%_%ARCH%.zip ..\vim
+7z a ..\..\gvim_%APPVEYOR_REPO_TAG_NAME:~1%_%ARCH%.zip ..\vim
 
 :: Create x86 installer (Skip x64 installer)
 if /i "%ARCH%"=="x64" goto :eof
@@ -233,7 +285,7 @@ copy xxd\xxd.exe xxdw32.exe
 copy install.exe installw32.exe
 copy uninstal.exe uninstalw32.exe
 pushd ..\nsis
-"C:\Program Files (x86)\NSIS\makensis" /DVIMRT=..\runtime gvim.nsi "/XOutFile ..\..\gvim_%APPVEYOR_REPO_TAG_NAME:v=%_%ARCH%.exe"
+"C:\Program Files (x86)\NSIS\makensis" /DVIMRT=..\runtime /DGETTEXT=c: gvim.nsi "/XOutFile ..\..\gvim_%APPVEYOR_REPO_TAG_NAME:~1%_%ARCH%.exe"
 popd
 
 @echo off
