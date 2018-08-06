@@ -1,0 +1,26 @@
+diff --git a/src/term.c b/src/term.c
+index 28e3f4d27..30676c083 100644
+--- a/src/term.c
++++ b/src/term.c
+@@ -628,8 +628,8 @@ static struct builtin_term builtin_termcaps[] =
+     {K_F8,		"\316B"},
+     {K_F9,		"\316C"},
+     {K_F10,		"\316D"},
+-    {K_F11,		"\316\205"},
+-    {K_F12,		"\316\206"},
++    {K_F11,		"\316E"},
++    {K_F12,		"\316F"},
+     {K_S_F1,		"\316T"},
+     {K_S_F2,		"\316U"},
+     {K_S_F3,		"\316V"},
+@@ -640,8 +640,8 @@ static struct builtin_term builtin_termcaps[] =
+     {K_S_F8,		"\316["},
+     {K_S_F9,		"\316\\"},
+     {K_S_F10,		"\316]"},
+-    {K_S_F11,		"\316\207"},
+-    {K_S_F12,		"\316\210"},
++    {K_S_F11,		"\316^"},
++    {K_S_F12,		"\316_"},
+     {K_INS,		"\316R"},
+     {K_DEL,		"\316S"},
+     {K_HOME,		"\316G"},
