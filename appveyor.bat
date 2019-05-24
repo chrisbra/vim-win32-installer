@@ -301,6 +301,8 @@ if /i "%ARCH%"=="x64" (
 )
 popd
 
+7z a unsigned-gvim_%APPVEYOR_REPO_TAG_NAME:~1%_%ARCH%.zip gvim*.zip gvim*.exe
+
 @echo off
 goto :eof
 
