@@ -2,7 +2,7 @@
 :: Batch file for building/testing Vim on AppVeyor
 
 setlocal ENABLEDELAYEDEXPANSION
-FOR /f "delims=. tokens=1-3" %%i in ("%APPVEYOR_REPO_TAG_NAME%") do set PATCHLEVEL=%%k
+FOR /f "delims=. tokens=1-3" %%i in ('git describe --abbrev=0 --tag') do set PATCHLEVEL=%%k
 
 cd %APPVEYOR_BUILD_FOLDER%
 
