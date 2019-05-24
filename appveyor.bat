@@ -301,7 +301,10 @@ if /i "%ARCH%"=="x64" (
 )
 popd
 
+:: Create zipfile for signing with signpath.io
+pushd ..
 7z a unsigned-gvim_%APPVEYOR_REPO_TAG_NAME:~1%_%ARCH%.zip gvim*.zip gvim*.exe
+popd
 
 @echo off
 goto :eof
