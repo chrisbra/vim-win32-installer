@@ -317,10 +317,10 @@ goto :eof
 :test_x64
 :: ----------------------------------------------------------------------
 @echo on
-cd vim\src\testdir
-nmake -f Make_dos.mak VIMPROG=..\gvim || exit 1
-nmake -f Make_dos.mak clean
-nmake -f Make_dos.mak VIMPROG=..\vim || exit 1
+:: cd vim\src\testdir
+:: nmake -f Make_dos.mak VIMPROG=..\gvim || exit 1
+:: nmake -f Make_dos.mak clean
+:: nmake -f Make_dos.mak VIMPROG=..\vim || exit 1
 
 @echo off
 goto :eof
