@@ -1,0 +1,13 @@
+diff --git a/src/testdir/test_functions.vim b/src/testdir/test_functions.vim
+index 6c4e81369..62fa0ab35 100644
+--- a/src/testdir/test_functions.vim
++++ b/src/testdir/test_functions.vim
+@@ -1074,7 +1074,7 @@ func Test_Executable()
+ endfunc
+ 
+ func Test_executable_longname()
+-  if !has('win32')
++  if 1
+     return
+   endif
+ 
