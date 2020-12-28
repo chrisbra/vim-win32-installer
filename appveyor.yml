@@ -47,6 +47,8 @@ artifacts:
     name: gvim_x64_installer
   - path: unsigned*.zip
     name: vim_zip_for_signing
+  - path: gvim_*.yml
+    name: yaml for winget
 
 before_deploy:
   - for /f "delims=" %%i in (gitlog.txt) do set GITLOG=%%i
@@ -55,16 +57,16 @@ before_deploy:
   - set URL=https://github.com/%APPVEYOR_REPO_NAME%/releases/download
 
 deploy:
-  - provider: Webhook
-    url: https://app.signpath.io/API/v1/47c0047c-0c1d-42b2-a16c-4ea6907dc813/Integrations/AppVeyor?SigningPolicyId=297bf19e-ccf4-4c01-b6e6-c327ee23792d
+#  - provider: Webhook
+#    url: https://app.signpath.io/API/v1/47c0047c-0c1d-42b2-a16c-4ea6907dc813/Integrations/AppVeyor?SigningPolicyId=297bf19e-ccf4-4c01-b6e6-c327ee23792d
     # not needed by Signpath
     # on_build_success: true
     # on_build_failure: false
     # on_build_status_changed: false
     # artifact: /unsigned*.zip/
     # method: POST
-    authorization:
-      secure: eX3iWU3dQqDdg8UHR7Br6tqtvlFlhXihHcV0y/oR2YhSj6XZ2Pl/KVLiczUBCc39WWG/Aa5AXafWxaHQC/s40g==
+#    authorization:
+#      secure: eX3iWU3dQqDdg8UHR7Br6tqtvlFlhXihHcV0y/oR2YhSj6XZ2Pl/KVLiczUBCc39WWG/Aa5AXafWxaHQC/s40g==
 
   - provider: GitHub
     description: |

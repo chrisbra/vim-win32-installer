@@ -316,6 +316,7 @@ echo Creating Signpath Zip Archive
 cd %APPVEYOR_BUILD_FOLDER%
 7z a unsigned-gvim_%APPVEYOR_REPO_TAG_NAME:~1%_%ARCH%.zip gvim_%APPVEYOR_REPO_TAG_NAME:~1%_%ARCH%.zip gvim*.exe
 
+:: Create winget yaml file
 if /i "%ARCH%"=="x64" (
 	start /wait vim\src\gvim -u NONE -N -S scripts\winget.vim scripts\winget_template.yml
 	type gvim_%APPVEYOR_REPO_TAG_NAME:~1%.yml
@@ -330,9 +331,9 @@ goto :eof
 :: ----------------------------------------------------------------------
 @echo on
 cd vim\src\testdir
-nmake -f Make_dos.mak VIMPROG=..\gvim || exit 1
-nmake -f Make_dos.mak clean
-nmake -f Make_dos.mak VIMPROG=..\vim || exit 1
+::nmake -f Make_dos.mak VIMPROG=..\gvim || exit 1
+::nmake -f Make_dos.mak clean
+::nmake -f Make_dos.mak VIMPROG=..\vim || exit 1
 
 @echo off
 goto :eof
