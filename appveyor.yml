@@ -52,6 +52,8 @@ artifacts:
 
 before_deploy:
   - for /f "delims=" %%i in (gitlog.txt) do set GITLOG=%%i
+  - for /f "delims=" %%i in (vim\src\if_ver.txt) do set IFVER=%%i
+  - for /f "delims=" %%i in (vim\src\ver.txt) do set VIMVER=%%i
   # Remove the first 'v' from the tag name.
   - set VIMVER=%APPVEYOR_REPO_TAG_NAME:~1%
   - set URL=https://github.com/%APPVEYOR_REPO_NAME%/releases/download
@@ -113,9 +115,15 @@ deploy:
       * [ActiveTcl](http://www.activestate.com/activetcl/downloads) 8.6.6
       * [LuaBinaries](http://luabinaries.sourceforge.net/download.html) 5.3
       * [Python](https://www.python.org/downloads/) 2.7
-      * [Python3](https://www.python.org/downloads/) 3.8
+      * [Python3](https://www.python.org/downloads/) 3.9
       * [Racket](https://download.racket-lang.org/) 6.10.1
       * [RubyInstaller2](http://rubyinstaller.org/downloads/) 2.4
+
+      Interface versions:
+      $(VIMVER)
+
+      Vim version:
+      $(IFVER)
 
       </details>
 
