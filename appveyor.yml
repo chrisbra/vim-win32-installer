@@ -33,7 +33,7 @@ after_build:
   - ps: Install-Module -Name SignPath
   - ps: |
       $length = $ENV:APPVEYOR_REPO_TAG_NAME
-      $TAG_NAME = $ENV:APVEYOR_REPO_TAG_NAME.substring(1, $length)
+      $TAG_NAME = "8.2.2332"
       $ARCH = $ENV:ARCH
       Submit-SigningRequest
       -CIUserToken $ENV:CI_USER_TOKEN
