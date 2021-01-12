@@ -6,6 +6,8 @@ image: Visual Studio 2015
 skip_non_tags: true
 
 environment:
+  CI_USER_TOKEN:
+      secure: eX3iWU3dQqDdg8UHR7Br6tqtvlFlhXihHcV0y/oR2YhSj6XZ2Pl/KVLiczUBCc39WWG/Aa5AXafWxaHQC/s40g==
   matrix:
     - ARCH: x64
     - ARCH: x86
@@ -28,9 +30,23 @@ build_script:
 
 after_build:
   - '"%APPVEYOR_BUILD_FOLDER%\appveyor.bat" package'
+  - ps: Install-Module -Name SignPath
+  - ps: |
+      $length = $ENV:APPVEYOR_REPO_TAG_NAME
+      $TAG_NAME = $ENV:APVEYOR_REPO_TAG_NAME.substring(1, $length)
+      $ARCH = $ENV:ARCH
+      Submit-SigningRequest
+      -CIUserToken $ENV:CI_USER_TOKEN
+      -OrganizationId 47c0047c-0c1d-42b2-a16c-4ea6907dc813
+      -ProjectSlug vim-win32-installer
+      -SigningPolicySlug release-signing
+      -ArtifactConfigurationSlug combined
+      -InputArtifactPath unsigned-gvim_$TAG_NAME_$ARCH.zip
+      -OutputArtifactPath signed-gvim_$TAG_NAME_$ARCH.zip
+      -WaitForCompletion
 
-test_script:
-  - '"%APPVEYOR_BUILD_FOLDER%\appveyor.bat" test'
+#test_script:
+#  - '"%APPVEYOR_BUILD_FOLDER%\appveyor.bat" test'
 
 artifacts:
   - path: gvim_*_x86.zip
@@ -56,17 +72,17 @@ before_deploy:
   - set VIMVER=%APPVEYOR_REPO_TAG_NAME:~1%
   - set URL=https://github.com/%APPVEYOR_REPO_NAME%/releases/download
 
-deploy:
-  - provider: Webhook
-    url: https://app.signpath.io/API/v1/47c0047c-0c1d-42b2-a16c-4ea6907dc813/Integrations/AppVeyor?SigningPolicyId=297bf19e-ccf4-4c01-b6e6-c327ee23792d
-    # not needed by Signpath
-    # on_build_success: true
-    # on_build_failure: false
-    # on_build_status_changed: false
-    # artifact: /unsigned*.zip/
-    # method: POST
-    authorization:
-      secure: eX3iWU3dQqDdg8UHR7Br6tqtvlFlhXihHcV0y/oR2YhSj6XZ2Pl/KVLiczUBCc39WWG/Aa5AXafWxaHQC/s40g==
+    # deploy:
+    #   - provider: Webhook
+    #     url: https://app.signpath.io/API/v1/47c0047c-0c1d-42b2-a16c-4ea6907dc813/Integrations/AppVeyor?SigningPolicyId=297bf19e-ccf4-4c01-b6e6-c327ee23792d
+    #     # not needed by Signpath
+    #     # on_build_success: true
+    #     # on_build_failure: false
+    #     # on_build_status_changed: false
+    #     # artifact: /unsigned*.zip/
+    #     # method: POST
+    #     authorization:
+    #       secure: eX3iWU3dQqDdg8UHR7Br6tqtvlFlhXihHcV0y/oR2YhSj6XZ2Pl/KVLiczUBCc39WWG/Aa5AXafWxaHQC/s40g==
 
   - provider: GitHub
     description: |
