@@ -183,9 +183,9 @@ copy /Y c:\shellexecasuser\unicode\ShellExecAsUser.dll "%ProgramFiles(x86)%\NSIS
 call :downloadfile %LIBSODIUM_URL% downloads\libsodium.zip
 7z x downloads\libsodium.zip -oc:\ > nul || exit 1
 if /i "%ARCH%"=="x64" (
-	copy /Y C:\libsodium\Win32\Release\v140\dynamic\libsodium.dll      vim\src\libsodium.dll
-) else (
 	copy /Y C:\libsodium\x64\Release\v140\dynamic\libsodium.dll        vim\src\libsodium.dll
+) else (
+	copy /Y C:\libsodium\Win32\Release\v140\dynamic\libsodium.dll      vim\src\libsodium.dll
 )
 
 :: Show PATH for debugging
@@ -232,7 +232,13 @@ nmake -f Make_mvc2.mak ^
 	DYNAMIC_TCL=yes TCL=%TCL_DIR% ^
 	DYNAMIC_RUBY=yes RUBY=%RUBY_DIR% RUBY_MSVCRT_NAME=msvcrt ^
 	DYNAMIC_MZSCHEME=yes "MZSCHEME=%RACKET_DIR%" ^
+<<<<<<< HEAD
 	TERMINAL=yes SODIUM=C:\libsodium ^
+||||||| parent of 4153396... Enable Sodium feature
+	TERMINAL=yes ^
+=======
+	TERMINAL=yes SODIUM=%SODIUM_DIR% ^
+>>>>>>> 4153396... Enable Sodium feature
 	|| exit 1
 :: Build CUI version
 nmake -f Make_mvc2.mak ^
@@ -245,7 +251,13 @@ nmake -f Make_mvc2.mak ^
 	DYNAMIC_TCL=yes TCL=%TCL_DIR% ^
 	DYNAMIC_RUBY=yes RUBY=%RUBY_DIR% RUBY_MSVCRT_NAME=msvcrt ^
 	DYNAMIC_MZSCHEME=yes "MZSCHEME=%RACKET_DIR%" ^
+<<<<<<< HEAD
 	TERMINAL=yes SODIUM=C:\libsodium ^
+||||||| parent of 4153396... Enable Sodium feature
+	TERMINAL=yes ^
+=======
+	TERMINAL=yes SODIUM=%SODIUM_DIR% ^
+>>>>>>> 4153396... Enable Sodium feature
 	|| exit 1
 :: Build translations
 pushd po
