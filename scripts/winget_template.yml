@@ -20,3 +20,6 @@ Installers:
   - Arch: x64
     Url: https://github.com/vim/vim-win32-installer/releases/download/v<version>/gvim_<version>_x64.exe
     Sha256: <sha256hash>
+  - Arch: x86
+    Url: https://github.com/vim/vim-win32-installer/releases/download/v<version>/gvim_<version>_x86.exe
+    Sha256: <sha256hash_x86>

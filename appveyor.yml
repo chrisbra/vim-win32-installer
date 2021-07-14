@@ -55,6 +55,12 @@ before_deploy:
   # Remove the first 'v' from the tag name.
   - set VIMVER=%APPVEYOR_REPO_TAG_NAME:~1%
   - set URL=https://github.com/%APPVEYOR_REPO_NAME%/releases/download
+  - cd %APPVEYOR_BUILD_FOLDER%
+  - |
+    dir
+    7z e unsigned-gvim_%APPVEYOR_REPO_TAG_NAME:~1%_%ARCH%.zip gvim*.exe
+    start /wait gvim -u NONE -N -S scripts\winget.vim scripts\winget_template.yml
+    type gvim_%APPVEYOR_REPO_TAG_NAME:~1%.yml
 
 deploy:
   - provider: Webhook
