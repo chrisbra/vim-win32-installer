@@ -1,0 +1,29 @@
+diff --git a/src/dosinst.c b/src/dosinst.c
+index 2d2b95c10..c2b1dbaff 100644
+--- a/src/dosinst.c
++++ b/src/dosinst.c
+@@ -1580,6 +1580,7 @@ install_registry(void)
+     char	display_name[BUFSIZE];
+     char	uninstall_string[BUFSIZE];
+     char	icon_string[BUFSIZE];
++    char	version_string[BUFSIZE];
+     int		i;
+     int		loop_count = is_64bit_os() ? 2 : 1;
+     DWORD	flag;
+@@ -1636,6 +1637,7 @@ install_registry(void)
+     }
+ 
+     printf("Creating an uninstall entry\n");
++    sprintf(version_string, VIM_VERSION_SHORT "." VIM_VERSION_PATCHLEVEL_STR);
+     sprintf(display_name, "Vim " VIM_VERSION_SHORT
+ #ifdef _M_ARM64
+ 	    " (arm64)"
+@@ -1658,7 +1660,7 @@ install_registry(void)
+ 	display_name,
+ 	uninstall_string,
+ 	icon_string,
+-	VIM_VERSION_SHORT,
++	version_string,
+ 	"Bram Moolenaar et al.");
+     if (ERROR_SUCCESS != lRet)
+ 	return FAIL;
