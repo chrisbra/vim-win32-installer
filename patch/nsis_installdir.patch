@@ -1,5 +1,5 @@
 diff --git a/nsis/gvim.nsi b/nsis/gvim.nsi
-index 3fe0279b7..35e1cf698 100644
+index 3fe0279b7..53239efb6 100644
 --- a/nsis/gvim.nsi
 +++ b/nsis/gvim.nsi
 @@ -710,8 +710,16 @@ Function .onInit
@@ -15,7 +15,7 @@ index 3fe0279b7..35e1cf698 100644
 +  # If $VIM is set when executing the installer
 +  # and no InstallDirectory has been given (using D=C:\Vim),
 +  # use $VIM as Install directory
-+  ${If} $INSTDIR == ""
++  ${If} $INSTDIR == ${InstallDir}
 +    ReadEnvStr $INSTDIR "VIM"
 +  ${EndIf}
  
