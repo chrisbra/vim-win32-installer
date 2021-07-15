@@ -269,6 +269,7 @@ goto :eof
 :package_x64
 :: ----------------------------------------------------------------------
 @echo on
+set
 cd vim\src
 
 mkdir GvimExt64

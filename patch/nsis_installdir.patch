@@ -1,37 +1,13 @@
 diff --git a/nsis/gvim.nsi b/nsis/gvim.nsi
-index 3fe0279b7..48ad95203 100644
+index 3fe0279b7..2b6c07a43 100644
 --- a/nsis/gvim.nsi
 +++ b/nsis/gvim.nsi
-@@ -711,18 +711,20 @@ Function .onInit
+@@ -711,7 +711,7 @@ Function .onInit
  !endif
  
    # Check $VIM
 -  ReadEnvStr $INSTDIR "VIM"
--
--  call CheckOldVim
--  Pop $3
--  ${If} $3 == ""
--    # No old versions of Vim found. Unselect and hide the section.
--    !insertmacro UnselectSection ${id_section_old_ver}
--    SectionSetInstTypes ${id_section_old_ver} 0
--    SectionSetText ${id_section_old_ver} ""
--  ${Else}
--    ${If} $INSTDIR == ""
--      StrCpy $INSTDIR $3
 +  # ReadEnvStr $INSTDIR "VIM"
-+
-+  ${If} $INSTDIR == ""
-+    call CheckOldVim
-+    Pop $3
-+    ${If} $3 == ""
-+      # No old versions of Vim found. Unselect and hide the section.
-+      !insertmacro UnselectSection ${id_section_old_ver}
-+      SectionSetInstTypes ${id_section_old_ver} 0
-+      SectionSetText ${id_section_old_ver} ""
-+    ${Else}
-+      ${If} $INSTDIR == ""
-+        StrCpy $INSTDIR $3
-+      ${EndIf}
-     ${EndIf}
-   ${EndIf}
  
+   call CheckOldVim
+   Pop $3
