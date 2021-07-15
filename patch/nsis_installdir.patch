@@ -1,13 +1,17 @@
 diff --git a/nsis/gvim.nsi b/nsis/gvim.nsi
-index 3fe0279b7..6d5fb8830 100644
+index 3fe0279b7..35e1cf698 100644
 --- a/nsis/gvim.nsi
 +++ b/nsis/gvim.nsi
-@@ -710,8 +710,12 @@ Function .onInit
+@@ -710,8 +710,16 @@ Function .onInit
    !insertmacro MUI_LANGDLL_DISPLAY
  !endif
  
 -  # Check $VIM
 -  ReadEnvStr $INSTDIR "VIM"
++   MessageBox MB_YESNO "InstDir: $INSTDIR. Continue?" IDYES NoAbort
++        Abort ; causes installer to quit.
++    NoAbort:
++
 +  # If $VIM is set when executing the installer
 +  # and no InstallDirectory has been given (using D=C:\Vim),
 +  # use $VIM as Install directory
