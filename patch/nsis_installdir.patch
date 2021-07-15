@@ -1,0 +1,13 @@
+diff --git a/nsis/gvim.nsi b/nsis/gvim.nsi
+index 3fe0279b7..c6f4dec48 100644
+--- a/nsis/gvim.nsi
++++ b/nsis/gvim.nsi
+@@ -711,7 +711,7 @@ Function .onInit
+ !endif
+ 
+   # Check $VIM
+-  ReadEnvStr $INSTDIR "VIM"
++  #ReadEnvStr $INSTDIR "VIM"
+ 
+   call CheckOldVim
+   Pop $3
