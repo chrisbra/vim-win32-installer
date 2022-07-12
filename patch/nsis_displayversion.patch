@@ -1,13 +1,22 @@
 diff --git a/nsis/gvim.nsi b/nsis/gvim.nsi
-index d71cffb8b..f550f0260 100644
+index d71cffb8b..eb3ff75f9 100644
 --- a/nsis/gvim.nsi
 +++ b/nsis/gvim.nsi
-@@ -781,6 +781,8 @@ FunctionEnd
+@@ -781,6 +781,17 @@ FunctionEnd
  
  Function .onInstSuccess
    WriteUninstaller vim${VER_MAJOR}${VER_MINOR}\uninstall-gui.exe
-+  WriteRegStr HKLM "${UNINST_REG_KEY_VIM}" "DisplayVersion" "'${VER_MAJOR}.${VER_MINOR}.${PATCHLEVEL}'"
-+  MessageBox MB_OK "DisplayVersion: ${VER_MAJOR}.${VER_MINOR}.${PATCHLEVEL}"
++  # Setup Registry
++  WriteRegStr HKLM "${UNINST_REG_KEY_VIM}" "DisplayName" "Vim version ${VER_MAJOR}.${VER_MINOR}"
++  WriteRegStr HKLM "${UNINST_REG_KEY_VIM}" "Publisher" "Bram Moolenaar et al."
++  WriteRegStr HKLM "${UNINST_REG_KEY_VIM}" "DisplayVersion" '"${VER_MAJOR}.${VER_MINOR}.${PATCHLEVEL}"'
++  WriteRegStr HKLM "${UNINST_REG_KEY_VIM}" "UninstallString" '"$INSTDIR\uninstall-gui.exe"'
++  WriteRegStr HKLM "${UNINST_REG_KEY_VIM}" "QuietUninstallString" '"$INSTDIR\uninstall-gui.exe" /S'
++  WriteRegStr HKLM "${UNINST_REG_KEY_VIM}" "URLInfoAbout" "https://www.vim.org"
++  WriteRegDWORD HKLM "${UNINST_REG_KEY_VIM}" "NoModify" 1
++  WriteRegDWORD HKLM "${UNINST_REG_KEY_VIM}" "NoRepair" 1
++#  WriteRegStr HKLM "${UNINST_REG_KEY_VIM}" "DisplayVersion" "'${VER_MAJOR}.${VER_MINOR}.${PATCHLEVEL}'"
++#  MessageBox MB_OK "DisplayVersion: ${VER_MAJOR}.${VER_MINOR}.${PATCHLEVEL}"
  FunctionEnd
  
  Function .onInstFailed
