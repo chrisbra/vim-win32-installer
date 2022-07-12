@@ -3,4 +3,4 @@
 sed -i "
 :a
 \$!{N;ba}
-s/#.*/#define VIM_VERSION_PATCHLEVEL $PATCHLEVEL\n&/" ./version.h
+s/#define VIM_VERSION_PATCHLEVEL_STR.*/#define VIM_VERSION_PATCHLEVEL_STR \"$PATCHLEVEL\"\n/" ./version.h
