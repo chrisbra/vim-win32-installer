@@ -229,7 +229,7 @@ set CL=/D_USING_V110_SDK71_
 set CHERE_INVOKING=1
 ::c:\cygwin64\bin\bash -lc "sed -i -e /VIM_VERSION_PATCHLEVEL/s/0/$(sed -n -e '/included_patches/{n;n;n;s/ *\([0-9]*\).*/\1/p;q}' version.c)/ version.h"
 ::c:\cygwin64\bin\bash -lc "sed -i -e ':a' -e '$!{N;ba' -e \"}; s/#.*/#define VIM_VERSION_PATCHLEVEL $PATCHLEVEL\n&/\" version.h"
-c:\cygwin64\bin\bash -c ./patchlevel.sh
+c:\cygwin64\bin\bash -lc ./patchlevel.sh
 type version.h
 
 
