@@ -1,0 +1,13 @@
+diff --git a/nsis/gvim.nsi b/nsis/gvim.nsi
+index d71cffb8b..f550f0260 100644
+--- a/nsis/gvim.nsi
++++ b/nsis/gvim.nsi
+@@ -781,6 +781,8 @@ FunctionEnd
+ 
+ Function .onInstSuccess
+   WriteUninstaller vim${VER_MAJOR}${VER_MINOR}\uninstall-gui.exe
++  WriteRegStr HKLM "${UNINST_REG_KEY_VIM}" "DisplayVersion" "'${VER_MAJOR}.${VER_MINOR}.${PATCHLEVEL}'"
++  MessageBox MB_OK "DisplayVersion: ${VER_MAJOR}.${VER_MINOR}.${PATCHLEVEL}"
+ FunctionEnd
+ 
+ Function .onInstFailed
