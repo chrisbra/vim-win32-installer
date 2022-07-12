@@ -1,9 +1,0 @@
-diff --git a/src/patchlevel.sed b/src/patchlevel.sed
-new file mode 100644
-index 000000000..ee04f1427
---- /dev/null
-+++ b/src/patchlevel.sed
-@@ -0,0 +1,3 @@
-+:a
-+$!{N;ba}
-+s/#.*/#define VIM_VERSION_PATCHLEVEL $PATCHLEVEL\n&/
