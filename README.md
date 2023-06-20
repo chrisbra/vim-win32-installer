@@ -75,7 +75,7 @@ Thanks to [SignPath.io](https://signpath.io?utm_source=foundation&utm_medium=git
 
 ## Winget 
 This repository also contains a github actions CI-step for uploading the
-binaries to the winget repository.
+binaries to the winget repository using the `vim.vim.nightly` identifier.
 
 This means, the (unsigned) nightly builds will be automatically uploaded and
 submitted to the [winget repository](https://github.com/microsoft/winget-pkgs/).
