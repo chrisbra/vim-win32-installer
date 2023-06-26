@@ -1,0 +1,31 @@
+name: Publish to WinGet Stable
+on:
+  release:
+    types: [released]
+jobs:
+  check-update-jobs:
+    runs-on: ubuntu-latest
+    outputs:
+      needs_update: ${{ steps.check-updates.outputs.result }}
+    steps:
+      - name: Check updates
+        id: check-updates
+        run: |
+           LAST_STABLE_RELEASE=$((gh run list --workflow winget_stable.yml -L 1 -s success 2>/dev/null || echo "init init  0 ") |awk '{print $3}' |tr -d '.v')
+           LAST_RELEASE=$(gh release list -L 1 |awk '{print $1}'|tr -d '.v')
+           echo "result=$([[ ${LAST_RELEASE} -gt (${LAST_STABLE_RELEASE} + 200) ]] && echo true)" >> "$GITHUB_OUTPUT"
+
+  publish-winget-stable:
+    runs-on: windows-latest # action can only be run on windows
+    needs: check-update-job
+    if: needs.check-update-job.outputs.needs_update == 'true'
+    steps:
+#      - uses: vedantmgoyal2009/winget-releaser@v2
+#        with:
+#          identifier: vim.vim
+#          installers-regex: 'gvim.*(x64|x86).exe$'
+#          token: ${{ secrets.WINGET_TOKEN }}
+
+      - name: Result
+        run: |
+           echo "Ready to go!"
