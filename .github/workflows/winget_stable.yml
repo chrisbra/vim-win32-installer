@@ -11,7 +11,7 @@ jobs:
       - name: Check updates
         id: check-updates
         env:
-          GH_TOKEN: ${{ secrets.CLI_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           LAST_RUN=$(gh run list --workflow winget_stable.yml -L 1 -s success >/dev/null 2>&1 |awk '{print $3}')
           LAST_STABLE_RELEASE=$(if echo $LAST_RUN |grep -qs '\.' >/dev/null; then echo "$LAST_RUN" | tr -d '\.v'; else echo "0"; fi)
