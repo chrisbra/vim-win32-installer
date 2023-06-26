@@ -17,7 +17,7 @@ jobs:
           LAST_STABLE_RELEASE=$(if echo $LAST_RUN |grep -qs '\.' >/dev/null; then echo "$LAST_RUN" | tr -d '\.v'; else echo "0"; fi)
           LAST_STABLE_RELEASE=$(( ${LAST_STABLE_RELEASE} + 200 ))
           echo "LAST_STABLE_RELEASE $LAST_STABLE_RELEASE"
-          bash -cx gh run list || echo "error"
+          bash -cx "gh run list" || echo "error"
           LAST_RELEASE=$(echo ${GITHUB_REF_NAME} |tr -d '.v')
           echo "LAST_RELEASE $LAST_RELEASE"
           echo "result=$([[ ${LAST_RELEASE} -gt ${LAST_STABLE_RELEASE} ]] && echo true)" >> "$GITHUB_OUTPUT"
