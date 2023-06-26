@@ -17,7 +17,7 @@ jobs:
           LAST_STABLE_RELEASE=$(if echo $LAST_RUN |grep -qs '\.' >/dev/null; then echo "$LAST_RUN" | tr -d '\.v'; else echo "0"; fi)
           LAST_STABLE_RELEASE=$(( ${LAST_STABLE_RELEASE} + 200 ))
           echo "LAST_STABLE_RELEASE $LAST_STABLE_RELEASE"
-          gh release list -L 1
+          gh release list -L 1 || echo "error"
           LAST_RELEASE=$(gh release list -L 1 |awk '{print $1}'|tr -d '.v')
           LAST_RELEASE="901665"
           echo "LAST_RELEASE $LAST_RELEASE"
