@@ -18,8 +18,9 @@ jobs:
           LAST_STABLE_RELEASE=$(( ${LAST_STABLE_RELEASE} + 200 ))
           echo "LAST_STABLE_RELEASE $LAST_STABLE_RELEASE"
           gh release list -L 1 || echo "error"
-          LAST_RELEASE=$(gh release list -L 1 |awk '{print $1}'|tr -d '.v')
-          LAST_RELEASE="901665"
+#          LAST_RELEASE=$(gh release list -L 1 |awk '{print $1}'|tr -d '.v')
+#          LAST_RELEASE="901665"
+          LAST_RELEASE=${GITHUB_REF_NAME}
           echo "LAST_RELEASE $LAST_RELEASE"
           echo "result=$([[ ${LAST_RELEASE} -gt ${LAST_STABLE_RELEASE} ]] && echo true)" >> "$GITHUB_OUTPUT"
 
