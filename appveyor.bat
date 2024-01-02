@@ -12,8 +12,9 @@ if "%APPVEYOR_REPO_TAG_NAME%"=="" (
 )
 FOR /f "delims=. tokens=1-3" %%i in ("%TAG_NAME%") do set PATCHLEVEL=%%k
 
-set TAG_NAME="v9.1.0000"
-set PATCHLEVEL="0000"
+:: Hard-code Version number, if you want to create a specific release
+set TAG_NAME=v9.1.0000
+set PATCHLEVEL=0
 
 if /I "%ARCH%"=="x64" (
 	set BIT=64
