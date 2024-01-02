@@ -1,0 +1,6322 @@
+diff --git a/Makefile b/Makefile
+index e9e43c1d7..0d352ebf2 100644
+--- a/Makefile
++++ b/Makefile
+@@ -94,7 +94,7 @@ syntaxtest:
+ #    Before creating an archive first delete all backup files, *.orig, etc.
+ 
+ MAJOR = 9
+-MINOR = 0
++MINOR = 1
+ 
+ # CHECKLIST for creating a new version:
+ #
+diff --git a/README.md b/README.md
+index 39de098cf..0f7f5dac1 100644
+--- a/README.md
++++ b/README.md
+@@ -150,4 +150,4 @@ Most of Vim was created by Bram Moolenaar `<Bram@vim.org>`
+ Send any other comments, patches, flowers and suggestions to the vim-dev mailing list:
+ 	`<vim-dev@vim.org>`
+ 
+-This is `README.md` for version 9.0 of Vim: Vi IMproved.
++This is `README.md` for version 9.1 of Vim: Vi IMproved.
+diff --git a/README.txt b/README.txt
+index 159e8aec2..5128afdf2 100644
+--- a/README.txt
++++ b/README.txt
+@@ -1,4 +1,4 @@
+-README.txt for version 9.0 of Vim: Vi IMproved.
++README.txt for version 9.1 of Vim: Vi IMproved.
+ 
+ 
+ WHAT IS VIM?
+diff --git a/READMEdir/Contents b/READMEdir/Contents
+index d58dbf276..48b7c59ec 100644
+--- a/READMEdir/Contents
++++ b/READMEdir/Contents
+@@ -9,15 +9,15 @@ Vim		Vi IMproved.  A clone of the UNIX text editor Vi.  Very useful
+ 		messages, shows current file name in window title, on-line
+ 		help, rectangular cut/paste, etc., etc., etc...
+ 
+-		Version 9.0.  Also runs under UNIX, MS-Windows, Mac, etc.
+-		vim90rt.tgz  contains the documentation and syntax files.
+-		vim90bin.tgz contains the binaries.
+-		vim90src.tgz contains the sources.
++		Version 9.1.  Also runs under UNIX, MS-Windows, Mac, etc.
++		vim91rt.tgz  contains the documentation and syntax files.
++		vim91bin.tgz contains the binaries.
++		vim91src.tgz contains the sources.
+ 		Author: Bram Moolenaar et al.
+ 
+ 
+ Xxd		Hex dumper and reader.  Can be used to view files as hex, edit
+ 		them and write them back.  Can also be used to patch files.
+ 
+-		Version 2022 Jan 14
++		Version 2023 Oct 25
+ 		Author: Juergen Weigert
+diff --git a/READMEdir/README_ami.txt b/READMEdir/README_ami.txt
+index b0f8b2dc5..f9815108d 100644
+--- a/READMEdir/README_ami.txt
++++ b/READMEdir/README_ami.txt
+@@ -1,4 +1,4 @@
+-README_ami.txt for version 9.0 of Vim: Vi IMproved.
++README_ami.txt for version 9.1 of Vim: Vi IMproved.
+ 
+ This file explains the installation of Vim on Amiga systems.
+ See README.txt for general information about Vim.
+@@ -16,8 +16,8 @@ easily upgrade to a new version.  For example:
+ You would then unpack the archives like this:
+ 
+   cd dh0:editors
+-  tar xf t:vim90bin.tar
+-  tar xf t:vim90rt.tar
++  tar xf t:vim91bin.tar
++  tar xf t:vim91rt.tar
+ 
+ Set the $VIM environment variable to point to the top directory of your Vim
+ files.  For the above example:
+diff --git a/READMEdir/README_amibin.txt b/READMEdir/README_amibin.txt
+index 2e36b3294..ce03f14f7 100644
+--- a/READMEdir/README_amibin.txt
++++ b/READMEdir/README_amibin.txt
+@@ -1,4 +1,4 @@
+-README_amibin.txt for version 9.0 of Vim: Vi IMproved.
++README_amibin.txt for version 9.1 of Vim: Vi IMproved.
+ 
+ See "README.txt" for general information about Vim.
+ See "README_ami.txt" for installation instructions for the Amiga.
+diff --git a/READMEdir/README_amisrc.txt b/READMEdir/README_amisrc.txt
+index e014a1d0a..1d729b823 100644
+--- a/READMEdir/README_amisrc.txt
++++ b/READMEdir/README_amisrc.txt
+@@ -1,4 +1,4 @@
+-README_amisrc.txt for version 9.0 of Vim: Vi IMproved.
++README_amisrc.txt for version 9.1 of Vim: Vi IMproved.
+ 
+ See "README.txt" for general information about Vim.
+ See "README_ami.txt" for installation instructions for the Amiga.
+diff --git a/READMEdir/README_bindos.txt b/READMEdir/README_bindos.txt
+index dcece0840..fd9b76908 100644
+--- a/READMEdir/README_bindos.txt
++++ b/READMEdir/README_bindos.txt
+@@ -1,4 +1,4 @@
+-README_bindos.txt for version 9.0 of Vim: Vi IMproved.
++README_bindos.txt for version 9.1 of Vim: Vi IMproved.
+ 
+ See "README.txt" for general information about Vim.
+ See "README_dos.txt" for installation instructions for MS-DOS and MS-Windows.
+@@ -8,9 +8,9 @@ These files are in the runtime archive (vim90rt.zip).
+ There are several binary distributions of Vim for the PC.  You would normally
+ pick only one of them, but it's also possible to install several.
+ These ones are available (the version number may differ):
+-	vim90w32.zip	Windows 95/98/NT/etc. console version
+-	gvim90.zip	Windows 95/98/NT/etc. GUI version
+-	gvim90ole.zip	Windows 95/98/NT/etc. GUI version with OLE
++	vim91w32.zip	Windows 95/98/NT/etc. console version
++	gvim91.zip	Windows 95/98/NT/etc. GUI version
++	gvim91ole.zip	Windows 95/98/NT/etc. GUI version with OLE
+ 
+-You MUST also get the runtime archive (vim90rt.zip).
+-The sources are also available (vim90src.zip).
++You MUST also get the runtime archive (vim91rt.zip).
++The sources are also available (vim91src.zip).
+diff --git a/READMEdir/README_dos.txt b/READMEdir/README_dos.txt
+index 73b70a668..6a7905d77 100644
+--- a/READMEdir/README_dos.txt
++++ b/READMEdir/README_dos.txt
+@@ -1,4 +1,4 @@
+-README_dos.txt for version 9.0 of Vim: Vi IMproved.
++README_dos.txt for version 9.1 of Vim: Vi IMproved.
+ 
+ This file explains the installation of Vim on MS-Windows systems.
+ See "README.txt" for general information about Vim.
+@@ -41,19 +41,19 @@ These are the normal steps to install Vim from the .zip archives:
+    located.  Check the $VIM setting to see where it points to:
+ 	set VIM
+    For example, if you have
+-	C:\vim\vim90
++	C:\vim\vim91
+    do
+ 	cd C:\
+    Binary and runtime Vim archives are normally unpacked in the same location,
+    on top of each other.
+ 
+-2. Unpack the zip archives.  This will create a new directory "vim\vim90",
++2. Unpack the zip archives.  This will create a new directory "vim\vim91",
+    in which all the distributed Vim files are placed.  Since the directory
+    name includes the version number, it is unlikely that you overwrite
+    existing files.
+    Examples:
+-	pkunzip -d gvim90.zip
+-	unzip vim90w32.zip
++	pkunzip -d gvim91.zip
++	unzip vim91w32.zip
+ 
+    You need to unpack the runtime archive and at least one of the binary
+    archives.  When using more than one binary version, be careful not to
+@@ -65,7 +65,7 @@ These are the normal steps to install Vim from the .zip archives:
+    won't move or copy the runtime files.
+ 
+ 3. Change to the new directory:
+-	cd vim\vim90
++	cd vim\vim91
+    Run the "install.exe" program.  It will ask you a number of questions about
+    how you would like to have your Vim setup.  Among these are:
+    - You can tell it to write a "_vimrc" file with your preferences in the
+@@ -76,8 +76,8 @@ These are the normal steps to install Vim from the .zip archives:
+      console or in a shell.  You can select one of the directories in your
+      $PATH.  If you skip this, you can add Vim to the search path manually:
+      The simplest is to add a line to your autoexec.bat.  Examples:
+-	set path=%path%;C:\vim\vim90
+-	set path=%path%;D:\editors\vim\vim90
++	set path=%path%;C:\vim\vim91
++	set path=%path%;D:\editors\vim\vim91
+    - Create entries for Vim on the desktop and in the Start menu.
+ 
+ That's it!
+@@ -89,8 +89,8 @@ Remarks:
+   won't show a menubar.  Then you need to set the $VIM environment variable to
+   point to the top directory of your Vim files.  Example:
+     set VIM=C:\editors\vim
+-  Vim version 9.0 will look for your vimrc file in $VIM, and for the runtime
+-  files in $VIM/vim90.  See ":help $VIM" for more information.
++  Vim version 9.1 will look for your vimrc file in $VIM, and for the runtime
++  files in $VIM/vim91.  See ":help $VIM" for more information.
+ 
+ - To avoid confusion between distributed files of different versions and your
+   own modified vim scripts, it is recommended to use this directory layout:
+@@ -101,14 +101,14 @@ Remarks:
+ 	C:\vim\vimfiles\ftplugin\*.vim	Filetype plugins
+ 	C:\vim\...			Other files you made.
+   Distributed files:
+-	C:\vim\vim90\vim.exe		The Vim version 9.0 executable.
+-	C:\vim\vim90\doc\*.txt		The version 9.0 documentation files.
+-	C:\vim\vim90\bugreport.vim	A Vim version 9.0 script.
+-	C:\vim\vim90\...		Other version 9.0 distributed files.
++	C:\vim\vim91\vim.exe		The Vim version 9.1 executable.
++	C:\vim\vim91\doc\*.txt		The version 9.1 documentation files.
++	C:\vim\vim91\bugreport.vim	A Vim version 9.1 script.
++	C:\vim\vim91\...		Other version 9.1 distributed files.
+   In this case the $VIM environment variable would be set like this:
+ 	set VIM=C:\vim
+-  Then $VIMRUNTIME will automatically be set to "$VIM\vim90".  Don't add
+-  "vim90" to $VIM, that won't work.
++  Then $VIMRUNTIME will automatically be set to "$VIM\vim91".  Don't add
++  "vim91" to $VIM, that won't work.
+ 
+ - You can put your Vim executable anywhere else.  If the executable is not
+   with the other Vim files, you should set $VIM. The simplest is to add a line
+@@ -132,8 +132,8 @@ Remarks:
+      Select Properties.
+   5. In the Program tab, change the "Cmdline" to add "/c" and the name of the
+      Vim executable.  Examples:
+-	C:\command.com /c C:\vim\vim90\vim.exe
+-	C:\command.com /c D:\editors\vim\vim90\vim.exe
++	C:\command.com /c C:\vim\vim91\vim.exe
++	C:\command.com /c D:\editors\vim\vim91\vim.exe
+   6. Select the font, window size, etc. that you like.  If this isn't
+      possible, select "Advanced" in the Program tab, and deselect "MS-DOS
+      mode".
+diff --git a/READMEdir/README_extra.txt b/READMEdir/README_extra.txt
+index f67dbdb6d..f4090a0ee 100644
+--- a/READMEdir/README_extra.txt
++++ b/READMEdir/README_extra.txt
+@@ -1,4 +1,4 @@
+-README_extra.txt for version 9.0 of Vim: Vi IMproved.
++README_extra.txt for version 9.1 of Vim: Vi IMproved.
+ 
+ These extra files of Vim are for special purposes.  This README explains what
+ the files are for.  For general information about Vim, see the "README.txt"
+diff --git a/READMEdir/README_haiku.txt b/READMEdir/README_haiku.txt
+index b8bcd75b9..e4caf71ac 100644
+--- a/READMEdir/README_haiku.txt
++++ b/READMEdir/README_haiku.txt
+@@ -1,4 +1,4 @@
+-README_haiku.txt for version 9.0 of Vim: Vi IMproved.
++README_haiku.txt for version 9.1 of Vim: Vi IMproved.
+ 
+ This file explains the installation of Vim on Haiku operating system.
+ See "README.txt" for general information about Vim.
+diff --git a/READMEdir/README_mac.txt b/READMEdir/README_mac.txt
+index fdfcbe194..ff7ef5cae 100644
+--- a/READMEdir/README_mac.txt
++++ b/READMEdir/README_mac.txt
+@@ -1,4 +1,4 @@
+-README_mac.txt for version 9.0 of Vim: Vi IMproved.
++README_mac.txt for version 9.1 of Vim: Vi IMproved.
+ 
+ This file explains the installation of Vim on MacOS systems.
+ See "README.txt" for general information about Vim.
+diff --git a/READMEdir/README_ole.txt b/READMEdir/README_ole.txt
+index 85ad478e5..86b343be3 100644
+--- a/READMEdir/README_ole.txt
++++ b/READMEdir/README_ole.txt
+@@ -1,4 +1,4 @@
+-README_ole.txt for version 9.0 of Vim: Vi IMproved.
++README_ole.txt for version 9.1 of Vim: Vi IMproved.
+ 
+ This archive contains gvim.exe with OLE interface.
+ This version of gvim.exe can also load a number of interface dynamically (you
+diff --git a/READMEdir/README_os2.txt b/READMEdir/README_os2.txt
+index 19b6a5360..a440918e1 100644
+--- a/READMEdir/README_os2.txt
++++ b/READMEdir/README_os2.txt
+@@ -1,4 +1,4 @@
+-README_os2.txt for version 9.0 of Vim: Vi IMproved.
++README_os2.txt for version 9.1 of Vim: Vi IMproved.
+ 
+ This file used to explain the installation of Vim on OS/2 systems.
+ However, support for OS/2 has been removed in patch 7.4.1008.
+diff --git a/READMEdir/README_os390.txt b/READMEdir/README_os390.txt
+index ecbe8cadc..94709792c 100644
+--- a/READMEdir/README_os390.txt
++++ b/READMEdir/README_os390.txt
+@@ -1,4 +1,4 @@
+-README_os390.txt for version 9.0 of Vim: Vi IMproved.
++README_os390.txt for version 9.1 of Vim: Vi IMproved.
+ 
+ This readme explains how to build Vim on z/OS.  Formerly called OS/390.
+ See "README.txt" for general information about Vim.
+diff --git a/READMEdir/README_src.txt b/READMEdir/README_src.txt
+index 96a94dbd1..fc5ea15df 100644
+--- a/READMEdir/README_src.txt
++++ b/READMEdir/README_src.txt
+@@ -1,8 +1,8 @@
+-README_src.txt for version 9.0 of Vim: Vi IMproved.
++README_src.txt for version 9.1 of Vim: Vi IMproved.
+ 
+ The source archive contains the files needed to compile Vim on Unix systems.
+ It is packed for Unix systems (NL line separator).
+ 
+ For more information, see the README.txt file that comes with the runtime
+-archive (vim-9.0-rt.tar.gz).  To be able to run Vim you MUST get the runtime
++archive (vim-9.1-rt.tar.gz).  To be able to run Vim you MUST get the runtime
+ archive too!
+diff --git a/READMEdir/README_srcdos.txt b/READMEdir/README_srcdos.txt
+index a5fd9feeb..ff69e482a 100644
+--- a/READMEdir/README_srcdos.txt
++++ b/READMEdir/README_srcdos.txt
+@@ -1,4 +1,4 @@
+-README_srcdos.txt for version 9.0 of Vim: Vi IMproved.
++README_srcdos.txt for version 9.1 of Vim: Vi IMproved.
+ 
+ See "README.txt" for general information about Vim.
+ See "README_dos.txt" for installation instructions for MS-Windows.
+diff --git a/READMEdir/README_unix.txt b/READMEdir/README_unix.txt
+index 9222a5de8..196628f11 100644
+--- a/READMEdir/README_unix.txt
++++ b/READMEdir/README_unix.txt
+@@ -1,4 +1,4 @@
+-README_unix.txt for version 9.0 of Vim: Vi IMproved.
++README_unix.txt for version 9.1 of Vim: Vi IMproved.
+ 
+ This file explains the installation of Vim on Unix systems.
+ See "README.txt" for general information about Vim.
+diff --git a/READMEdir/README_vms.txt b/READMEdir/README_vms.txt
+index f55c7c01e..6e8660d3e 100644
+--- a/READMEdir/README_vms.txt
++++ b/READMEdir/README_vms.txt
+@@ -1,4 +1,4 @@
+-README_vms.txt for version 9.0 of Vim: Vi IMproved.
++README_vms.txt for version 9.1 of Vim: Vi IMproved.
+ 
+ This file explains the installation of Vim on VMS systems.
+ See "README.txt" in the runtime archive for information about Vim.
+diff --git a/READMEdir/README_w32s.txt b/READMEdir/README_w32s.txt
+index a65f1c9ef..d71faeb4e 100644
+--- a/READMEdir/README_w32s.txt
++++ b/READMEdir/README_w32s.txt
+@@ -1,4 +1,4 @@
+-README_w32s.txt for version 9.0 of Vim: Vi IMproved.
++README_w32s.txt for version 9.1 of Vim: Vi IMproved.
+ 
+ This file used to explain the installation of Vim on MS-Windows 3.1 and 3.11
+ systems.  However, support for MS-Windows 3.1 and 3.11 has been removed in
+diff --git a/nsis/gvim_version.nsh b/nsis/gvim_version.nsh
+index d8639a6bc..aee434ba0 100644
+--- a/nsis/gvim_version.nsh
++++ b/nsis/gvim_version.nsh
+@@ -2,5 +2,5 @@
+ !ifndef __GVIM_VER__NSH__
+ !define __GVIM_VER__NSH__
+ !define VER_MAJOR 9
+-!define VER_MINOR 0
++!define VER_MINOR 1
+ !endif
+diff --git a/runtime/doc/arabic.txt b/runtime/doc/arabic.txt
+index ff1cac435..b8fccf241 100644
+--- a/runtime/doc/arabic.txt
++++ b/runtime/doc/arabic.txt
+@@ -1,4 +1,4 @@
+-*arabic.txt*	For Vim version 9.0.  Last change: 2021 Jun 22
++*arabic.txt*	For Vim version 9.1.  Last change: 2021 Jun 22
+ 
+ 
+ 		  VIM REFERENCE MANUAL	  by Nadim Shaikli
+diff --git a/runtime/doc/autocmd.txt b/runtime/doc/autocmd.txt
+index a1408edef..2ac0247bb 100644
+--- a/runtime/doc/autocmd.txt
++++ b/runtime/doc/autocmd.txt
+@@ -1,4 +1,4 @@
+-*autocmd.txt*   For Vim version 9.0.  Last change: 2023 May 20
++*autocmd.txt*   For Vim version 9.1.  Last change: 2023 May 20
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/builtin.txt b/runtime/doc/builtin.txt
+index 3f2aea926..084c76edf 100644
+--- a/runtime/doc/builtin.txt
++++ b/runtime/doc/builtin.txt
+@@ -1,4 +1,4 @@
+-*builtin.txt*	For Vim version 9.0.  Last change: 2023 Dec 24
++*builtin.txt*	For Vim version 9.1.  Last change: 2023 Dec 24
+ 
+ 
+ 		  VIM REFERENCE MANUAL	  by Bram Moolenaar
+diff --git a/runtime/doc/change.txt b/runtime/doc/change.txt
+index 972886d01..7063cad30 100644
+--- a/runtime/doc/change.txt
++++ b/runtime/doc/change.txt
+@@ -1,4 +1,4 @@
+-*change.txt*    For Vim version 9.0.  Last change: 2023 Dec 19
++*change.txt*    For Vim version 9.1.  Last change: 2023 Dec 19
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/channel.txt b/runtime/doc/channel.txt
+index a8cb196e1..d625a01b2 100644
+--- a/runtime/doc/channel.txt
++++ b/runtime/doc/channel.txt
+@@ -1,4 +1,4 @@
+-*channel.txt*      For Vim version 9.0.  Last change: 2023 Aug 15
++*channel.txt*      For Vim version 9.1.  Last change: 2023 Aug 15
+ 
+ 
+ 		  VIM REFERENCE MANUAL	  by Bram Moolenaar
+diff --git a/runtime/doc/cmdline.txt b/runtime/doc/cmdline.txt
+index 4295a78b0..13c4d729b 100644
+--- a/runtime/doc/cmdline.txt
++++ b/runtime/doc/cmdline.txt
+@@ -1,4 +1,4 @@
+-*cmdline.txt*   For Vim version 9.0.  Last change: 2023 Dec 09
++*cmdline.txt*   For Vim version 9.1.  Last change: 2023 Dec 09
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/debug.txt b/runtime/doc/debug.txt
+index 6fd88b679..1d3090af8 100644
+--- a/runtime/doc/debug.txt
++++ b/runtime/doc/debug.txt
+@@ -1,4 +1,4 @@
+-*debug.txt*     For Vim version 9.0.  Last change: 2019 May 07
++*debug.txt*     For Vim version 9.1.  Last change: 2019 May 07
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/debugger.txt b/runtime/doc/debugger.txt
+index 5c5c8d33d..6b2b2528e 100644
+--- a/runtime/doc/debugger.txt
++++ b/runtime/doc/debugger.txt
+@@ -1,4 +1,4 @@
+-*debugger.txt*  For Vim version 9.0.  Last change: 2019 Dec 21
++*debugger.txt*  For Vim version 9.1.  Last change: 2019 Dec 21
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Gordon Prieur
+diff --git a/runtime/doc/develop.txt b/runtime/doc/develop.txt
+index 932569475..1b1ad8561 100644
+--- a/runtime/doc/develop.txt
++++ b/runtime/doc/develop.txt
+@@ -1,4 +1,4 @@
+-*develop.txt*   For Vim version 9.0.  Last change: 2022 Sep 20
++*develop.txt*   For Vim version 9.1.  Last change: 2022 Sep 20
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/diff.txt b/runtime/doc/diff.txt
+index 3caa7cf60..91b004745 100644
+--- a/runtime/doc/diff.txt
++++ b/runtime/doc/diff.txt
+@@ -1,4 +1,4 @@
+-*diff.txt*      For Vim version 9.0.  Last change: 2023 Apr 04
++*diff.txt*      For Vim version 9.1.  Last change: 2023 Apr 04
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/digraph.txt b/runtime/doc/digraph.txt
+index 624aa27fa..6bed06523 100644
+--- a/runtime/doc/digraph.txt
++++ b/runtime/doc/digraph.txt
+@@ -1,4 +1,4 @@
+-*digraph.txt*   For Vim version 9.0.  Last change: 2023 Oct 20
++*digraph.txt*   For Vim version 9.1.  Last change: 2023 Oct 20
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/editing.txt b/runtime/doc/editing.txt
+index 7ebb41e82..2ea6839c9 100644
+--- a/runtime/doc/editing.txt
++++ b/runtime/doc/editing.txt
+@@ -1,4 +1,4 @@
+-*editing.txt*   For Vim version 9.0.  Last change: 2023 Sep 27
++*editing.txt*   For Vim version 9.1.  Last change: 2023 Sep 27
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/eval.txt b/runtime/doc/eval.txt
+index 2a4bd4c7d..d52f7fe16 100644
+--- a/runtime/doc/eval.txt
++++ b/runtime/doc/eval.txt
+@@ -1,4 +1,4 @@
+-*eval.txt*	For Vim version 9.0.  Last change: 2023 Dec 09
++*eval.txt*	For Vim version 9.1.  Last change: 2023 Dec 09
+ 
+ 
+ 		  VIM REFERENCE MANUAL	  by Bram Moolenaar
+diff --git a/runtime/doc/farsi.txt b/runtime/doc/farsi.txt
+index a2afab4fa..f4474038d 100644
+--- a/runtime/doc/farsi.txt
++++ b/runtime/doc/farsi.txt
+@@ -1,4 +1,4 @@
+-*farsi.txt*     For Vim version 9.0.  Last change: 2019 May 05
++*farsi.txt*     For Vim version 9.1.  Last change: 2019 May 05
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Mortaza Ghassab Shiran
+diff --git a/runtime/doc/filetype.txt b/runtime/doc/filetype.txt
+index 597141d49..e8445db54 100644
+--- a/runtime/doc/filetype.txt
++++ b/runtime/doc/filetype.txt
+@@ -1,4 +1,4 @@
+-*filetype.txt*  For Vim version 9.0.  Last change: 2024 Jan 01
++*filetype.txt*  For Vim version 9.1.  Last change: 2024 Jan 01
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/fold.txt b/runtime/doc/fold.txt
+index e8078be22..b29049205 100644
+--- a/runtime/doc/fold.txt
++++ b/runtime/doc/fold.txt
+@@ -1,4 +1,4 @@
+-*fold.txt*      For Vim version 9.0.  Last change: 2023 Mar 24
++*fold.txt*      For Vim version 9.1.  Last change: 2023 Mar 24
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/ft_ada.txt b/runtime/doc/ft_ada.txt
+index fe002564e..80ed728d3 100644
+--- a/runtime/doc/ft_ada.txt
++++ b/runtime/doc/ft_ada.txt
+@@ -1,4 +1,4 @@
+-*ft_ada.txt*	For Vim version 9.0.  Last change: 2022 Mar 13
++*ft_ada.txt*	For Vim version 9.1.  Last change: 2022 Mar 13
+ 
+ 
+ 		    ADA FILE TYPE PLUG-INS REFERENCE MANUAL~
+diff --git a/runtime/doc/ft_context.txt b/runtime/doc/ft_context.txt
+index 8be0399a3..fa8316457 100644
+--- a/runtime/doc/ft_context.txt
++++ b/runtime/doc/ft_context.txt
+@@ -1,4 +1,4 @@
+-*ft_context.txt*	For Vim version 9.0.  Last change: 2024 Jan 01
++*ft_context.txt*	For Vim version 9.1.  Last change: 2024 Jan 01
+ 
+ This is the documentation for the ConTeXt filetype plugin.
+ 
+diff --git a/runtime/doc/ft_mp.txt b/runtime/doc/ft_mp.txt
+index 595bc0241..11ddd3b79 100644
+--- a/runtime/doc/ft_mp.txt
++++ b/runtime/doc/ft_mp.txt
+@@ -1,4 +1,4 @@
+-*ft_mp.txt*	For Vim version 9.0.  Last change: 2022 Aug 12
++*ft_mp.txt*	For Vim version 9.1.  Last change: 2022 Aug 12
+ 
+ This is the documentation for the METAFONT and MetaPost filetype plugins.
+ Unless otherwise specified, the commands, settings and mappings defined below
+diff --git a/runtime/doc/ft_sql.txt b/runtime/doc/ft_sql.txt
+index 0bf98861e..f98b06252 100644
+--- a/runtime/doc/ft_sql.txt
++++ b/runtime/doc/ft_sql.txt
+@@ -1,4 +1,4 @@
+-*ft_sql.txt*	For Vim version 9.0.  Last change: 2022 Apr 06
++*ft_sql.txt*	For Vim version 9.1.  Last change: 2022 Apr 06
+ 
+ by David Fishburn
+ 
+diff --git a/runtime/doc/gui.txt b/runtime/doc/gui.txt
+index 0fcceddb6..6e0875281 100644
+--- a/runtime/doc/gui.txt
++++ b/runtime/doc/gui.txt
+@@ -1,4 +1,4 @@
+-*gui.txt*       For Vim version 9.0.  Last change: 2023 Apr 29
++*gui.txt*       For Vim version 9.1.  Last change: 2023 Apr 29
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/gui_w32.txt b/runtime/doc/gui_w32.txt
+index d8ce03e51..780c0a00f 100644
+--- a/runtime/doc/gui_w32.txt
++++ b/runtime/doc/gui_w32.txt
+@@ -1,4 +1,4 @@
+-*gui_w32.txt*   For Vim version 9.0.  Last change: 2022 Mar 09
++*gui_w32.txt*   For Vim version 9.1.  Last change: 2022 Mar 09
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/gui_x11.txt b/runtime/doc/gui_x11.txt
+index 14ed9f5c9..23633f1a4 100644
+--- a/runtime/doc/gui_x11.txt
++++ b/runtime/doc/gui_x11.txt
+@@ -1,4 +1,4 @@
+-*gui_x11.txt*   For Vim version 9.0.  Last change: 2022 Apr 03
++*gui_x11.txt*   For Vim version 9.1.  Last change: 2022 Apr 03
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/hangulin.txt b/runtime/doc/hangulin.txt
+index 76db5b249..3f37d8eb8 100644
+--- a/runtime/doc/hangulin.txt
++++ b/runtime/doc/hangulin.txt
+@@ -1,4 +1,4 @@
+-*hangulin.txt*  For Vim version 9.0.  Last change: 2019 Nov 21
++*hangulin.txt*  For Vim version 9.1.  Last change: 2019 Nov 21
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Chi-Deok Hwang and Sung-Hyun Nam
+diff --git a/runtime/doc/hebrew.txt b/runtime/doc/hebrew.txt
+index 2644f81a5..c30b452e2 100644
+--- a/runtime/doc/hebrew.txt
++++ b/runtime/doc/hebrew.txt
+@@ -1,4 +1,4 @@
+-*hebrew.txt*    For Vim version 9.0.  Last change: 2019 May 05
++*hebrew.txt*    For Vim version 9.1.  Last change: 2019 May 05
+ 
+ 
+ 	   VIM REFERENCE MANUAL    by Ron Aaron (and Avner Lottem)
+diff --git a/runtime/doc/help.txt b/runtime/doc/help.txt
+index e4e25ab0d..7109bae54 100644
+--- a/runtime/doc/help.txt
++++ b/runtime/doc/help.txt
+@@ -1,4 +1,4 @@
+-*help.txt*	For Vim version 9.0.  Last change: 2022 Dec 03
++*help.txt*	For Vim version 9.1.  Last change: 2022 Dec 03
+ 
+ 			VIM - main help file
+ 									 k
+diff --git a/runtime/doc/helphelp.txt b/runtime/doc/helphelp.txt
+index 61bd21848..07a4c9656 100644
+--- a/runtime/doc/helphelp.txt
++++ b/runtime/doc/helphelp.txt
+@@ -1,4 +1,4 @@
+-*helphelp.txt*	For Vim version 9.0.  Last change: 2022 Jan 08
++*helphelp.txt*	For Vim version 9.1.  Last change: 2022 Jan 08
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/howto.txt b/runtime/doc/howto.txt
+index 75169a99b..e71ee8436 100644
+--- a/runtime/doc/howto.txt
++++ b/runtime/doc/howto.txt
+@@ -1,4 +1,4 @@
+-*howto.txt*	For Vim version 9.0.  Last change: 2006 Apr 02
++*howto.txt*	For Vim version 9.1.  Last change: 2006 Apr 02
+ 
+ 
+ 		  VIM REFERENCE MANUAL	  by Bram Moolenaar
+diff --git a/runtime/doc/if_cscop.txt b/runtime/doc/if_cscop.txt
+index 8f98161e7..3fa8f817f 100644
+--- a/runtime/doc/if_cscop.txt
++++ b/runtime/doc/if_cscop.txt
+@@ -1,4 +1,4 @@
+-*if_cscop.txt*  For Vim version 9.0.  Last change: 2022 Jan 08
++*if_cscop.txt*  For Vim version 9.1.  Last change: 2022 Jan 08
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Andy Kahn
+diff --git a/runtime/doc/if_lua.txt b/runtime/doc/if_lua.txt
+index 63ee91aee..e779d0aa8 100644
+--- a/runtime/doc/if_lua.txt
++++ b/runtime/doc/if_lua.txt
+@@ -1,4 +1,4 @@
+-*if_lua.txt*    For Vim version 9.0.  Last change: 2021 Aug 06
++*if_lua.txt*    For Vim version 9.1.  Last change: 2021 Aug 06
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Luis Carvalho
+diff --git a/runtime/doc/if_mzsch.txt b/runtime/doc/if_mzsch.txt
+index 9e9b252e7..ea5401298 100644
+--- a/runtime/doc/if_mzsch.txt
++++ b/runtime/doc/if_mzsch.txt
+@@ -1,4 +1,4 @@
+-*if_mzsch.txt*  For Vim version 9.0.  Last change: 2020 Oct 14
++*if_mzsch.txt*  For Vim version 9.1.  Last change: 2020 Oct 14
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Sergey Khorev
+diff --git a/runtime/doc/if_ole.txt b/runtime/doc/if_ole.txt
+index 39d70a84f..b08fa9818 100644
+--- a/runtime/doc/if_ole.txt
++++ b/runtime/doc/if_ole.txt
+@@ -1,4 +1,4 @@
+-*if_ole.txt*    For Vim version 9.0.  Last change: 2023 Nov 19
++*if_ole.txt*    For Vim version 9.1.  Last change: 2023 Nov 19
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Paul Moore
+diff --git a/runtime/doc/if_perl.txt b/runtime/doc/if_perl.txt
+index 5cc992d0d..86edd05a0 100644
+--- a/runtime/doc/if_perl.txt
++++ b/runtime/doc/if_perl.txt
+@@ -1,4 +1,4 @@
+-*if_perl.txt*   For Vim version 9.0.  Last change: 2023 May 14
++*if_perl.txt*   For Vim version 9.1.  Last change: 2023 May 14
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Sven Verdoolaege
+diff --git a/runtime/doc/if_pyth.txt b/runtime/doc/if_pyth.txt
+index 4ea6d1380..8456d08c6 100644
+--- a/runtime/doc/if_pyth.txt
++++ b/runtime/doc/if_pyth.txt
+@@ -1,4 +1,4 @@
+-*if_pyth.txt*   For Vim version 9.0.  Last change: 2023 Oct 25
++*if_pyth.txt*   For Vim version 9.1.  Last change: 2023 Oct 25
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Paul Moore
+diff --git a/runtime/doc/if_ruby.txt b/runtime/doc/if_ruby.txt
+index caecc6d2c..6a01568a9 100644
+--- a/runtime/doc/if_ruby.txt
++++ b/runtime/doc/if_ruby.txt
+@@ -1,4 +1,4 @@
+-*if_ruby.txt*   For Vim version 9.0.  Last change: 2019 Jul 21
++*if_ruby.txt*   For Vim version 9.1.  Last change: 2019 Jul 21
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Shugo Maeda
+diff --git a/runtime/doc/if_sniff.txt b/runtime/doc/if_sniff.txt
+index 27db68871..7cbb0ff97 100644
+--- a/runtime/doc/if_sniff.txt
++++ b/runtime/doc/if_sniff.txt
+@@ -1,4 +1,4 @@
+-*if_sniff.txt*	For Vim version 9.0.  Last change: 2016 Feb 27
++*if_sniff.txt*	For Vim version 9.1.  Last change: 2016 Feb 27
+ 
+ 
+ 		  VIM REFERENCE MANUAL
+diff --git a/runtime/doc/if_tcl.txt b/runtime/doc/if_tcl.txt
+index 7091469ac..4ed789a0a 100644
+--- a/runtime/doc/if_tcl.txt
++++ b/runtime/doc/if_tcl.txt
+@@ -1,4 +1,4 @@
+-*if_tcl.txt*    For Vim version 9.0.  Last change: 2022 Jan 08
++*if_tcl.txt*    For Vim version 9.1.  Last change: 2022 Jan 08
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Ingo Wilken
+diff --git a/runtime/doc/indent.txt b/runtime/doc/indent.txt
+index 5d24b3561..7865bb689 100644
+--- a/runtime/doc/indent.txt
++++ b/runtime/doc/indent.txt
+@@ -1,4 +1,4 @@
+-*indent.txt*    For Vim version 9.0.  Last change: 2023 Dec 27
++*indent.txt*    For Vim version 9.1.  Last change: 2023 Dec 27
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/index.txt b/runtime/doc/index.txt
+index 6f4b5d74d..1b012b7da 100644
+--- a/runtime/doc/index.txt
++++ b/runtime/doc/index.txt
+@@ -1,4 +1,4 @@
+-*index.txt*     For Vim version 9.0.  Last change: 2023 Jan 09
++*index.txt*     For Vim version 9.1.  Last change: 2023 Jan 09
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/insert.txt b/runtime/doc/insert.txt
+index 8696e912f..de8866fc6 100644
+--- a/runtime/doc/insert.txt
++++ b/runtime/doc/insert.txt
+@@ -1,4 +1,4 @@
+-*insert.txt*    For Vim version 9.0.  Last change: 2022 Sep 30
++*insert.txt*    For Vim version 9.1.  Last change: 2022 Sep 30
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/intro.txt b/runtime/doc/intro.txt
+index 567f347f9..185796f63 100644
+--- a/runtime/doc/intro.txt
++++ b/runtime/doc/intro.txt
+@@ -1,4 +1,4 @@
+-*intro.txt*     For Vim version 9.0.  Last change: 2023 Nov 18
++*intro.txt*     For Vim version 9.1.  Last change: 2023 Nov 18
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/map.txt b/runtime/doc/map.txt
+index 1944fdd03..d458aa661 100644
+--- a/runtime/doc/map.txt
++++ b/runtime/doc/map.txt
+@@ -1,4 +1,4 @@
+-*map.txt*       For Vim version 9.0.  Last change: 2023 December 31
++*map.txt*       For Vim version 9.1.  Last change: 2023 December 31
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/mbyte.txt b/runtime/doc/mbyte.txt
+index 81d391c3e..91154a744 100644
+--- a/runtime/doc/mbyte.txt
++++ b/runtime/doc/mbyte.txt
+@@ -1,4 +1,4 @@
+-*mbyte.txt*     For Vim version 9.0.  Last change: 2022 Apr 03
++*mbyte.txt*     For Vim version 9.1.  Last change: 2022 Apr 03
+ 
+ 
+ 		  VIM REFERENCE MANUAL	  by Bram Moolenaar et al.
+diff --git a/runtime/doc/message.txt b/runtime/doc/message.txt
+index 92a8e3cda..133d47ad1 100644
+--- a/runtime/doc/message.txt
++++ b/runtime/doc/message.txt
+@@ -1,4 +1,4 @@
+-*message.txt*   For Vim version 9.0.  Last change: 2023 Dec 20
++*message.txt*   For Vim version 9.1.  Last change: 2023 Dec 20
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/mlang.txt b/runtime/doc/mlang.txt
+index 8997e1c27..82c9772a7 100644
+--- a/runtime/doc/mlang.txt
++++ b/runtime/doc/mlang.txt
+@@ -1,4 +1,4 @@
+-*mlang.txt*     For Vim version 9.0.  Last change: 2022 Sep 17
++*mlang.txt*     For Vim version 9.1.  Last change: 2022 Sep 17
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/motion.txt b/runtime/doc/motion.txt
+index 7a67789b7..448b68bce 100644
+--- a/runtime/doc/motion.txt
++++ b/runtime/doc/motion.txt
+@@ -1,4 +1,4 @@
+-*motion.txt*    For Vim version 9.0.  Last change: 2023 Dec 27
++*motion.txt*    For Vim version 9.1.  Last change: 2023 Dec 27
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/netbeans.txt b/runtime/doc/netbeans.txt
+index 905c79791..a62123ce6 100644
+--- a/runtime/doc/netbeans.txt
++++ b/runtime/doc/netbeans.txt
+@@ -1,4 +1,4 @@
+-*netbeans.txt*  For Vim version 9.0.  Last change: 2023 Nov 26
++*netbeans.txt*  For Vim version 9.1.  Last change: 2023 Nov 26
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Gordon Prieur et al.
+diff --git a/runtime/doc/options.txt b/runtime/doc/options.txt
+index 34059e0ea..e6c20220b 100644
+--- a/runtime/doc/options.txt
++++ b/runtime/doc/options.txt
+@@ -1,4 +1,4 @@
+-*options.txt*	For Vim version 9.0.  Last change: 2023 Dec 20
++*options.txt*	For Vim version 9.1.  Last change: 2023 Dec 20
+ 
+ 
+ 		  VIM REFERENCE MANUAL	  by Bram Moolenaar
+diff --git a/runtime/doc/os_390.txt b/runtime/doc/os_390.txt
+index 42c8a8b51..e15cd258f 100644
+--- a/runtime/doc/os_390.txt
++++ b/runtime/doc/os_390.txt
+@@ -1,4 +1,4 @@
+-*os_390.txt*    For Vim version 9.0.  Last change: 2019 Dec 07
++*os_390.txt*    For Vim version 9.1.  Last change: 2019 Dec 07
+ 
+ 
+ 		  VIM REFERENCE MANUAL	  by Ralf Schandl
+diff --git a/runtime/doc/os_amiga.txt b/runtime/doc/os_amiga.txt
+index 062ad3b2e..32d460281 100644
+--- a/runtime/doc/os_amiga.txt
++++ b/runtime/doc/os_amiga.txt
+@@ -1,4 +1,4 @@
+-*os_amiga.txt*  For Vim version 9.0.  Last change: 2010 Aug 14
++*os_amiga.txt*  For Vim version 9.1.  Last change: 2010 Aug 14
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/os_beos.txt b/runtime/doc/os_beos.txt
+index 8a2ac487b..5ac41597f 100644
+--- a/runtime/doc/os_beos.txt
++++ b/runtime/doc/os_beos.txt
+@@ -1,4 +1,4 @@
+-*os_beos.txt*	For Vim version 9.0.  Last change: 2020 Jun 07
++*os_beos.txt*	For Vim version 9.1.  Last change: 2020 Jun 07
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/os_dos.txt b/runtime/doc/os_dos.txt
+index e5e405caf..e81ba9a5a 100644
+--- a/runtime/doc/os_dos.txt
++++ b/runtime/doc/os_dos.txt
+@@ -1,4 +1,4 @@
+-*os_dos.txt*    For Vim version 9.0.  Last change: 2006 Mar 30
++*os_dos.txt*    For Vim version 9.1.  Last change: 2006 Mar 30
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/os_haiku.txt b/runtime/doc/os_haiku.txt
+index fdcf7fe78..8fe8c9f56 100644
+--- a/runtime/doc/os_haiku.txt
++++ b/runtime/doc/os_haiku.txt
+@@ -1,4 +1,4 @@
+-*os_haiku.txt*	For Vim version 9.0.  Last change: 2020 May 13
++*os_haiku.txt*	For Vim version 9.1.  Last change: 2020 May 13
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/os_mac.txt b/runtime/doc/os_mac.txt
+index b18e8e0a7..0421fb7b1 100644
+--- a/runtime/doc/os_mac.txt
++++ b/runtime/doc/os_mac.txt
+@@ -1,4 +1,4 @@
+-*os_mac.txt*    For Vim version 9.0.  Last change: 2019 Apr 21
++*os_mac.txt*    For Vim version 9.1.  Last change: 2019 Apr 21
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar et al.
+diff --git a/runtime/doc/os_mint.txt b/runtime/doc/os_mint.txt
+index 4273c5501..54d40a3df 100644
+--- a/runtime/doc/os_mint.txt
++++ b/runtime/doc/os_mint.txt
+@@ -1,4 +1,4 @@
+-*os_mint.txt*   For Vim version 9.0.  Last change: 2020 Jul 14
++*os_mint.txt*   For Vim version 9.1.  Last change: 2020 Jul 14
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Jens M. Felderhoff
+diff --git a/runtime/doc/os_msdos.txt b/runtime/doc/os_msdos.txt
+index 67821ed47..d6d67f004 100644
+--- a/runtime/doc/os_msdos.txt
++++ b/runtime/doc/os_msdos.txt
+@@ -1,4 +1,4 @@
+-*os_msdos.txt*  For Vim version 9.0.  Last change: 2016 Feb 26
++*os_msdos.txt*  For Vim version 9.1.  Last change: 2016 Feb 26
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/os_os2.txt b/runtime/doc/os_os2.txt
+index a07767ef9..bd24d139a 100644
+--- a/runtime/doc/os_os2.txt
++++ b/runtime/doc/os_os2.txt
+@@ -1,4 +1,4 @@
+-*os_os2.txt*    For Vim version 9.0.  Last change: 2015 Dec 31
++*os_os2.txt*    For Vim version 9.1.  Last change: 2015 Dec 31
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Paul Slootman
+diff --git a/runtime/doc/os_qnx.txt b/runtime/doc/os_qnx.txt
+index ade1c7a56..e1a586d14 100644
+--- a/runtime/doc/os_qnx.txt
++++ b/runtime/doc/os_qnx.txt
+@@ -1,4 +1,4 @@
+-*os_qnx.txt*    For Vim version 9.0.  Last change: 2005 Mar 29
++*os_qnx.txt*    For Vim version 9.1.  Last change: 2005 Mar 29
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Julian Kinraid
+diff --git a/runtime/doc/os_risc.txt b/runtime/doc/os_risc.txt
+index 92af8cd6b..dad3549b9 100644
+--- a/runtime/doc/os_risc.txt
++++ b/runtime/doc/os_risc.txt
+@@ -1,4 +1,4 @@
+-*os_risc.txt*   For Vim version 9.0.  Last change: 2011 May 10
++*os_risc.txt*   For Vim version 9.1.  Last change: 2011 May 10
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Thomas Leonard
+diff --git a/runtime/doc/os_unix.txt b/runtime/doc/os_unix.txt
+index 9908b154c..90069a20b 100644
+--- a/runtime/doc/os_unix.txt
++++ b/runtime/doc/os_unix.txt
+@@ -1,4 +1,4 @@
+-*os_unix.txt*   For Vim version 9.0.  Last change: 2022 Nov 25
++*os_unix.txt*   For Vim version 9.1.  Last change: 2022 Nov 25
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/os_vms.txt b/runtime/doc/os_vms.txt
+index e7fa348af..ff435482d 100644
+--- a/runtime/doc/os_vms.txt
++++ b/runtime/doc/os_vms.txt
+@@ -1,4 +1,4 @@
+-*os_vms.txt*    For Vim version 9.0.  Last change: 2023 Dec 14
++*os_vms.txt*    For Vim version 9.1.  Last change: 2023 Dec 14
+ 
+ 
+ 		  VIM REFERENCE MANUAL
+diff --git a/runtime/doc/os_win32.txt b/runtime/doc/os_win32.txt
+index 1156dd538..bbe994008 100644
+--- a/runtime/doc/os_win32.txt
++++ b/runtime/doc/os_win32.txt
+@@ -1,4 +1,4 @@
+-*os_win32.txt*  For Vim version 9.0.  Last change: 2023 Dec 04
++*os_win32.txt*  For Vim version 9.1.  Last change: 2023 Dec 04
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by George Reilly
+diff --git a/runtime/doc/pattern.txt b/runtime/doc/pattern.txt
+index 70227a72e..2d1898de5 100644
+--- a/runtime/doc/pattern.txt
++++ b/runtime/doc/pattern.txt
+@@ -1,4 +1,4 @@
+-*pattern.txt*   For Vim version 9.0.  Last change: 2023 Oct 23
++*pattern.txt*   For Vim version 9.1.  Last change: 2023 Oct 23
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/pi_getscript.txt b/runtime/doc/pi_getscript.txt
+index 77805880a..e86932c35 100644
+--- a/runtime/doc/pi_getscript.txt
++++ b/runtime/doc/pi_getscript.txt
+@@ -1,4 +1,4 @@
+-*pi_getscript.txt*  For Vim version 9.0.  Last change: 2017 Aug 01
++*pi_getscript.txt*  For Vim version 9.1.  Last change: 2017 Aug 01
+ >
+ 		GETSCRIPT REFERENCE MANUAL  by Charles E. Campbell
+ <
+diff --git a/runtime/doc/pi_gzip.txt b/runtime/doc/pi_gzip.txt
+index 71e76cc28..c34db2784 100644
+--- a/runtime/doc/pi_gzip.txt
++++ b/runtime/doc/pi_gzip.txt
+@@ -1,4 +1,4 @@
+-*pi_gzip.txt*   For Vim version 9.0.  Last change: 2023 Nov 14
++*pi_gzip.txt*   For Vim version 9.1.  Last change: 2023 Nov 14
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/pi_netrw.txt b/runtime/doc/pi_netrw.txt
+index 30c164660..07d70c831 100644
+--- a/runtime/doc/pi_netrw.txt
++++ b/runtime/doc/pi_netrw.txt
+@@ -1,4 +1,4 @@
+-*pi_netrw.txt*  For Vim version 9.0.  Last change: 2023 May 14
++*pi_netrw.txt*  For Vim version 9.1.  Last change: 2023 May 14
+ 
+ 	    ------------------------------------------------
+ 	    NETRW REFERENCE MANUAL    by Charles E. Campbell
+diff --git a/runtime/doc/pi_paren.txt b/runtime/doc/pi_paren.txt
+index 9af0e9c95..719353fa9 100644
+--- a/runtime/doc/pi_paren.txt
++++ b/runtime/doc/pi_paren.txt
+@@ -1,4 +1,4 @@
+-*pi_paren.txt*  For Vim version 9.0.  Last change: 2013 May 08
++*pi_paren.txt*  For Vim version 9.1.  Last change: 2013 May 08
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/pi_spec.txt b/runtime/doc/pi_spec.txt
+index 27d60b8fe..a8d26cdb1 100644
+--- a/runtime/doc/pi_spec.txt
++++ b/runtime/doc/pi_spec.txt
+@@ -1,4 +1,4 @@
+-*pi_spec.txt*   For Vim version 9.0.  Last change: 2006 Apr 24
++*pi_spec.txt*   For Vim version 9.1.  Last change: 2006 Apr 24
+ 
+ by Gustavo Niemeyer ~
+ 
+diff --git a/runtime/doc/pi_tar.txt b/runtime/doc/pi_tar.txt
+index 37b2886d8..0ab111c28 100644
+--- a/runtime/doc/pi_tar.txt
++++ b/runtime/doc/pi_tar.txt
+@@ -1,4 +1,4 @@
+-*pi_tar.txt*	For Vim version 9.0.  Last change: 2022 Oct 17
++*pi_tar.txt*	For Vim version 9.1.  Last change: 2022 Oct 17
+ 
+ 		       +====================+
+ 		       | Tar File Interface |
+diff --git a/runtime/doc/pi_vimball.txt b/runtime/doc/pi_vimball.txt
+index 045c5c4f8..35d4d7cbf 100644
+--- a/runtime/doc/pi_vimball.txt
++++ b/runtime/doc/pi_vimball.txt
+@@ -1,4 +1,4 @@
+-*pi_vimball.txt*	For Vim version 9.0.  Last change: 2016 Apr 11
++*pi_vimball.txt*	For Vim version 9.1.  Last change: 2016 Apr 11
+ 
+ 			       ----------------
+ 			       Vimball Archiver
+diff --git a/runtime/doc/pi_zip.txt b/runtime/doc/pi_zip.txt
+index 14ae34015..2e98becf1 100644
+--- a/runtime/doc/pi_zip.txt
++++ b/runtime/doc/pi_zip.txt
+@@ -1,4 +1,4 @@
+-*pi_zip.txt*	For Vim version 9.0.  Last change: 2023 Nov 05
++*pi_zip.txt*	For Vim version 9.1.  Last change: 2023 Nov 05
+ 
+ 				+====================+
+ 				| Zip File Interface |
+diff --git a/runtime/doc/popup.txt b/runtime/doc/popup.txt
+index 463bc9a2b..f5cb12fb9 100644
+--- a/runtime/doc/popup.txt
++++ b/runtime/doc/popup.txt
+@@ -1,4 +1,4 @@
+-*popup.txt*  For Vim version 9.0.  Last change: 2022 Oct 07
++*popup.txt*  For Vim version 9.1.  Last change: 2022 Oct 07
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/print.txt b/runtime/doc/print.txt
+index 53f17e154..84fca4406 100644
+--- a/runtime/doc/print.txt
++++ b/runtime/doc/print.txt
+@@ -1,4 +1,4 @@
+-*print.txt*     For Vim version 9.0.  Last change: 2022 Oct 01
++*print.txt*     For Vim version 9.1.  Last change: 2022 Oct 01
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/quickfix.txt b/runtime/doc/quickfix.txt
+index cbfd791d5..325f59220 100644
+--- a/runtime/doc/quickfix.txt
++++ b/runtime/doc/quickfix.txt
+@@ -1,4 +1,4 @@
+-*quickfix.txt*  For Vim version 9.0.  Last change: 2023 Jan 18
++*quickfix.txt*  For Vim version 9.1.  Last change: 2023 Jan 18
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/quickref.txt b/runtime/doc/quickref.txt
+index 577554329..dcbb52013 100644
+--- a/runtime/doc/quickref.txt
++++ b/runtime/doc/quickref.txt
+@@ -1,4 +1,4 @@
+-*quickref.txt*  For Vim version 9.0.  Last change: 2023 Dec 05
++*quickref.txt*  For Vim version 9.1.  Last change: 2023 Dec 05
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/quotes.txt b/runtime/doc/quotes.txt
+index 181682d44..0eeb1b691 100644
+--- a/runtime/doc/quotes.txt
++++ b/runtime/doc/quotes.txt
+@@ -1,4 +1,4 @@
+-*quotes.txt*    For Vim version 9.0.  Last change: 2018 Mar 29
++*quotes.txt*    For Vim version 9.1.  Last change: 2018 Mar 29
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/recover.txt b/runtime/doc/recover.txt
+index bfc59d31e..fd817ebc6 100644
+--- a/runtime/doc/recover.txt
++++ b/runtime/doc/recover.txt
+@@ -1,4 +1,4 @@
+-*recover.txt*   For Vim version 9.0.  Last change: 2023 Apr 22
++*recover.txt*   For Vim version 9.1.  Last change: 2023 Apr 22
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/remote.txt b/runtime/doc/remote.txt
+index 724b58ccc..5a6898c25 100644
+--- a/runtime/doc/remote.txt
++++ b/runtime/doc/remote.txt
+@@ -1,4 +1,4 @@
+-*remote.txt*    For Vim version 9.0.  Last change: 2022 Feb 17
++*remote.txt*    For Vim version 9.1.  Last change: 2022 Feb 17
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/repeat.txt b/runtime/doc/repeat.txt
+index 247dd0992..e95b6a1ae 100644
+--- a/runtime/doc/repeat.txt
++++ b/runtime/doc/repeat.txt
+@@ -1,4 +1,4 @@
+-*repeat.txt*    For Vim version 9.0.  Last change: 2023 May 26
++*repeat.txt*    For Vim version 9.1.  Last change: 2023 May 26
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/rileft.txt b/runtime/doc/rileft.txt
+index 623ac387b..8589bb6a3 100644
+--- a/runtime/doc/rileft.txt
++++ b/runtime/doc/rileft.txt
+@@ -1,4 +1,4 @@
+-*rileft.txt*    For Vim version 9.0.  Last change: 2022 Oct 12
++*rileft.txt*    For Vim version 9.1.  Last change: 2022 Oct 12
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Avner Lottem
+diff --git a/runtime/doc/russian.txt b/runtime/doc/russian.txt
+index 4e8c5ed5c..bf6493d5e 100644
+--- a/runtime/doc/russian.txt
++++ b/runtime/doc/russian.txt
+@@ -1,4 +1,4 @@
+-*russian.txt*   For Vim version 9.0.  Last change: 2006 Apr 24
++*russian.txt*   For Vim version 9.1.  Last change: 2006 Apr 24
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Vassily Ragosin
+diff --git a/runtime/doc/scroll.txt b/runtime/doc/scroll.txt
+index 91fa22824..cf7935312 100644
+--- a/runtime/doc/scroll.txt
++++ b/runtime/doc/scroll.txt
+@@ -1,4 +1,4 @@
+-*scroll.txt*    For Vim version 9.0.  Last change: 2022 Oct 17
++*scroll.txt*    For Vim version 9.1.  Last change: 2022 Oct 17
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/sign.txt b/runtime/doc/sign.txt
+index d9bfed697..02240f01a 100644
+--- a/runtime/doc/sign.txt
++++ b/runtime/doc/sign.txt
+@@ -1,4 +1,4 @@
+-*sign.txt*      For Vim version 9.0.  Last change: 2023 Feb 21
++*sign.txt*      For Vim version 9.1.  Last change: 2023 Feb 21
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Gordon Prieur
+diff --git a/runtime/doc/spell.txt b/runtime/doc/spell.txt
+index 941ef9dc8..dea3adb87 100644
+--- a/runtime/doc/spell.txt
++++ b/runtime/doc/spell.txt
+@@ -1,4 +1,4 @@
+-*spell.txt*	For Vim version 9.0.  Last change: 2023 May 25
++*spell.txt*	For Vim version 9.1.  Last change: 2023 May 25
+ 
+ 
+ 		  VIM REFERENCE MANUAL	  by Bram Moolenaar
+diff --git a/runtime/doc/sponsor.txt b/runtime/doc/sponsor.txt
+index 548cde8cb..86da8920c 100644
+--- a/runtime/doc/sponsor.txt
++++ b/runtime/doc/sponsor.txt
+@@ -1,4 +1,4 @@
+-*sponsor.txt*   For Vim version 9.0.  Last change: 2023 Mar 24
++*sponsor.txt*   For Vim version 9.1.  Last change: 2023 Mar 24
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/starting.txt b/runtime/doc/starting.txt
+index 1e7daa6b5..ff069ca3f 100644
+--- a/runtime/doc/starting.txt
++++ b/runtime/doc/starting.txt
+@@ -1,4 +1,4 @@
+-*starting.txt*  For Vim version 9.0.  Last change: 2023 Oct 20
++*starting.txt*  For Vim version 9.1.  Last change: 2023 Oct 20
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/syntax.txt b/runtime/doc/syntax.txt
+index 335706145..040780b35 100644
+--- a/runtime/doc/syntax.txt
++++ b/runtime/doc/syntax.txt
+@@ -1,4 +1,4 @@
+-*syntax.txt*	For Vim version 9.0.  Last change: 2023 Dec 27
++*syntax.txt*	For Vim version 9.1.  Last change: 2023 Dec 27
+ 
+ 
+ 		  VIM REFERENCE MANUAL	  by Bram Moolenaar
+diff --git a/runtime/doc/tabpage.txt b/runtime/doc/tabpage.txt
+index a010e2fd2..a98fe956f 100644
+--- a/runtime/doc/tabpage.txt
++++ b/runtime/doc/tabpage.txt
+@@ -1,4 +1,4 @@
+-*tabpage.txt*   For Vim version 9.0.  Last change: 2022 Feb 02
++*tabpage.txt*   For Vim version 9.1.  Last change: 2022 Feb 02
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/tagsrch.txt b/runtime/doc/tagsrch.txt
+index f90632c0c..aa7b9dd48 100644
+--- a/runtime/doc/tagsrch.txt
++++ b/runtime/doc/tagsrch.txt
+@@ -1,4 +1,4 @@
+-*tagsrch.txt*   For Vim version 9.0.  Last change: 2023 Feb 13
++*tagsrch.txt*   For Vim version 9.1.  Last change: 2023 Feb 13
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/term.txt b/runtime/doc/term.txt
+index c57387eab..546b0bf90 100644
+--- a/runtime/doc/term.txt
++++ b/runtime/doc/term.txt
+@@ -1,4 +1,4 @@
+-*term.txt*      For Vim version 9.0.  Last change: 2023 Dec 09
++*term.txt*      For Vim version 9.1.  Last change: 2023 Dec 09
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/terminal.txt b/runtime/doc/terminal.txt
+index 5647ff49b..c5331fa85 100644
+--- a/runtime/doc/terminal.txt
++++ b/runtime/doc/terminal.txt
+@@ -1,4 +1,4 @@
+-*terminal.txt*	For Vim version 9.0.  Last change: 2023 Nov 08
++*terminal.txt*	For Vim version 9.1.  Last change: 2023 Nov 08
+ 
+ 
+ 		  VIM REFERENCE MANUAL	  by Bram Moolenaar
+diff --git a/runtime/doc/testing.txt b/runtime/doc/testing.txt
+index 2d78c0ec1..dabdd32b0 100644
+--- a/runtime/doc/testing.txt
++++ b/runtime/doc/testing.txt
+@@ -1,4 +1,4 @@
+-*testing.txt*	For Vim version 9.0.  Last change: 2023 May 18
++*testing.txt*	For Vim version 9.1.  Last change: 2023 May 18
+ 
+ 
+ 		  VIM REFERENCE MANUAL	  by Bram Moolenaar
+diff --git a/runtime/doc/textprop.txt b/runtime/doc/textprop.txt
+index 14fe2977a..bf7fd16f1 100644
+--- a/runtime/doc/textprop.txt
++++ b/runtime/doc/textprop.txt
+@@ -1,4 +1,4 @@
+-*textprop.txt*  For Vim version 9.0.  Last change: 2023 Apr 23
++*textprop.txt*  For Vim version 9.1.  Last change: 2023 Apr 23
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/tips.txt b/runtime/doc/tips.txt
+index 0dfddb255..7ed8e0010 100644
+--- a/runtime/doc/tips.txt
++++ b/runtime/doc/tips.txt
+@@ -1,4 +1,4 @@
+-*tips.txt*      For Vim version 9.0.  Last change: 2023 Aug 10
++*tips.txt*      For Vim version 9.1.  Last change: 2023 Aug 10
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/todo.txt b/runtime/doc/todo.txt
+index afe5aed53..9847ff7d3 100644
+--- a/runtime/doc/todo.txt
++++ b/runtime/doc/todo.txt
+@@ -1,4 +1,4 @@
+-*todo.txt*      For Vim version 9.0.  Last change: 2023 Dec 14
++*todo.txt*      For Vim version 9.1.  Last change: 2023 Dec 14
+ 
+ 
+ 		  VIM REFERENCE MANUAL	  by Bram Moolenaar
+diff --git a/runtime/doc/uganda.txt b/runtime/doc/uganda.txt
+index 3a2474793..6b7705045 100644
+--- a/runtime/doc/uganda.txt
++++ b/runtime/doc/uganda.txt
+@@ -1,4 +1,4 @@
+-*uganda.txt*    For Vim version 9.0.  Last change: 2022 Mar 02
++*uganda.txt*    For Vim version 9.1.  Last change: 2022 Mar 02
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/undo.txt b/runtime/doc/undo.txt
+index dc2274c14..40edf2fdf 100644
+--- a/runtime/doc/undo.txt
++++ b/runtime/doc/undo.txt
+@@ -1,4 +1,4 @@
+-*undo.txt*      For Vim version 9.0.  Last change: 2022 Jun 02
++*undo.txt*      For Vim version 9.1.  Last change: 2022 Jun 02
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/userfunc.txt b/runtime/doc/userfunc.txt
+index 1fe780076..f6d3d0a8f 100644
+--- a/runtime/doc/userfunc.txt
++++ b/runtime/doc/userfunc.txt
+@@ -1,4 +1,4 @@
+-*userfunc.txt*	For Vim version 9.0.  Last change: 2023 May 23
++*userfunc.txt*	For Vim version 9.1.  Last change: 2023 May 23
+ 
+ 
+ 		  VIM REFERENCE MANUAL	  by Bram Moolenaar
+diff --git a/runtime/doc/usr_01.txt b/runtime/doc/usr_01.txt
+index e8279fd30..fafb242b0 100644
+--- a/runtime/doc/usr_01.txt
++++ b/runtime/doc/usr_01.txt
+@@ -1,4 +1,4 @@
+-*usr_01.txt*	For Vim version 9.0.  Last change: 2023 May 12
++*usr_01.txt*	For Vim version 9.1.  Last change: 2023 May 12
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_02.txt b/runtime/doc/usr_02.txt
+index 680a4e607..486426ed7 100644
+--- a/runtime/doc/usr_02.txt
++++ b/runtime/doc/usr_02.txt
+@@ -1,4 +1,4 @@
+-*usr_02.txt*	For Vim version 9.0.  Last change: 2021 Apr 24
++*usr_02.txt*	For Vim version 9.1.  Last change: 2021 Apr 24
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_03.txt b/runtime/doc/usr_03.txt
+index b2abc430d..eb9e311d0 100644
+--- a/runtime/doc/usr_03.txt
++++ b/runtime/doc/usr_03.txt
+@@ -1,4 +1,4 @@
+-*usr_03.txt*	For Vim version 9.0.  Last change: 2023 Mar 13
++*usr_03.txt*	For Vim version 9.1.  Last change: 2023 Mar 13
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_04.txt b/runtime/doc/usr_04.txt
+index 91c13aa4a..b81fccc51 100644
+--- a/runtime/doc/usr_04.txt
++++ b/runtime/doc/usr_04.txt
+@@ -1,4 +1,4 @@
+-*usr_04.txt*	For Vim version 9.0.  Last change: 2021 Feb 22
++*usr_04.txt*	For Vim version 9.1.  Last change: 2021 Feb 22
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_05.txt b/runtime/doc/usr_05.txt
+index 275599973..05239eeeb 100644
+--- a/runtime/doc/usr_05.txt
++++ b/runtime/doc/usr_05.txt
+@@ -1,4 +1,4 @@
+-*usr_05.txt*	For Vim version 9.0.  Last change: 2023 Sep 12
++*usr_05.txt*	For Vim version 9.1.  Last change: 2023 Sep 12
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_06.txt b/runtime/doc/usr_06.txt
+index 2b6fa5133..6d76c53e1 100644
+--- a/runtime/doc/usr_06.txt
++++ b/runtime/doc/usr_06.txt
+@@ -1,4 +1,4 @@
+-*usr_06.txt*	For Vim version 9.0.  Last change: 2021 Nov 07
++*usr_06.txt*	For Vim version 9.1.  Last change: 2021 Nov 07
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_07.txt b/runtime/doc/usr_07.txt
+index 2be3062ac..ea4875ec5 100644
+--- a/runtime/doc/usr_07.txt
++++ b/runtime/doc/usr_07.txt
+@@ -1,4 +1,4 @@
+-*usr_07.txt*	For Vim version 9.0.  Last change: 2020 Mar 23
++*usr_07.txt*	For Vim version 9.1.  Last change: 2020 Mar 23
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_08.txt b/runtime/doc/usr_08.txt
+index 148f0cf86..a24473baa 100644
+--- a/runtime/doc/usr_08.txt
++++ b/runtime/doc/usr_08.txt
+@@ -1,4 +1,4 @@
+-*usr_08.txt*	For Vim version 9.0.  Last change: 2021 May 20
++*usr_08.txt*	For Vim version 9.1.  Last change: 2021 May 20
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_09.txt b/runtime/doc/usr_09.txt
+index 43394da6e..6fac5c2a7 100644
+--- a/runtime/doc/usr_09.txt
++++ b/runtime/doc/usr_09.txt
+@@ -1,4 +1,4 @@
+-*usr_09.txt*	For Vim version 9.0.  Last change: 2017 Aug 11
++*usr_09.txt*	For Vim version 9.1.  Last change: 2017 Aug 11
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_10.txt b/runtime/doc/usr_10.txt
+index 220a7ab0a..4ffd23556 100644
+--- a/runtime/doc/usr_10.txt
++++ b/runtime/doc/usr_10.txt
+@@ -1,4 +1,4 @@
+-*usr_10.txt*	For Vim version 9.0.  Last change: 2019 Nov 22
++*usr_10.txt*	For Vim version 9.1.  Last change: 2019 Nov 22
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_11.txt b/runtime/doc/usr_11.txt
+index 3a61082cb..9ba6f4420 100644
+--- a/runtime/doc/usr_11.txt
++++ b/runtime/doc/usr_11.txt
+@@ -1,4 +1,4 @@
+-*usr_11.txt*	For Vim version 9.0.  Last change: 2020 Oct 25
++*usr_11.txt*	For Vim version 9.1.  Last change: 2020 Oct 25
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_12.txt b/runtime/doc/usr_12.txt
+index a5f75ec8c..fb90c613b 100644
+--- a/runtime/doc/usr_12.txt
++++ b/runtime/doc/usr_12.txt
+@@ -1,4 +1,4 @@
+-*usr_12.txt*	For Vim version 9.0.  Last change: 2022 Nov 19
++*usr_12.txt*	For Vim version 9.1.  Last change: 2022 Nov 19
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_20.txt b/runtime/doc/usr_20.txt
+index 479f57c76..486f18f99 100644
+--- a/runtime/doc/usr_20.txt
++++ b/runtime/doc/usr_20.txt
+@@ -1,4 +1,4 @@
+-*usr_20.txt*	For Vim version 9.0.  Last change: 2021 Nov 18
++*usr_20.txt*	For Vim version 9.1.  Last change: 2021 Nov 18
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_21.txt b/runtime/doc/usr_21.txt
+index 2f6ee9c5d..95ded58ea 100644
+--- a/runtime/doc/usr_21.txt
++++ b/runtime/doc/usr_21.txt
+@@ -1,4 +1,4 @@
+-*usr_21.txt*	For Vim version 9.0.  Last change: 2019 Apr 25
++*usr_21.txt*	For Vim version 9.1.  Last change: 2019 Apr 25
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_22.txt b/runtime/doc/usr_22.txt
+index 8ed102850..57862edaa 100644
+--- a/runtime/doc/usr_22.txt
++++ b/runtime/doc/usr_22.txt
+@@ -1,4 +1,4 @@
+-*usr_22.txt*	For Vim version 9.0.  Last change: 2020 Mar 28
++*usr_22.txt*	For Vim version 9.1.  Last change: 2020 Mar 28
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_23.txt b/runtime/doc/usr_23.txt
+index cbcc4844c..016f74295 100644
+--- a/runtime/doc/usr_23.txt
++++ b/runtime/doc/usr_23.txt
+@@ -1,4 +1,4 @@
+-*usr_23.txt*	For Vim version 9.0.  Last change: 2020 Dec 19
++*usr_23.txt*	For Vim version 9.1.  Last change: 2020 Dec 19
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_24.txt b/runtime/doc/usr_24.txt
+index 361ce1bb8..72f43f068 100644
+--- a/runtime/doc/usr_24.txt
++++ b/runtime/doc/usr_24.txt
+@@ -1,4 +1,4 @@
+-*usr_24.txt*	For Vim version 9.0.  Last change: 2018 Mar 18
++*usr_24.txt*	For Vim version 9.1.  Last change: 2018 Mar 18
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_25.txt b/runtime/doc/usr_25.txt
+index 2f25a9fb2..af013bcfe 100644
+--- a/runtime/doc/usr_25.txt
++++ b/runtime/doc/usr_25.txt
+@@ -1,4 +1,4 @@
+-*usr_25.txt*	For Vim version 9.0.  Last change: 2016 Mar 28
++*usr_25.txt*	For Vim version 9.1.  Last change: 2016 Mar 28
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_26.txt b/runtime/doc/usr_26.txt
+index 7fec325cf..81345f459 100644
+--- a/runtime/doc/usr_26.txt
++++ b/runtime/doc/usr_26.txt
+@@ -1,4 +1,4 @@
+-*usr_26.txt*	For Vim version 9.0.  Last change: 2006 Apr 24
++*usr_26.txt*	For Vim version 9.1.  Last change: 2006 Apr 24
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_27.txt b/runtime/doc/usr_27.txt
+index 54e5c3a4b..bb5b5657a 100644
+--- a/runtime/doc/usr_27.txt
++++ b/runtime/doc/usr_27.txt
+@@ -1,4 +1,4 @@
+-*usr_27.txt*	For Vim version 9.0.  Last change: 2019 Jul 14
++*usr_27.txt*	For Vim version 9.1.  Last change: 2019 Jul 14
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_28.txt b/runtime/doc/usr_28.txt
+index d0c351667..54111665d 100644
+--- a/runtime/doc/usr_28.txt
++++ b/runtime/doc/usr_28.txt
+@@ -1,4 +1,4 @@
+-*usr_28.txt*	For Vim version 9.0.  Last change: 2008 Jun 14
++*usr_28.txt*	For Vim version 9.1.  Last change: 2008 Jun 14
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_29.txt b/runtime/doc/usr_29.txt
+index 20712f27a..a534c6f1c 100644
+--- a/runtime/doc/usr_29.txt
++++ b/runtime/doc/usr_29.txt
+@@ -1,4 +1,4 @@
+-*usr_29.txt*	For Vim version 9.0.  Last change: 2022 Mar 13
++*usr_29.txt*	For Vim version 9.1.  Last change: 2022 Mar 13
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_30.txt b/runtime/doc/usr_30.txt
+index a23df9660..19a1259fe 100644
+--- a/runtime/doc/usr_30.txt
++++ b/runtime/doc/usr_30.txt
+@@ -1,4 +1,4 @@
+-*usr_30.txt*	For Vim version 9.0.  Last change: 2007 Nov 10
++*usr_30.txt*	For Vim version 9.1.  Last change: 2007 Nov 10
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_31.txt b/runtime/doc/usr_31.txt
+index 455274f4f..5e4a261e5 100644
+--- a/runtime/doc/usr_31.txt
++++ b/runtime/doc/usr_31.txt
+@@ -1,4 +1,4 @@
+-*usr_31.txt*	For Vim version 9.0.  Last change: 2020 Jul 28
++*usr_31.txt*	For Vim version 9.1.  Last change: 2020 Jul 28
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_32.txt b/runtime/doc/usr_32.txt
+index 9733d709c..6ab89622b 100644
+--- a/runtime/doc/usr_32.txt
++++ b/runtime/doc/usr_32.txt
+@@ -1,4 +1,4 @@
+-*usr_32.txt*	For Vim version 9.0.  Last change: 2010 Jul 20
++*usr_32.txt*	For Vim version 9.1.  Last change: 2010 Jul 20
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_40.txt b/runtime/doc/usr_40.txt
+index 27323c6f4..b8dfae6b7 100644
+--- a/runtime/doc/usr_40.txt
++++ b/runtime/doc/usr_40.txt
+@@ -1,4 +1,4 @@
+-*usr_40.txt*	For Vim version 9.0.  Last change: 2022 Jun 23
++*usr_40.txt*	For Vim version 9.1.  Last change: 2022 Jun 23
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_41.txt b/runtime/doc/usr_41.txt
+index b40763123..c4f2a8c4b 100644
+--- a/runtime/doc/usr_41.txt
++++ b/runtime/doc/usr_41.txt
+@@ -1,4 +1,4 @@
+-*usr_41.txt*	For Vim version 9.0.  Last change: 2023 May 06
++*usr_41.txt*	For Vim version 9.1.  Last change: 2023 May 06
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_42.txt b/runtime/doc/usr_42.txt
+index cef7ae028..2763ff283 100644
+--- a/runtime/doc/usr_42.txt
++++ b/runtime/doc/usr_42.txt
+@@ -1,4 +1,4 @@
+-*usr_42.txt*	For Vim version 9.0.  Last change: 2008 May 05
++*usr_42.txt*	For Vim version 9.1.  Last change: 2008 May 05
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_43.txt b/runtime/doc/usr_43.txt
+index 9095a8ec3..41b08de18 100644
+--- a/runtime/doc/usr_43.txt
++++ b/runtime/doc/usr_43.txt
+@@ -1,4 +1,4 @@
+-*usr_43.txt*	For Vim version 9.0.  Last change: 2015 Oct 23
++*usr_43.txt*	For Vim version 9.1.  Last change: 2015 Oct 23
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_44.txt b/runtime/doc/usr_44.txt
+index 11a028607..1d1b5a1e1 100644
+--- a/runtime/doc/usr_44.txt
++++ b/runtime/doc/usr_44.txt
+@@ -1,4 +1,4 @@
+-*usr_44.txt*	For Vim version 9.0.  Last change: 2017 May 06
++*usr_44.txt*	For Vim version 9.1.  Last change: 2017 May 06
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_45.txt b/runtime/doc/usr_45.txt
+index 7e919a942..4a3684e5a 100644
+--- a/runtime/doc/usr_45.txt
++++ b/runtime/doc/usr_45.txt
+@@ -1,4 +1,4 @@
+-*usr_45.txt*	For Vim version 9.0.  Last change: 2022 May 13
++*usr_45.txt*	For Vim version 9.1.  Last change: 2022 May 13
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_50.txt b/runtime/doc/usr_50.txt
+index fc46388c0..ee377cabe 100644
+--- a/runtime/doc/usr_50.txt
++++ b/runtime/doc/usr_50.txt
+@@ -1,4 +1,4 @@
+-*usr_50.txt*	For Vim version 9.0.  Last change: 2022 Jun 20
++*usr_50.txt*	For Vim version 9.1.  Last change: 2022 Jun 20
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_51.txt b/runtime/doc/usr_51.txt
+index e83324a66..f2b5e13b7 100644
+--- a/runtime/doc/usr_51.txt
++++ b/runtime/doc/usr_51.txt
+@@ -1,4 +1,4 @@
+-*usr_51.txt*	For Vim version 9.0.  Last change: 2022 Jun 03
++*usr_51.txt*	For Vim version 9.1.  Last change: 2022 Jun 03
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_52.txt b/runtime/doc/usr_52.txt
+index 787dd91e6..222b899c3 100644
+--- a/runtime/doc/usr_52.txt
++++ b/runtime/doc/usr_52.txt
+@@ -1,4 +1,4 @@
+-*usr_52.txt*	For Vim version 9.0.  Last change: 2022 Jun 04
++*usr_52.txt*	For Vim version 9.1.  Last change: 2022 Jun 04
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_90.txt b/runtime/doc/usr_90.txt
+index 781a0ffdf..418f1f0dc 100644
+--- a/runtime/doc/usr_90.txt
++++ b/runtime/doc/usr_90.txt
+@@ -1,4 +1,4 @@
+-*usr_90.txt*	For Vim version 9.0.  Last change: 2022 May 13
++*usr_90.txt*	For Vim version 9.1.  Last change: 2022 May 13
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/usr_toc.txt b/runtime/doc/usr_toc.txt
+index 655d6a90d..4cb404bc8 100644
+--- a/runtime/doc/usr_toc.txt
++++ b/runtime/doc/usr_toc.txt
+@@ -1,4 +1,4 @@
+-*usr_toc.txt*	For Vim version 9.0.  Last change: 2022 Jun 20
++*usr_toc.txt*	For Vim version 9.1.  Last change: 2022 Jun 20
+ 
+ 		     VIM USER MANUAL - by Bram Moolenaar
+ 
+diff --git a/runtime/doc/various.txt b/runtime/doc/various.txt
+index ec2e3fdec..0aa5c7431 100644
+--- a/runtime/doc/various.txt
++++ b/runtime/doc/various.txt
+@@ -1,4 +1,4 @@
+-*various.txt*   For Vim version 9.0.  Last change: 2023 Sep 27
++*various.txt*   For Vim version 9.1.  Last change: 2023 Sep 27
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/version4.txt b/runtime/doc/version4.txt
+index 052cbbd63..ab358d288 100644
+--- a/runtime/doc/version4.txt
++++ b/runtime/doc/version4.txt
+@@ -1,4 +1,4 @@
+-*version4.txt*  For Vim version 9.0.  Last change: 2006 Apr 24
++*version4.txt*  For Vim version 9.1.  Last change: 2006 Apr 24
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/version5.txt b/runtime/doc/version5.txt
+index cde0ad05a..19fcf9e1c 100644
+--- a/runtime/doc/version5.txt
++++ b/runtime/doc/version5.txt
+@@ -1,4 +1,4 @@
+-*version5.txt*  For Vim version 9.0.  Last change: 2022 Nov 09
++*version5.txt*  For Vim version 9.1.  Last change: 2022 Nov 09
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/version6.txt b/runtime/doc/version6.txt
+index e14e15886..f4d2a9858 100644
+--- a/runtime/doc/version6.txt
++++ b/runtime/doc/version6.txt
+@@ -1,4 +1,4 @@
+-*version6.txt*  For Vim version 9.0.  Last change: 2022 Apr 06
++*version6.txt*  For Vim version 9.1.  Last change: 2022 Apr 06
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/version7.txt b/runtime/doc/version7.txt
+index 7ca46c59a..a5460771f 100644
+--- a/runtime/doc/version7.txt
++++ b/runtime/doc/version7.txt
+@@ -1,4 +1,4 @@
+-*version7.txt*  For Vim version 9.0.  Last change: 2021 May 17
++*version7.txt*  For Vim version 9.1.  Last change: 2021 May 17
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/version8.txt b/runtime/doc/version8.txt
+index fd30bbc73..1d36c78b1 100644
+--- a/runtime/doc/version8.txt
++++ b/runtime/doc/version8.txt
+@@ -1,4 +1,4 @@
+-*version8.txt*  For Vim version 9.0.  Last change: 2022 Feb 26
++*version8.txt*  For Vim version 9.1.  Last change: 2022 Feb 26
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/version9.txt b/runtime/doc/version9.txt
+index 124ab698d..0f4400a3f 100644
+--- a/runtime/doc/version9.txt
++++ b/runtime/doc/version9.txt
+@@ -1,4 +1,4 @@
+-*version9.txt*  For Vim version 9.0.  Last change: 2024 Jan 01
++*version9.txt*  For Vim version 9.1.  Last change: 2024 Jan 01
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+@@ -41531,4 +41531,8 @@ Solution:   Always reset wlv->need_showbreak regardless of the values of
+             'breakindent' and 'showbreak', as they aren't checked when
+             setting wlv->need_showbreak (zeertzjq)
+ 
+- vim:tw=78:ts=8:noet:ft=help:norl:
++Patch 9.0.2190
++Problem:    proto files need update
++Solution:   re-generate them
++
++ vim:tw=78:ts=8:noet:ft=help:norl:fdm=manual:
+diff --git a/runtime/doc/vi_diff.txt b/runtime/doc/vi_diff.txt
+index 433270647..1714833c8 100644
+--- a/runtime/doc/vi_diff.txt
++++ b/runtime/doc/vi_diff.txt
+@@ -1,4 +1,4 @@
+-*vi_diff.txt*   For Vim version 9.0.  Last change: 2022 Apr 03
++*vi_diff.txt*   For Vim version 9.1.  Last change: 2022 Apr 03
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/vim9.txt b/runtime/doc/vim9.txt
+index e7d0f2ae3..b12b1cc99 100644
+--- a/runtime/doc/vim9.txt
++++ b/runtime/doc/vim9.txt
+@@ -1,4 +1,4 @@
+-*vim9.txt*	For Vim version 9.0.  Last change: 2023 Dec 24
++*vim9.txt*	For Vim version 9.1.  Last change: 2023 Dec 24
+ 
+ 
+ 		  VIM REFERENCE MANUAL	  by Bram Moolenaar
+diff --git a/runtime/doc/vim9class.txt b/runtime/doc/vim9class.txt
+index c295fa4f5..ca9daffac 100644
+--- a/runtime/doc/vim9class.txt
++++ b/runtime/doc/vim9class.txt
+@@ -1,4 +1,4 @@
+-*vim9class.txt*	For Vim version 9.0.  Last change: 2024 Jan 01
++*vim9class.txt*	For Vim version 9.1.  Last change: 2024 Jan 01
+ 
+ 
+ 		  VIM REFERENCE MANUAL	  by Bram Moolenaar
+diff --git a/runtime/doc/visual.txt b/runtime/doc/visual.txt
+index a91969e41..3f48915c6 100644
+--- a/runtime/doc/visual.txt
++++ b/runtime/doc/visual.txt
+@@ -1,4 +1,4 @@
+-*visual.txt*    For Vim version 9.0.  Last change: 2023 Sep 19
++*visual.txt*    For Vim version 9.1.  Last change: 2023 Sep 19
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/windows.txt b/runtime/doc/windows.txt
+index 74cec4230..806474875 100644
+--- a/runtime/doc/windows.txt
++++ b/runtime/doc/windows.txt
+@@ -1,4 +1,4 @@
+-*windows.txt*   For Vim version 9.0.  Last change: 2022 Nov 27
++*windows.txt*   For Vim version 9.1.  Last change: 2022 Nov 27
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Bram Moolenaar
+diff --git a/runtime/doc/workshop.txt b/runtime/doc/workshop.txt
+index f71866dd1..9ec30da95 100644
+--- a/runtime/doc/workshop.txt
++++ b/runtime/doc/workshop.txt
+@@ -1,4 +1,4 @@
+-*workshop.txt*  For Vim version 9.0.  Last change: 2019 Jan 17
++*workshop.txt*  For Vim version 9.1.  Last change: 2019 Jan 17
+ 
+ 
+ 		  VIM REFERENCE MANUAL    by Gordon Prieur
+diff --git a/src/GvimExt/GvimExt.reg b/src/GvimExt/GvimExt.reg
+index d9ebff8db..0abeb4ee1 100644
+--- a/src/GvimExt/GvimExt.reg
++++ b/src/GvimExt/GvimExt.reg
+@@ -15,6 +15,6 @@ REGEDIT4
+ [HKEY_LOCAL_MACHINE\Software\Vim\Gvim]
+    "path"="gvim.exe"
+ 
+-[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Uninstall\Vim 9.0]
+-   "DisplayName"="Vim 9.0: Edit with Vim popup menu entry"
++[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Uninstall\Vim 9.1]
++   "DisplayName"="Vim 9.1: Edit with Vim popup menu entry"
+    "UninstallString"="uninstall.exe"
+diff --git a/src/Makefile b/src/Makefile
+index c8a84065f..0d8f150f1 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -984,7 +984,7 @@ MAN1DIR = /man1
+ 
+ ### Vim version (adjusted by a script)
+ VIMMAJOR = 9
+-VIMMINOR = 0
++VIMMINOR = 1
+ 
+ ### Location of Vim files (should not need to be changed, and  {{{1
+ ### some things might not work when they are changed!)
+@@ -4188,11 +4188,11 @@ objects/version.o: version.c vim.h protodef.h auto/config.h feature.h os_unix.h
+  proto/gui_beval.pro structs.h regexp.h gui.h libvterm/include/vterm.h \
+  libvterm/include/vterm_keycodes.h alloc.h ex_cmds.h spell.h proto.h \
+  globals.h errors.h version.h
+-objects/vim9class.o: vim9class.c vim.h protodef.h auto/config.h feature.h os_unix.h \
+- auto/osdef.h ascii.h keymap.h termdefs.h macros.h option.h beval.h \
+- proto/gui_beval.pro structs.h regexp.h gui.h libvterm/include/vterm.h \
+- libvterm/include/vterm_keycodes.h alloc.h ex_cmds.h spell.h proto.h \
+- globals.h errors.h vim9.h
++objects/vim9class.o: vim9class.c vim.h protodef.h auto/config.h feature.h \
++ os_unix.h auto/osdef.h ascii.h keymap.h termdefs.h macros.h option.h \
++ beval.h proto/gui_beval.pro structs.h regexp.h gui.h \
++ libvterm/include/vterm.h libvterm/include/vterm_keycodes.h alloc.h \
++ ex_cmds.h spell.h proto.h globals.h errors.h vim9.h
+ objects/vim9cmds.o: vim9cmds.c vim.h protodef.h auto/config.h feature.h os_unix.h \
+  auto/osdef.h ascii.h keymap.h termdefs.h macros.h option.h beval.h \
+  proto/gui_beval.pro structs.h regexp.h gui.h libvterm/include/vterm.h \
+diff --git a/src/README.md b/src/README.md
+index 30d57310f..f3806d229 100644
+--- a/src/README.md
++++ b/src/README.md
+@@ -232,4 +232,4 @@ If you would like to help making Vim better, see the
+ file.
+ 
+ 
+-This is `README.md` for version 9.0 of the Vim source code.
++This is `README.md` for version 9.1 of the Vim source code.
+diff --git a/src/testdir/test_expr.vim b/src/testdir/test_expr.vim
+index d94ba4b58..c1869c1d1 100644
+--- a/src/testdir/test_expr.vim
++++ b/src/testdir/test_expr.vim
+@@ -36,11 +36,13 @@ func Test_version()
+   call assert_true(has('patch-7.1.999'))
+   call assert_true(has('patch-7.4.123'))
+   call assert_true(has('patch-7.4.123 ')) " Trailing space can be allowed.
++  call assert_true(has('patch-9.1.0'))
++  call assert_true(has('patch-9.1.0000'))
+ 
+   call assert_false(has('patch-7'))
+   call assert_false(has('patch-7.4'))
+   call assert_false(has('patch-7.4.'))
+-  call assert_false(has('patch-9.1.0'))
++  call assert_false(has('patch-9.2.0'))
+   call assert_false(has('patch-9.9.1'))
+ 
+   call assert_false(has('patch-abc'))
+diff --git a/src/version.c b/src/version.c
+index ee9e0043f..1fc040ed1 100644
+--- a/src/version.c
++++ b/src/version.c
+@@ -704,4386 +704,6 @@ static char *(features[]) =
+ 
+ static int included_patches[] =
+ {   /* Add new patch number below this line */
+-/**/
+-    2190,
+-/**/
+-    2189,
+-/**/
+-    2188,
+-/**/
+-    2187,
+-/**/
+-    2186,
+-/**/
+-    2185,
+-/**/
+-    2184,
+-/**/
+-    2183,
+-/**/
+-    2182,
+-/**/
+-    2181,
+-/**/
+-    2180,
+-/**/
+-    2179,
+-/**/
+-    2178,
+-/**/
+-    2177,
+-/**/
+-    2176,
+-/**/
+-    2175,
+-/**/
+-    2174,
+-/**/
+-    2173,
+-/**/
+-    2172,
+-/**/
+-    2171,
+-/**/
+-    2170,
+-/**/
+-    2169,
+-/**/
+-    2168,
+-/**/
+-    2167,
+-/**/
+-    2166,
+-/**/
+-    2165,
+-/**/
+-    2164,
+-/**/
+-    2163,
+-/**/
+-    2162,
+-/**/
+-    2161,
+-/**/
+-    2160,
+-/**/
+-    2159,
+-/**/
+-    2158,
+-/**/
+-    2157,
+-/**/
+-    2156,
+-/**/
+-    2155,
+-/**/
+-    2154,
+-/**/
+-    2153,
+-/**/
+-    2152,
+-/**/
+-    2151,
+-/**/
+-    2150,
+-/**/
+-    2149,
+-/**/
+-    2148,
+-/**/
+-    2147,
+-/**/
+-    2146,
+-/**/
+-    2145,
+-/**/
+-    2144,
+-/**/
+-    2143,
+-/**/
+-    2142,
+-/**/
+-    2141,
+-/**/
+-    2140,
+-/**/
+-    2139,
+-/**/
+-    2138,
+-/**/
+-    2137,
+-/**/
+-    2136,
+-/**/
+-    2135,
+-/**/
+-    2134,
+-/**/
+-    2133,
+-/**/
+-    2132,
+-/**/
+-    2131,
+-/**/
+-    2130,
+-/**/
+-    2129,
+-/**/
+-    2128,
+-/**/
+-    2127,
+-/**/
+-    2126,
+-/**/
+-    2125,
+-/**/
+-    2124,
+-/**/
+-    2123,
+-/**/
+-    2122,
+-/**/
+-    2121,
+-/**/
+-    2120,
+-/**/
+-    2119,
+-/**/
+-    2118,
+-/**/
+-    2117,
+-/**/
+-    2116,
+-/**/
+-    2115,
+-/**/
+-    2114,
+-/**/
+-    2113,
+-/**/
+-    2112,
+-/**/
+-    2111,
+-/**/
+-    2110,
+-/**/
+-    2109,
+-/**/
+-    2108,
+-/**/
+-    2107,
+-/**/
+-    2106,
+-/**/
+-    2105,
+-/**/
+-    2104,
+-/**/
+-    2103,
+-/**/
+-    2102,
+-/**/
+-    2101,
+-/**/
+-    2100,
+-/**/
+-    2099,
+-/**/
+-    2098,
+-/**/
+-    2097,
+-/**/
+-    2096,
+-/**/
+-    2095,
+-/**/
+-    2094,
+-/**/
+-    2093,
+-/**/
+-    2092,
+-/**/
+-    2091,
+-/**/
+-    2090,
+-/**/
+-    2089,
+-/**/
+-    2088,
+-/**/
+-    2087,
+-/**/
+-    2086,
+-/**/
+-    2085,
+-/**/
+-    2084,
+-/**/
+-    2083,
+-/**/
+-    2082,
+-/**/
+-    2081,
+-/**/
+-    2080,
+-/**/
+-    2079,
+-/**/
+-    2078,
+-/**/
+-    2077,
+-/**/
+-    2076,
+-/**/
+-    2075,
+-/**/
+-    2074,
+-/**/
+-    2073,
+-/**/
+-    2072,
+-/**/
+-    2071,
+-/**/
+-    2070,
+-/**/
+-    2069,
+-/**/
+-    2068,
+-/**/
+-    2067,
+-/**/
+-    2066,
+-/**/
+-    2065,
+-/**/
+-    2064,
+-/**/
+-    2063,
+-/**/
+-    2062,
+-/**/
+-    2061,
+-/**/
+-    2060,
+-/**/
+-    2059,
+-/**/
+-    2058,
+-/**/
+-    2057,
+-/**/
+-    2056,
+-/**/
+-    2055,
+-/**/
+-    2054,
+-/**/
+-    2053,
+-/**/
+-    2052,
+-/**/
+-    2051,
+-/**/
+-    2050,
+-/**/
+-    2049,
+-/**/
+-    2048,
+-/**/
+-    2047,
+-/**/
+-    2046,
+-/**/
+-    2045,
+-/**/
+-    2044,
+-/**/
+-    2043,
+-/**/
+-    2042,
+-/**/
+-    2041,
+-/**/
+-    2040,
+-/**/
+-    2039,
+-/**/
+-    2038,
+-/**/
+-    2037,
+-/**/
+-    2036,
+-/**/
+-    2035,
+-/**/
+-    2034,
+-/**/
+-    2033,
+-/**/
+-    2032,
+-/**/
+-    2031,
+-/**/
+-    2030,
+-/**/
+-    2029,
+-/**/
+-    2028,
+-/**/
+-    2027,
+-/**/
+-    2026,
+-/**/
+-    2025,
+-/**/
+-    2024,
+-/**/
+-    2023,
+-/**/
+-    2022,
+-/**/
+-    2021,
+-/**/
+-    2020,
+-/**/
+-    2019,
+-/**/
+-    2018,
+-/**/
+-    2017,
+-/**/
+-    2016,
+-/**/
+-    2015,
+-/**/
+-    2014,
+-/**/
+-    2013,
+-/**/
+-    2012,
+-/**/
+-    2011,
+-/**/
+-    2010,
+-/**/
+-    2009,
+-/**/
+-    2008,
+-/**/
+-    2007,
+-/**/
+-    2006,
+-/**/
+-    2005,
+-/**/
+-    2004,
+-/**/
+-    2003,
+-/**/
+-    2002,
+-/**/
+-    2001,
+-/**/
+-    2000,
+-/**/
+-    1999,
+-/**/
+-    1998,
+-/**/
+-    1997,
+-/**/
+-    1996,
+-/**/
+-    1995,
+-/**/
+-    1994,
+-/**/
+-    1993,
+-/**/
+-    1992,
+-/**/
+-    1991,
+-/**/
+-    1990,
+-/**/
+-    1989,
+-/**/
+-    1988,
+-/**/
+-    1987,
+-/**/
+-    1986,
+-/**/
+-    1985,
+-/**/
+-    1984,
+-/**/
+-    1983,
+-/**/
+-    1982,
+-/**/
+-    1981,
+-/**/
+-    1980,
+-/**/
+-    1979,
+-/**/
+-    1978,
+-/**/
+-    1977,
+-/**/
+-    1976,
+-/**/
+-    1975,
+-/**/
+-    1974,
+-/**/
+-    1973,
+-/**/
+-    1972,
+-/**/
+-    1971,
+-/**/
+-    1970,
+-/**/
+-    1969,
+-/**/
+-    1968,
+-/**/
+-    1967,
+-/**/
+-    1966,
+-/**/
+-    1965,
+-/**/
+-    1964,
+-/**/
+-    1963,
+-/**/
+-    1962,
+-/**/
+-    1961,
+-/**/
+-    1960,
+-/**/
+-    1959,
+-/**/
+-    1958,
+-/**/
+-    1957,
+-/**/
+-    1956,
+-/**/
+-    1955,
+-/**/
+-    1954,
+-/**/
+-    1953,
+-/**/
+-    1952,
+-/**/
+-    1951,
+-/**/
+-    1950,
+-/**/
+-    1949,
+-/**/
+-    1948,
+-/**/
+-    1947,
+-/**/
+-    1946,
+-/**/
+-    1945,
+-/**/
+-    1944,
+-/**/
+-    1943,
+-/**/
+-    1942,
+-/**/
+-    1941,
+-/**/
+-    1940,
+-/**/
+-    1939,
+-/**/
+-    1938,
+-/**/
+-    1937,
+-/**/
+-    1936,
+-/**/
+-    1935,
+-/**/
+-    1934,
+-/**/
+-    1933,
+-/**/
+-    1932,
+-/**/
+-    1931,
+-/**/
+-    1930,
+-/**/
+-    1929,
+-/**/
+-    1928,
+-/**/
+-    1927,
+-/**/
+-    1926,
+-/**/
+-    1925,
+-/**/
+-    1924,
+-/**/
+-    1923,
+-/**/
+-    1922,
+-/**/
+-    1921,
+-/**/
+-    1920,
+-/**/
+-    1919,
+-/**/
+-    1918,
+-/**/
+-    1917,
+-/**/
+-    1916,
+-/**/
+-    1915,
+-/**/
+-    1914,
+-/**/
+-    1913,
+-/**/
+-    1912,
+-/**/
+-    1911,
+-/**/
+-    1910,
+-/**/
+-    1909,
+-/**/
+-    1908,
+-/**/
+-    1907,
+-/**/
+-    1906,
+-/**/
+-    1905,
+-/**/
+-    1904,
+-/**/
+-    1903,
+-/**/
+-    1902,
+-/**/
+-    1901,
+-/**/
+-    1900,
+-/**/
+-    1899,
+-/**/
+-    1898,
+-/**/
+-    1897,
+-/**/
+-    1896,
+-/**/
+-    1895,
+-/**/
+-    1894,
+-/**/
+-    1893,
+-/**/
+-    1892,
+-/**/
+-    1891,
+-/**/
+-    1890,
+-/**/
+-    1889,
+-/**/
+-    1888,
+-/**/
+-    1887,
+-/**/
+-    1886,
+-/**/
+-    1885,
+-/**/
+-    1884,
+-/**/
+-    1883,
+-/**/
+-    1882,
+-/**/
+-    1881,
+-/**/
+-    1880,
+-/**/
+-    1879,
+-/**/
+-    1878,
+-/**/
+-    1877,
+-/**/
+-    1876,
+-/**/
+-    1875,
+-/**/
+-    1874,
+-/**/
+-    1873,
+-/**/
+-    1872,
+-/**/
+-    1871,
+-/**/
+-    1870,
+-/**/
+-    1869,
+-/**/
+-    1868,
+-/**/
+-    1867,
+-/**/
+-    1866,
+-/**/
+-    1865,
+-/**/
+-    1864,
+-/**/
+-    1863,
+-/**/
+-    1862,
+-/**/
+-    1861,
+-/**/
+-    1860,
+-/**/
+-    1859,
+-/**/
+-    1858,
+-/**/
+-    1857,
+-/**/
+-    1856,
+-/**/
+-    1855,
+-/**/
+-    1854,
+-/**/
+-    1853,
+-/**/
+-    1852,
+-/**/
+-    1851,
+-/**/
+-    1850,
+-/**/
+-    1849,
+-/**/
+-    1848,
+-/**/
+-    1847,
+-/**/
+-    1846,
+-/**/
+-    1845,
+-/**/
+-    1844,
+-/**/
+-    1843,
+-/**/
+-    1842,
+-/**/
+-    1841,
+-/**/
+-    1840,
+-/**/
+-    1839,
+-/**/
+-    1838,
+-/**/
+-    1837,
+-/**/
+-    1836,
+-/**/
+-    1835,
+-/**/
+-    1834,
+-/**/
+-    1833,
+-/**/
+-    1832,
+-/**/
+-    1831,
+-/**/
+-    1830,
+-/**/
+-    1829,
+-/**/
+-    1828,
+-/**/
+-    1827,
+-/**/
+-    1826,
+-/**/
+-    1825,
+-/**/
+-    1824,
+-/**/
+-    1823,
+-/**/
+-    1822,
+-/**/
+-    1821,
+-/**/
+-    1820,
+-/**/
+-    1819,
+-/**/
+-    1818,
+-/**/
+-    1817,
+-/**/
+-    1816,
+-/**/
+-    1815,
+-/**/
+-    1814,
+-/**/
+-    1813,
+-/**/
+-    1812,
+-/**/
+-    1811,
+-/**/
+-    1810,
+-/**/
+-    1809,
+-/**/
+-    1808,
+-/**/
+-    1807,
+-/**/
+-    1806,
+-/**/
+-    1805,
+-/**/
+-    1804,
+-/**/
+-    1803,
+-/**/
+-    1802,
+-/**/
+-    1801,
+-/**/
+-    1800,
+-/**/
+-    1799,
+-/**/
+-    1798,
+-/**/
+-    1797,
+-/**/
+-    1796,
+-/**/
+-    1795,
+-/**/
+-    1794,
+-/**/
+-    1793,
+-/**/
+-    1792,
+-/**/
+-    1791,
+-/**/
+-    1790,
+-/**/
+-    1789,
+-/**/
+-    1788,
+-/**/
+-    1787,
+-/**/
+-    1786,
+-/**/
+-    1785,
+-/**/
+-    1784,
+-/**/
+-    1783,
+-/**/
+-    1782,
+-/**/
+-    1781,
+-/**/
+-    1780,
+-/**/
+-    1779,
+-/**/
+-    1778,
+-/**/
+-    1777,
+-/**/
+-    1776,
+-/**/
+-    1775,
+-/**/
+-    1774,
+-/**/
+-    1773,
+-/**/
+-    1772,
+-/**/
+-    1771,
+-/**/
+-    1770,
+-/**/
+-    1769,
+-/**/
+-    1768,
+-/**/
+-    1767,
+-/**/
+-    1766,
+-/**/
+-    1765,
+-/**/
+-    1764,
+-/**/
+-    1763,
+-/**/
+-    1762,
+-/**/
+-    1761,
+-/**/
+-    1760,
+-/**/
+-    1759,
+-/**/
+-    1758,
+-/**/
+-    1757,
+-/**/
+-    1756,
+-/**/
+-    1755,
+-/**/
+-    1754,
+-/**/
+-    1753,
+-/**/
+-    1752,
+-/**/
+-    1751,
+-/**/
+-    1750,
+-/**/
+-    1749,
+-/**/
+-    1748,
+-/**/
+-    1747,
+-/**/
+-    1746,
+-/**/
+-    1745,
+-/**/
+-    1744,
+-/**/
+-    1743,
+-/**/
+-    1742,
+-/**/
+-    1741,
+-/**/
+-    1740,
+-/**/
+-    1739,
+-/**/
+-    1738,
+-/**/
+-    1737,
+-/**/
+-    1736,
+-/**/
+-    1735,
+-/**/
+-    1734,
+-/**/
+-    1733,
+-/**/
+-    1732,
+-/**/
+-    1731,
+-/**/
+-    1730,
+-/**/
+-    1729,
+-/**/
+-    1728,
+-/**/
+-    1727,
+-/**/
+-    1726,
+-/**/
+-    1725,
+-/**/
+-    1724,
+-/**/
+-    1723,
+-/**/
+-    1722,
+-/**/
+-    1721,
+-/**/
+-    1720,
+-/**/
+-    1719,
+-/**/
+-    1718,
+-/**/
+-    1717,
+-/**/
+-    1716,
+-/**/
+-    1715,
+-/**/
+-    1714,
+-/**/
+-    1713,
+-/**/
+-    1712,
+-/**/
+-    1711,
+-/**/
+-    1710,
+-/**/
+-    1709,
+-/**/
+-    1708,
+-/**/
+-    1707,
+-/**/
+-    1706,
+-/**/
+-    1705,
+-/**/
+-    1704,
+-/**/
+-    1703,
+-/**/
+-    1702,
+-/**/
+-    1701,
+-/**/
+-    1700,
+-/**/
+-    1699,
+-/**/
+-    1698,
+-/**/
+-    1697,
+-/**/
+-    1696,
+-/**/
+-    1695,
+-/**/
+-    1694,
+-/**/
+-    1693,
+-/**/
+-    1692,
+-/**/
+-    1691,
+-/**/
+-    1690,
+-/**/
+-    1689,
+-/**/
+-    1688,
+-/**/
+-    1687,
+-/**/
+-    1686,
+-/**/
+-    1685,
+-/**/
+-    1684,
+-/**/
+-    1683,
+-/**/
+-    1682,
+-/**/
+-    1681,
+-/**/
+-    1680,
+-/**/
+-    1679,
+-/**/
+-    1678,
+-/**/
+-    1677,
+-/**/
+-    1676,
+-/**/
+-    1675,
+-/**/
+-    1674,
+-/**/
+-    1673,
+-/**/
+-    1672,
+-/**/
+-    1671,
+-/**/
+-    1670,
+-/**/
+-    1669,
+-/**/
+-    1668,
+-/**/
+-    1667,
+-/**/
+-    1666,
+-/**/
+-    1665,
+-/**/
+-    1664,
+-/**/
+-    1663,
+-/**/
+-    1662,
+-/**/
+-    1661,
+-/**/
+-    1660,
+-/**/
+-    1659,
+-/**/
+-    1658,
+-/**/
+-    1657,
+-/**/
+-    1656,
+-/**/
+-    1655,
+-/**/
+-    1654,
+-/**/
+-    1653,
+-/**/
+-    1652,
+-/**/
+-    1651,
+-/**/
+-    1650,
+-/**/
+-    1649,
+-/**/
+-    1648,
+-/**/
+-    1647,
+-/**/
+-    1646,
+-/**/
+-    1645,
+-/**/
+-    1644,
+-/**/
+-    1643,
+-/**/
+-    1642,
+-/**/
+-    1641,
+-/**/
+-    1640,
+-/**/
+-    1639,
+-/**/
+-    1638,
+-/**/
+-    1637,
+-/**/
+-    1636,
+-/**/
+-    1635,
+-/**/
+-    1634,
+-/**/
+-    1633,
+-/**/
+-    1632,
+-/**/
+-    1631,
+-/**/
+-    1630,
+-/**/
+-    1629,
+-/**/
+-    1628,
+-/**/
+-    1627,
+-/**/
+-    1626,
+-/**/
+-    1625,
+-/**/
+-    1624,
+-/**/
+-    1623,
+-/**/
+-    1622,
+-/**/
+-    1621,
+-/**/
+-    1620,
+-/**/
+-    1619,
+-/**/
+-    1618,
+-/**/
+-    1617,
+-/**/
+-    1616,
+-/**/
+-    1615,
+-/**/
+-    1614,
+-/**/
+-    1613,
+-/**/
+-    1612,
+-/**/
+-    1611,
+-/**/
+-    1610,
+-/**/
+-    1609,
+-/**/
+-    1608,
+-/**/
+-    1607,
+-/**/
+-    1606,
+-/**/
+-    1605,
+-/**/
+-    1604,
+-/**/
+-    1603,
+-/**/
+-    1602,
+-/**/
+-    1601,
+-/**/
+-    1600,
+-/**/
+-    1599,
+-/**/
+-    1598,
+-/**/
+-    1597,
+-/**/
+-    1596,
+-/**/
+-    1595,
+-/**/
+-    1594,
+-/**/
+-    1593,
+-/**/
+-    1592,
+-/**/
+-    1591,
+-/**/
+-    1590,
+-/**/
+-    1589,
+-/**/
+-    1588,
+-/**/
+-    1587,
+-/**/
+-    1586,
+-/**/
+-    1585,
+-/**/
+-    1584,
+-/**/
+-    1583,
+-/**/
+-    1582,
+-/**/
+-    1581,
+-/**/
+-    1580,
+-/**/
+-    1579,
+-/**/
+-    1578,
+-/**/
+-    1577,
+-/**/
+-    1576,
+-/**/
+-    1575,
+-/**/
+-    1574,
+-/**/
+-    1573,
+-/**/
+-    1572,
+-/**/
+-    1571,
+-/**/
+-    1570,
+-/**/
+-    1569,
+-/**/
+-    1568,
+-/**/
+-    1567,
+-/**/
+-    1566,
+-/**/
+-    1565,
+-/**/
+-    1564,
+-/**/
+-    1563,
+-/**/
+-    1562,
+-/**/
+-    1561,
+-/**/
+-    1560,
+-/**/
+-    1559,
+-/**/
+-    1558,
+-/**/
+-    1557,
+-/**/
+-    1556,
+-/**/
+-    1555,
+-/**/
+-    1554,
+-/**/
+-    1553,
+-/**/
+-    1552,
+-/**/
+-    1551,
+-/**/
+-    1550,
+-/**/
+-    1549,
+-/**/
+-    1548,
+-/**/
+-    1547,
+-/**/
+-    1546,
+-/**/
+-    1545,
+-/**/
+-    1544,
+-/**/
+-    1543,
+-/**/
+-    1542,
+-/**/
+-    1541,
+-/**/
+-    1540,
+-/**/
+-    1539,
+-/**/
+-    1538,
+-/**/
+-    1537,
+-/**/
+-    1536,
+-/**/
+-    1535,
+-/**/
+-    1534,
+-/**/
+-    1533,
+-/**/
+-    1532,
+-/**/
+-    1531,
+-/**/
+-    1530,
+-/**/
+-    1529,
+-/**/
+-    1528,
+-/**/
+-    1527,
+-/**/
+-    1526,
+-/**/
+-    1525,
+-/**/
+-    1524,
+-/**/
+-    1523,
+-/**/
+-    1522,
+-/**/
+-    1521,
+-/**/
+-    1520,
+-/**/
+-    1519,
+-/**/
+-    1518,
+-/**/
+-    1517,
+-/**/
+-    1516,
+-/**/
+-    1515,
+-/**/
+-    1514,
+-/**/
+-    1513,
+-/**/
+-    1512,
+-/**/
+-    1511,
+-/**/
+-    1510,
+-/**/
+-    1509,
+-/**/
+-    1508,
+-/**/
+-    1507,
+-/**/
+-    1506,
+-/**/
+-    1505,
+-/**/
+-    1504,
+-/**/
+-    1503,
+-/**/
+-    1502,
+-/**/
+-    1501,
+-/**/
+-    1500,
+-/**/
+-    1499,
+-/**/
+-    1498,
+-/**/
+-    1497,
+-/**/
+-    1496,
+-/**/
+-    1495,
+-/**/
+-    1494,
+-/**/
+-    1493,
+-/**/
+-    1492,
+-/**/
+-    1491,
+-/**/
+-    1490,
+-/**/
+-    1489,
+-/**/
+-    1488,
+-/**/
+-    1487,
+-/**/
+-    1486,
+-/**/
+-    1485,
+-/**/
+-    1484,
+-/**/
+-    1483,
+-/**/
+-    1482,
+-/**/
+-    1481,
+-/**/
+-    1480,
+-/**/
+-    1479,
+-/**/
+-    1478,
+-/**/
+-    1477,
+-/**/
+-    1476,
+-/**/
+-    1475,
+-/**/
+-    1474,
+-/**/
+-    1473,
+-/**/
+-    1472,
+-/**/
+-    1471,
+-/**/
+-    1470,
+-/**/
+-    1469,
+-/**/
+-    1468,
+-/**/
+-    1467,
+-/**/
+-    1466,
+-/**/
+-    1465,
+-/**/
+-    1464,
+-/**/
+-    1463,
+-/**/
+-    1462,
+-/**/
+-    1461,
+-/**/
+-    1460,
+-/**/
+-    1459,
+-/**/
+-    1458,
+-/**/
+-    1457,
+-/**/
+-    1456,
+-/**/
+-    1455,
+-/**/
+-    1454,
+-/**/
+-    1453,
+-/**/
+-    1452,
+-/**/
+-    1451,
+-/**/
+-    1450,
+-/**/
+-    1449,
+-/**/
+-    1448,
+-/**/
+-    1447,
+-/**/
+-    1446,
+-/**/
+-    1445,
+-/**/
+-    1444,
+-/**/
+-    1443,
+-/**/
+-    1442,
+-/**/
+-    1441,
+-/**/
+-    1440,
+-/**/
+-    1439,
+-/**/
+-    1438,
+-/**/
+-    1437,
+-/**/
+-    1436,
+-/**/
+-    1435,
+-/**/
+-    1434,
+-/**/
+-    1433,
+-/**/
+-    1432,
+-/**/
+-    1431,
+-/**/
+-    1430,
+-/**/
+-    1429,
+-/**/
+-    1428,
+-/**/
+-    1427,
+-/**/
+-    1426,
+-/**/
+-    1425,
+-/**/
+-    1424,
+-/**/
+-    1423,
+-/**/
+-    1422,
+-/**/
+-    1421,
+-/**/
+-    1420,
+-/**/
+-    1419,
+-/**/
+-    1418,
+-/**/
+-    1417,
+-/**/
+-    1416,
+-/**/
+-    1415,
+-/**/
+-    1414,
+-/**/
+-    1413,
+-/**/
+-    1412,
+-/**/
+-    1411,
+-/**/
+-    1410,
+-/**/
+-    1409,
+-/**/
+-    1408,
+-/**/
+-    1407,
+-/**/
+-    1406,
+-/**/
+-    1405,
+-/**/
+-    1404,
+-/**/
+-    1403,
+-/**/
+-    1402,
+-/**/
+-    1401,
+-/**/
+-    1400,
+-/**/
+-    1399,
+-/**/
+-    1398,
+-/**/
+-    1397,
+-/**/
+-    1396,
+-/**/
+-    1395,
+-/**/
+-    1394,
+-/**/
+-    1393,
+-/**/
+-    1392,
+-/**/
+-    1391,
+-/**/
+-    1390,
+-/**/
+-    1389,
+-/**/
+-    1388,
+-/**/
+-    1387,
+-/**/
+-    1386,
+-/**/
+-    1385,
+-/**/
+-    1384,
+-/**/
+-    1383,
+-/**/
+-    1382,
+-/**/
+-    1381,
+-/**/
+-    1380,
+-/**/
+-    1379,
+-/**/
+-    1378,
+-/**/
+-    1377,
+-/**/
+-    1376,
+-/**/
+-    1375,
+-/**/
+-    1374,
+-/**/
+-    1373,
+-/**/
+-    1372,
+-/**/
+-    1371,
+-/**/
+-    1370,
+-/**/
+-    1369,
+-/**/
+-    1368,
+-/**/
+-    1367,
+-/**/
+-    1366,
+-/**/
+-    1365,
+-/**/
+-    1364,
+-/**/
+-    1363,
+-/**/
+-    1362,
+-/**/
+-    1361,
+-/**/
+-    1360,
+-/**/
+-    1359,
+-/**/
+-    1358,
+-/**/
+-    1357,
+-/**/
+-    1356,
+-/**/
+-    1355,
+-/**/
+-    1354,
+-/**/
+-    1353,
+-/**/
+-    1352,
+-/**/
+-    1351,
+-/**/
+-    1350,
+-/**/
+-    1349,
+-/**/
+-    1348,
+-/**/
+-    1347,
+-/**/
+-    1346,
+-/**/
+-    1345,
+-/**/
+-    1344,
+-/**/
+-    1343,
+-/**/
+-    1342,
+-/**/
+-    1341,
+-/**/
+-    1340,
+-/**/
+-    1339,
+-/**/
+-    1338,
+-/**/
+-    1337,
+-/**/
+-    1336,
+-/**/
+-    1335,
+-/**/
+-    1334,
+-/**/
+-    1333,
+-/**/
+-    1332,
+-/**/
+-    1331,
+-/**/
+-    1330,
+-/**/
+-    1329,
+-/**/
+-    1328,
+-/**/
+-    1327,
+-/**/
+-    1326,
+-/**/
+-    1325,
+-/**/
+-    1324,
+-/**/
+-    1323,
+-/**/
+-    1322,
+-/**/
+-    1321,
+-/**/
+-    1320,
+-/**/
+-    1319,
+-/**/
+-    1318,
+-/**/
+-    1317,
+-/**/
+-    1316,
+-/**/
+-    1315,
+-/**/
+-    1314,
+-/**/
+-    1313,
+-/**/
+-    1312,
+-/**/
+-    1311,
+-/**/
+-    1310,
+-/**/
+-    1309,
+-/**/
+-    1308,
+-/**/
+-    1307,
+-/**/
+-    1306,
+-/**/
+-    1305,
+-/**/
+-    1304,
+-/**/
+-    1303,
+-/**/
+-    1302,
+-/**/
+-    1301,
+-/**/
+-    1300,
+-/**/
+-    1299,
+-/**/
+-    1298,
+-/**/
+-    1297,
+-/**/
+-    1296,
+-/**/
+-    1295,
+-/**/
+-    1294,
+-/**/
+-    1293,
+-/**/
+-    1292,
+-/**/
+-    1291,
+-/**/
+-    1290,
+-/**/
+-    1289,
+-/**/
+-    1288,
+-/**/
+-    1287,
+-/**/
+-    1286,
+-/**/
+-    1285,
+-/**/
+-    1284,
+-/**/
+-    1283,
+-/**/
+-    1282,
+-/**/
+-    1281,
+-/**/
+-    1280,
+-/**/
+-    1279,
+-/**/
+-    1278,
+-/**/
+-    1277,
+-/**/
+-    1276,
+-/**/
+-    1275,
+-/**/
+-    1274,
+-/**/
+-    1273,
+-/**/
+-    1272,
+-/**/
+-    1271,
+-/**/
+-    1270,
+-/**/
+-    1269,
+-/**/
+-    1268,
+-/**/
+-    1267,
+-/**/
+-    1266,
+-/**/
+-    1265,
+-/**/
+-    1264,
+-/**/
+-    1263,
+-/**/
+-    1262,
+-/**/
+-    1261,
+-/**/
+-    1260,
+-/**/
+-    1259,
+-/**/
+-    1258,
+-/**/
+-    1257,
+-/**/
+-    1256,
+-/**/
+-    1255,
+-/**/
+-    1254,
+-/**/
+-    1253,
+-/**/
+-    1252,
+-/**/
+-    1251,
+-/**/
+-    1250,
+-/**/
+-    1249,
+-/**/
+-    1248,
+-/**/
+-    1247,
+-/**/
+-    1246,
+-/**/
+-    1245,
+-/**/
+-    1244,
+-/**/
+-    1243,
+-/**/
+-    1242,
+-/**/
+-    1241,
+-/**/
+-    1240,
+-/**/
+-    1239,
+-/**/
+-    1238,
+-/**/
+-    1237,
+-/**/
+-    1236,
+-/**/
+-    1235,
+-/**/
+-    1234,
+-/**/
+-    1233,
+-/**/
+-    1232,
+-/**/
+-    1231,
+-/**/
+-    1230,
+-/**/
+-    1229,
+-/**/
+-    1228,
+-/**/
+-    1227,
+-/**/
+-    1226,
+-/**/
+-    1225,
+-/**/
+-    1224,
+-/**/
+-    1223,
+-/**/
+-    1222,
+-/**/
+-    1221,
+-/**/
+-    1220,
+-/**/
+-    1219,
+-/**/
+-    1218,
+-/**/
+-    1217,
+-/**/
+-    1216,
+-/**/
+-    1215,
+-/**/
+-    1214,
+-/**/
+-    1213,
+-/**/
+-    1212,
+-/**/
+-    1211,
+-/**/
+-    1210,
+-/**/
+-    1209,
+-/**/
+-    1208,
+-/**/
+-    1207,
+-/**/
+-    1206,
+-/**/
+-    1205,
+-/**/
+-    1204,
+-/**/
+-    1203,
+-/**/
+-    1202,
+-/**/
+-    1201,
+-/**/
+-    1200,
+-/**/
+-    1199,
+-/**/
+-    1198,
+-/**/
+-    1197,
+-/**/
+-    1196,
+-/**/
+-    1195,
+-/**/
+-    1194,
+-/**/
+-    1193,
+-/**/
+-    1192,
+-/**/
+-    1191,
+-/**/
+-    1190,
+-/**/
+-    1189,
+-/**/
+-    1188,
+-/**/
+-    1187,
+-/**/
+-    1186,
+-/**/
+-    1185,
+-/**/
+-    1184,
+-/**/
+-    1183,
+-/**/
+-    1182,
+-/**/
+-    1181,
+-/**/
+-    1180,
+-/**/
+-    1179,
+-/**/
+-    1178,
+-/**/
+-    1177,
+-/**/
+-    1176,
+-/**/
+-    1175,
+-/**/
+-    1174,
+-/**/
+-    1173,
+-/**/
+-    1172,
+-/**/
+-    1171,
+-/**/
+-    1170,
+-/**/
+-    1169,
+-/**/
+-    1168,
+-/**/
+-    1167,
+-/**/
+-    1166,
+-/**/
+-    1165,
+-/**/
+-    1164,
+-/**/
+-    1163,
+-/**/
+-    1162,
+-/**/
+-    1161,
+-/**/
+-    1160,
+-/**/
+-    1159,
+-/**/
+-    1158,
+-/**/
+-    1157,
+-/**/
+-    1156,
+-/**/
+-    1155,
+-/**/
+-    1154,
+-/**/
+-    1153,
+-/**/
+-    1152,
+-/**/
+-    1151,
+-/**/
+-    1150,
+-/**/
+-    1149,
+-/**/
+-    1148,
+-/**/
+-    1147,
+-/**/
+-    1146,
+-/**/
+-    1145,
+-/**/
+-    1144,
+-/**/
+-    1143,
+-/**/
+-    1142,
+-/**/
+-    1141,
+-/**/
+-    1140,
+-/**/
+-    1139,
+-/**/
+-    1138,
+-/**/
+-    1137,
+-/**/
+-    1136,
+-/**/
+-    1135,
+-/**/
+-    1134,
+-/**/
+-    1133,
+-/**/
+-    1132,
+-/**/
+-    1131,
+-/**/
+-    1130,
+-/**/
+-    1129,
+-/**/
+-    1128,
+-/**/
+-    1127,
+-/**/
+-    1126,
+-/**/
+-    1125,
+-/**/
+-    1124,
+-/**/
+-    1123,
+-/**/
+-    1122,
+-/**/
+-    1121,
+-/**/
+-    1120,
+-/**/
+-    1119,
+-/**/
+-    1118,
+-/**/
+-    1117,
+-/**/
+-    1116,
+-/**/
+-    1115,
+-/**/
+-    1114,
+-/**/
+-    1113,
+-/**/
+-    1112,
+-/**/
+-    1111,
+-/**/
+-    1110,
+-/**/
+-    1109,
+-/**/
+-    1108,
+-/**/
+-    1107,
+-/**/
+-    1106,
+-/**/
+-    1105,
+-/**/
+-    1104,
+-/**/
+-    1103,
+-/**/
+-    1102,
+-/**/
+-    1101,
+-/**/
+-    1100,
+-/**/
+-    1099,
+-/**/
+-    1098,
+-/**/
+-    1097,
+-/**/
+-    1096,
+-/**/
+-    1095,
+-/**/
+-    1094,
+-/**/
+-    1093,
+-/**/
+-    1092,
+-/**/
+-    1091,
+-/**/
+-    1090,
+-/**/
+-    1089,
+-/**/
+-    1088,
+-/**/
+-    1087,
+-/**/
+-    1086,
+-/**/
+-    1085,
+-/**/
+-    1084,
+-/**/
+-    1083,
+-/**/
+-    1082,
+-/**/
+-    1081,
+-/**/
+-    1080,
+-/**/
+-    1079,
+-/**/
+-    1078,
+-/**/
+-    1077,
+-/**/
+-    1076,
+-/**/
+-    1075,
+-/**/
+-    1074,
+-/**/
+-    1073,
+-/**/
+-    1072,
+-/**/
+-    1071,
+-/**/
+-    1070,
+-/**/
+-    1069,
+-/**/
+-    1068,
+-/**/
+-    1067,
+-/**/
+-    1066,
+-/**/
+-    1065,
+-/**/
+-    1064,
+-/**/
+-    1063,
+-/**/
+-    1062,
+-/**/
+-    1061,
+-/**/
+-    1060,
+-/**/
+-    1059,
+-/**/
+-    1058,
+-/**/
+-    1057,
+-/**/
+-    1056,
+-/**/
+-    1055,
+-/**/
+-    1054,
+-/**/
+-    1053,
+-/**/
+-    1052,
+-/**/
+-    1051,
+-/**/
+-    1050,
+-/**/
+-    1049,
+-/**/
+-    1048,
+-/**/
+-    1047,
+-/**/
+-    1046,
+-/**/
+-    1045,
+-/**/
+-    1044,
+-/**/
+-    1043,
+-/**/
+-    1042,
+-/**/
+-    1041,
+-/**/
+-    1040,
+-/**/
+-    1039,
+-/**/
+-    1038,
+-/**/
+-    1037,
+-/**/
+-    1036,
+-/**/
+-    1035,
+-/**/
+-    1034,
+-/**/
+-    1033,
+-/**/
+-    1032,
+-/**/
+-    1031,
+-/**/
+-    1030,
+-/**/
+-    1029,
+-/**/
+-    1028,
+-/**/
+-    1027,
+-/**/
+-    1026,
+-/**/
+-    1025,
+-/**/
+-    1024,
+-/**/
+-    1023,
+-/**/
+-    1022,
+-/**/
+-    1021,
+-/**/
+-    1020,
+-/**/
+-    1019,
+-/**/
+-    1018,
+-/**/
+-    1017,
+-/**/
+-    1016,
+-/**/
+-    1015,
+-/**/
+-    1014,
+-/**/
+-    1013,
+-/**/
+-    1012,
+-/**/
+-    1011,
+-/**/
+-    1010,
+-/**/
+-    1009,
+-/**/
+-    1008,
+-/**/
+-    1007,
+-/**/
+-    1006,
+-/**/
+-    1005,
+-/**/
+-    1004,
+-/**/
+-    1003,
+-/**/
+-    1002,
+-/**/
+-    1001,
+-/**/
+-    1000,
+-/**/
+-    999,
+-/**/
+-    998,
+-/**/
+-    997,
+-/**/
+-    996,
+-/**/
+-    995,
+-/**/
+-    994,
+-/**/
+-    993,
+-/**/
+-    992,
+-/**/
+-    991,
+-/**/
+-    990,
+-/**/
+-    989,
+-/**/
+-    988,
+-/**/
+-    987,
+-/**/
+-    986,
+-/**/
+-    985,
+-/**/
+-    984,
+-/**/
+-    983,
+-/**/
+-    982,
+-/**/
+-    981,
+-/**/
+-    980,
+-/**/
+-    979,
+-/**/
+-    978,
+-/**/
+-    977,
+-/**/
+-    976,
+-/**/
+-    975,
+-/**/
+-    974,
+-/**/
+-    973,
+-/**/
+-    972,
+-/**/
+-    971,
+-/**/
+-    970,
+-/**/
+-    969,
+-/**/
+-    968,
+-/**/
+-    967,
+-/**/
+-    966,
+-/**/
+-    965,
+-/**/
+-    964,
+-/**/
+-    963,
+-/**/
+-    962,
+-/**/
+-    961,
+-/**/
+-    960,
+-/**/
+-    959,
+-/**/
+-    958,
+-/**/
+-    957,
+-/**/
+-    956,
+-/**/
+-    955,
+-/**/
+-    954,
+-/**/
+-    953,
+-/**/
+-    952,
+-/**/
+-    951,
+-/**/
+-    950,
+-/**/
+-    949,
+-/**/
+-    948,
+-/**/
+-    947,
+-/**/
+-    946,
+-/**/
+-    945,
+-/**/
+-    944,
+-/**/
+-    943,
+-/**/
+-    942,
+-/**/
+-    941,
+-/**/
+-    940,
+-/**/
+-    939,
+-/**/
+-    938,
+-/**/
+-    937,
+-/**/
+-    936,
+-/**/
+-    935,
+-/**/
+-    934,
+-/**/
+-    933,
+-/**/
+-    932,
+-/**/
+-    931,
+-/**/
+-    930,
+-/**/
+-    929,
+-/**/
+-    928,
+-/**/
+-    927,
+-/**/
+-    926,
+-/**/
+-    925,
+-/**/
+-    924,
+-/**/
+-    923,
+-/**/
+-    922,
+-/**/
+-    921,
+-/**/
+-    920,
+-/**/
+-    919,
+-/**/
+-    918,
+-/**/
+-    917,
+-/**/
+-    916,
+-/**/
+-    915,
+-/**/
+-    914,
+-/**/
+-    913,
+-/**/
+-    912,
+-/**/
+-    911,
+-/**/
+-    910,
+-/**/
+-    909,
+-/**/
+-    908,
+-/**/
+-    907,
+-/**/
+-    906,
+-/**/
+-    905,
+-/**/
+-    904,
+-/**/
+-    903,
+-/**/
+-    902,
+-/**/
+-    901,
+-/**/
+-    900,
+-/**/
+-    899,
+-/**/
+-    898,
+-/**/
+-    897,
+-/**/
+-    896,
+-/**/
+-    895,
+-/**/
+-    894,
+-/**/
+-    893,
+-/**/
+-    892,
+-/**/
+-    891,
+-/**/
+-    890,
+-/**/
+-    889,
+-/**/
+-    888,
+-/**/
+-    887,
+-/**/
+-    886,
+-/**/
+-    885,
+-/**/
+-    884,
+-/**/
+-    883,
+-/**/
+-    882,
+-/**/
+-    881,
+-/**/
+-    880,
+-/**/
+-    879,
+-/**/
+-    878,
+-/**/
+-    877,
+-/**/
+-    876,
+-/**/
+-    875,
+-/**/
+-    874,
+-/**/
+-    873,
+-/**/
+-    872,
+-/**/
+-    871,
+-/**/
+-    870,
+-/**/
+-    869,
+-/**/
+-    868,
+-/**/
+-    867,
+-/**/
+-    866,
+-/**/
+-    865,
+-/**/
+-    864,
+-/**/
+-    863,
+-/**/
+-    862,
+-/**/
+-    861,
+-/**/
+-    860,
+-/**/
+-    859,
+-/**/
+-    858,
+-/**/
+-    857,
+-/**/
+-    856,
+-/**/
+-    855,
+-/**/
+-    854,
+-/**/
+-    853,
+-/**/
+-    852,
+-/**/
+-    851,
+-/**/
+-    850,
+-/**/
+-    849,
+-/**/
+-    848,
+-/**/
+-    847,
+-/**/
+-    846,
+-/**/
+-    845,
+-/**/
+-    844,
+-/**/
+-    843,
+-/**/
+-    842,
+-/**/
+-    841,
+-/**/
+-    840,
+-/**/
+-    839,
+-/**/
+-    838,
+-/**/
+-    837,
+-/**/
+-    836,
+-/**/
+-    835,
+-/**/
+-    834,
+-/**/
+-    833,
+-/**/
+-    832,
+-/**/
+-    831,
+-/**/
+-    830,
+-/**/
+-    829,
+-/**/
+-    828,
+-/**/
+-    827,
+-/**/
+-    826,
+-/**/
+-    825,
+-/**/
+-    824,
+-/**/
+-    823,
+-/**/
+-    822,
+-/**/
+-    821,
+-/**/
+-    820,
+-/**/
+-    819,
+-/**/
+-    818,
+-/**/
+-    817,
+-/**/
+-    816,
+-/**/
+-    815,
+-/**/
+-    814,
+-/**/
+-    813,
+-/**/
+-    812,
+-/**/
+-    811,
+-/**/
+-    810,
+-/**/
+-    809,
+-/**/
+-    808,
+-/**/
+-    807,
+-/**/
+-    806,
+-/**/
+-    805,
+-/**/
+-    804,
+-/**/
+-    803,
+-/**/
+-    802,
+-/**/
+-    801,
+-/**/
+-    800,
+-/**/
+-    799,
+-/**/
+-    798,
+-/**/
+-    797,
+-/**/
+-    796,
+-/**/
+-    795,
+-/**/
+-    794,
+-/**/
+-    793,
+-/**/
+-    792,
+-/**/
+-    791,
+-/**/
+-    790,
+-/**/
+-    789,
+-/**/
+-    788,
+-/**/
+-    787,
+-/**/
+-    786,
+-/**/
+-    785,
+-/**/
+-    784,
+-/**/
+-    783,
+-/**/
+-    782,
+-/**/
+-    781,
+-/**/
+-    780,
+-/**/
+-    779,
+-/**/
+-    778,
+-/**/
+-    777,
+-/**/
+-    776,
+-/**/
+-    775,
+-/**/
+-    774,
+-/**/
+-    773,
+-/**/
+-    772,
+-/**/
+-    771,
+-/**/
+-    770,
+-/**/
+-    769,
+-/**/
+-    768,
+-/**/
+-    767,
+-/**/
+-    766,
+-/**/
+-    765,
+-/**/
+-    764,
+-/**/
+-    763,
+-/**/
+-    762,
+-/**/
+-    761,
+-/**/
+-    760,
+-/**/
+-    759,
+-/**/
+-    758,
+-/**/
+-    757,
+-/**/
+-    756,
+-/**/
+-    755,
+-/**/
+-    754,
+-/**/
+-    753,
+-/**/
+-    752,
+-/**/
+-    751,
+-/**/
+-    750,
+-/**/
+-    749,
+-/**/
+-    748,
+-/**/
+-    747,
+-/**/
+-    746,
+-/**/
+-    745,
+-/**/
+-    744,
+-/**/
+-    743,
+-/**/
+-    742,
+-/**/
+-    741,
+-/**/
+-    740,
+-/**/
+-    739,
+-/**/
+-    738,
+-/**/
+-    737,
+-/**/
+-    736,
+-/**/
+-    735,
+-/**/
+-    734,
+-/**/
+-    733,
+-/**/
+-    732,
+-/**/
+-    731,
+-/**/
+-    730,
+-/**/
+-    729,
+-/**/
+-    728,
+-/**/
+-    727,
+-/**/
+-    726,
+-/**/
+-    725,
+-/**/
+-    724,
+-/**/
+-    723,
+-/**/
+-    722,
+-/**/
+-    721,
+-/**/
+-    720,
+-/**/
+-    719,
+-/**/
+-    718,
+-/**/
+-    717,
+-/**/
+-    716,
+-/**/
+-    715,
+-/**/
+-    714,
+-/**/
+-    713,
+-/**/
+-    712,
+-/**/
+-    711,
+-/**/
+-    710,
+-/**/
+-    709,
+-/**/
+-    708,
+-/**/
+-    707,
+-/**/
+-    706,
+-/**/
+-    705,
+-/**/
+-    704,
+-/**/
+-    703,
+-/**/
+-    702,
+-/**/
+-    701,
+-/**/
+-    700,
+-/**/
+-    699,
+-/**/
+-    698,
+-/**/
+-    697,
+-/**/
+-    696,
+-/**/
+-    695,
+-/**/
+-    694,
+-/**/
+-    693,
+-/**/
+-    692,
+-/**/
+-    691,
+-/**/
+-    690,
+-/**/
+-    689,
+-/**/
+-    688,
+-/**/
+-    687,
+-/**/
+-    686,
+-/**/
+-    685,
+-/**/
+-    684,
+-/**/
+-    683,
+-/**/
+-    682,
+-/**/
+-    681,
+-/**/
+-    680,
+-/**/
+-    679,
+-/**/
+-    678,
+-/**/
+-    677,
+-/**/
+-    676,
+-/**/
+-    675,
+-/**/
+-    674,
+-/**/
+-    673,
+-/**/
+-    672,
+-/**/
+-    671,
+-/**/
+-    670,
+-/**/
+-    669,
+-/**/
+-    668,
+-/**/
+-    667,
+-/**/
+-    666,
+-/**/
+-    665,
+-/**/
+-    664,
+-/**/
+-    663,
+-/**/
+-    662,
+-/**/
+-    661,
+-/**/
+-    660,
+-/**/
+-    659,
+-/**/
+-    658,
+-/**/
+-    657,
+-/**/
+-    656,
+-/**/
+-    655,
+-/**/
+-    654,
+-/**/
+-    653,
+-/**/
+-    652,
+-/**/
+-    651,
+-/**/
+-    650,
+-/**/
+-    649,
+-/**/
+-    648,
+-/**/
+-    647,
+-/**/
+-    646,
+-/**/
+-    645,
+-/**/
+-    644,
+-/**/
+-    643,
+-/**/
+-    642,
+-/**/
+-    641,
+-/**/
+-    640,
+-/**/
+-    639,
+-/**/
+-    638,
+-/**/
+-    637,
+-/**/
+-    636,
+-/**/
+-    635,
+-/**/
+-    634,
+-/**/
+-    633,
+-/**/
+-    632,
+-/**/
+-    631,
+-/**/
+-    630,
+-/**/
+-    629,
+-/**/
+-    628,
+-/**/
+-    627,
+-/**/
+-    626,
+-/**/
+-    625,
+-/**/
+-    624,
+-/**/
+-    623,
+-/**/
+-    622,
+-/**/
+-    621,
+-/**/
+-    620,
+-/**/
+-    619,
+-/**/
+-    618,
+-/**/
+-    617,
+-/**/
+-    616,
+-/**/
+-    615,
+-/**/
+-    614,
+-/**/
+-    613,
+-/**/
+-    612,
+-/**/
+-    611,
+-/**/
+-    610,
+-/**/
+-    609,
+-/**/
+-    608,
+-/**/
+-    607,
+-/**/
+-    606,
+-/**/
+-    605,
+-/**/
+-    604,
+-/**/
+-    603,
+-/**/
+-    602,
+-/**/
+-    601,
+-/**/
+-    600,
+-/**/
+-    599,
+-/**/
+-    598,
+-/**/
+-    597,
+-/**/
+-    596,
+-/**/
+-    595,
+-/**/
+-    594,
+-/**/
+-    593,
+-/**/
+-    592,
+-/**/
+-    591,
+-/**/
+-    590,
+-/**/
+-    589,
+-/**/
+-    588,
+-/**/
+-    587,
+-/**/
+-    586,
+-/**/
+-    585,
+-/**/
+-    584,
+-/**/
+-    583,
+-/**/
+-    582,
+-/**/
+-    581,
+-/**/
+-    580,
+-/**/
+-    579,
+-/**/
+-    578,
+-/**/
+-    577,
+-/**/
+-    576,
+-/**/
+-    575,
+-/**/
+-    574,
+-/**/
+-    573,
+-/**/
+-    572,
+-/**/
+-    571,
+-/**/
+-    570,
+-/**/
+-    569,
+-/**/
+-    568,
+-/**/
+-    567,
+-/**/
+-    566,
+-/**/
+-    565,
+-/**/
+-    564,
+-/**/
+-    563,
+-/**/
+-    562,
+-/**/
+-    561,
+-/**/
+-    560,
+-/**/
+-    559,
+-/**/
+-    558,
+-/**/
+-    557,
+-/**/
+-    556,
+-/**/
+-    555,
+-/**/
+-    554,
+-/**/
+-    553,
+-/**/
+-    552,
+-/**/
+-    551,
+-/**/
+-    550,
+-/**/
+-    549,
+-/**/
+-    548,
+-/**/
+-    547,
+-/**/
+-    546,
+-/**/
+-    545,
+-/**/
+-    544,
+-/**/
+-    543,
+-/**/
+-    542,
+-/**/
+-    541,
+-/**/
+-    540,
+-/**/
+-    539,
+-/**/
+-    538,
+-/**/
+-    537,
+-/**/
+-    536,
+-/**/
+-    535,
+-/**/
+-    534,
+-/**/
+-    533,
+-/**/
+-    532,
+-/**/
+-    531,
+-/**/
+-    530,
+-/**/
+-    529,
+-/**/
+-    528,
+-/**/
+-    527,
+-/**/
+-    526,
+-/**/
+-    525,
+-/**/
+-    524,
+-/**/
+-    523,
+-/**/
+-    522,
+-/**/
+-    521,
+-/**/
+-    520,
+-/**/
+-    519,
+-/**/
+-    518,
+-/**/
+-    517,
+-/**/
+-    516,
+-/**/
+-    515,
+-/**/
+-    514,
+-/**/
+-    513,
+-/**/
+-    512,
+-/**/
+-    511,
+-/**/
+-    510,
+-/**/
+-    509,
+-/**/
+-    508,
+-/**/
+-    507,
+-/**/
+-    506,
+-/**/
+-    505,
+-/**/
+-    504,
+-/**/
+-    503,
+-/**/
+-    502,
+-/**/
+-    501,
+-/**/
+-    500,
+-/**/
+-    499,
+-/**/
+-    498,
+-/**/
+-    497,
+-/**/
+-    496,
+-/**/
+-    495,
+-/**/
+-    494,
+-/**/
+-    493,
+-/**/
+-    492,
+-/**/
+-    491,
+-/**/
+-    490,
+-/**/
+-    489,
+-/**/
+-    488,
+-/**/
+-    487,
+-/**/
+-    486,
+-/**/
+-    485,
+-/**/
+-    484,
+-/**/
+-    483,
+-/**/
+-    482,
+-/**/
+-    481,
+-/**/
+-    480,
+-/**/
+-    479,
+-/**/
+-    478,
+-/**/
+-    477,
+-/**/
+-    476,
+-/**/
+-    475,
+-/**/
+-    474,
+-/**/
+-    473,
+-/**/
+-    472,
+-/**/
+-    471,
+-/**/
+-    470,
+-/**/
+-    469,
+-/**/
+-    468,
+-/**/
+-    467,
+-/**/
+-    466,
+-/**/
+-    465,
+-/**/
+-    464,
+-/**/
+-    463,
+-/**/
+-    462,
+-/**/
+-    461,
+-/**/
+-    460,
+-/**/
+-    459,
+-/**/
+-    458,
+-/**/
+-    457,
+-/**/
+-    456,
+-/**/
+-    455,
+-/**/
+-    454,
+-/**/
+-    453,
+-/**/
+-    452,
+-/**/
+-    451,
+-/**/
+-    450,
+-/**/
+-    449,
+-/**/
+-    448,
+-/**/
+-    447,
+-/**/
+-    446,
+-/**/
+-    445,
+-/**/
+-    444,
+-/**/
+-    443,
+-/**/
+-    442,
+-/**/
+-    441,
+-/**/
+-    440,
+-/**/
+-    439,
+-/**/
+-    438,
+-/**/
+-    437,
+-/**/
+-    436,
+-/**/
+-    435,
+-/**/
+-    434,
+-/**/
+-    433,
+-/**/
+-    432,
+-/**/
+-    431,
+-/**/
+-    430,
+-/**/
+-    429,
+-/**/
+-    428,
+-/**/
+-    427,
+-/**/
+-    426,
+-/**/
+-    425,
+-/**/
+-    424,
+-/**/
+-    423,
+-/**/
+-    422,
+-/**/
+-    421,
+-/**/
+-    420,
+-/**/
+-    419,
+-/**/
+-    418,
+-/**/
+-    417,
+-/**/
+-    416,
+-/**/
+-    415,
+-/**/
+-    414,
+-/**/
+-    413,
+-/**/
+-    412,
+-/**/
+-    411,
+-/**/
+-    410,
+-/**/
+-    409,
+-/**/
+-    408,
+-/**/
+-    407,
+-/**/
+-    406,
+-/**/
+-    405,
+-/**/
+-    404,
+-/**/
+-    403,
+-/**/
+-    402,
+-/**/
+-    401,
+-/**/
+-    400,
+-/**/
+-    399,
+-/**/
+-    398,
+-/**/
+-    397,
+-/**/
+-    396,
+-/**/
+-    395,
+-/**/
+-    394,
+-/**/
+-    393,
+-/**/
+-    392,
+-/**/
+-    391,
+-/**/
+-    390,
+-/**/
+-    389,
+-/**/
+-    388,
+-/**/
+-    387,
+-/**/
+-    386,
+-/**/
+-    385,
+-/**/
+-    384,
+-/**/
+-    383,
+-/**/
+-    382,
+-/**/
+-    381,
+-/**/
+-    380,
+-/**/
+-    379,
+-/**/
+-    378,
+-/**/
+-    377,
+-/**/
+-    376,
+-/**/
+-    375,
+-/**/
+-    374,
+-/**/
+-    373,
+-/**/
+-    372,
+-/**/
+-    371,
+-/**/
+-    370,
+-/**/
+-    369,
+-/**/
+-    368,
+-/**/
+-    367,
+-/**/
+-    366,
+-/**/
+-    365,
+-/**/
+-    364,
+-/**/
+-    363,
+-/**/
+-    362,
+-/**/
+-    361,
+-/**/
+-    360,
+-/**/
+-    359,
+-/**/
+-    358,
+-/**/
+-    357,
+-/**/
+-    356,
+-/**/
+-    355,
+-/**/
+-    354,
+-/**/
+-    353,
+-/**/
+-    352,
+-/**/
+-    351,
+-/**/
+-    350,
+-/**/
+-    349,
+-/**/
+-    348,
+-/**/
+-    347,
+-/**/
+-    346,
+-/**/
+-    345,
+-/**/
+-    344,
+-/**/
+-    343,
+-/**/
+-    342,
+-/**/
+-    341,
+-/**/
+-    340,
+-/**/
+-    339,
+-/**/
+-    338,
+-/**/
+-    337,
+-/**/
+-    336,
+-/**/
+-    335,
+-/**/
+-    334,
+-/**/
+-    333,
+-/**/
+-    332,
+-/**/
+-    331,
+-/**/
+-    330,
+-/**/
+-    329,
+-/**/
+-    328,
+-/**/
+-    327,
+-/**/
+-    326,
+-/**/
+-    325,
+-/**/
+-    324,
+-/**/
+-    323,
+-/**/
+-    322,
+-/**/
+-    321,
+-/**/
+-    320,
+-/**/
+-    319,
+-/**/
+-    318,
+-/**/
+-    317,
+-/**/
+-    316,
+-/**/
+-    315,
+-/**/
+-    314,
+-/**/
+-    313,
+-/**/
+-    312,
+-/**/
+-    311,
+-/**/
+-    310,
+-/**/
+-    309,
+-/**/
+-    308,
+-/**/
+-    307,
+-/**/
+-    306,
+-/**/
+-    305,
+-/**/
+-    304,
+-/**/
+-    303,
+-/**/
+-    302,
+-/**/
+-    301,
+-/**/
+-    300,
+-/**/
+-    299,
+-/**/
+-    298,
+-/**/
+-    297,
+-/**/
+-    296,
+-/**/
+-    295,
+-/**/
+-    294,
+-/**/
+-    293,
+-/**/
+-    292,
+-/**/
+-    291,
+-/**/
+-    290,
+-/**/
+-    289,
+-/**/
+-    288,
+-/**/
+-    287,
+-/**/
+-    286,
+-/**/
+-    285,
+-/**/
+-    284,
+-/**/
+-    283,
+-/**/
+-    282,
+-/**/
+-    281,
+-/**/
+-    280,
+-/**/
+-    279,
+-/**/
+-    278,
+-/**/
+-    277,
+-/**/
+-    276,
+-/**/
+-    275,
+-/**/
+-    274,
+-/**/
+-    273,
+-/**/
+-    272,
+-/**/
+-    271,
+-/**/
+-    270,
+-/**/
+-    269,
+-/**/
+-    268,
+-/**/
+-    267,
+-/**/
+-    266,
+-/**/
+-    265,
+-/**/
+-    264,
+-/**/
+-    263,
+-/**/
+-    262,
+-/**/
+-    261,
+-/**/
+-    260,
+-/**/
+-    259,
+-/**/
+-    258,
+-/**/
+-    257,
+-/**/
+-    256,
+-/**/
+-    255,
+-/**/
+-    254,
+-/**/
+-    253,
+-/**/
+-    252,
+-/**/
+-    251,
+-/**/
+-    250,
+-/**/
+-    249,
+-/**/
+-    248,
+-/**/
+-    247,
+-/**/
+-    246,
+-/**/
+-    245,
+-/**/
+-    244,
+-/**/
+-    243,
+-/**/
+-    242,
+-/**/
+-    241,
+-/**/
+-    240,
+-/**/
+-    239,
+-/**/
+-    238,
+-/**/
+-    237,
+-/**/
+-    236,
+-/**/
+-    235,
+-/**/
+-    234,
+-/**/
+-    233,
+-/**/
+-    232,
+-/**/
+-    231,
+-/**/
+-    230,
+-/**/
+-    229,
+-/**/
+-    228,
+-/**/
+-    227,
+-/**/
+-    226,
+-/**/
+-    225,
+-/**/
+-    224,
+-/**/
+-    223,
+-/**/
+-    222,
+-/**/
+-    221,
+-/**/
+-    220,
+-/**/
+-    219,
+-/**/
+-    218,
+-/**/
+-    217,
+-/**/
+-    216,
+-/**/
+-    215,
+-/**/
+-    214,
+-/**/
+-    213,
+-/**/
+-    212,
+-/**/
+-    211,
+-/**/
+-    210,
+-/**/
+-    209,
+-/**/
+-    208,
+-/**/
+-    207,
+-/**/
+-    206,
+-/**/
+-    205,
+-/**/
+-    204,
+-/**/
+-    203,
+-/**/
+-    202,
+-/**/
+-    201,
+-/**/
+-    200,
+-/**/
+-    199,
+-/**/
+-    198,
+-/**/
+-    197,
+-/**/
+-    196,
+-/**/
+-    195,
+-/**/
+-    194,
+-/**/
+-    193,
+-/**/
+-    192,
+-/**/
+-    191,
+-/**/
+-    190,
+-/**/
+-    189,
+-/**/
+-    188,
+-/**/
+-    187,
+-/**/
+-    186,
+-/**/
+-    185,
+-/**/
+-    184,
+-/**/
+-    183,
+-/**/
+-    182,
+-/**/
+-    181,
+-/**/
+-    180,
+-/**/
+-    179,
+-/**/
+-    178,
+-/**/
+-    177,
+-/**/
+-    176,
+-/**/
+-    175,
+-/**/
+-    174,
+-/**/
+-    173,
+-/**/
+-    172,
+-/**/
+-    171,
+-/**/
+-    170,
+-/**/
+-    169,
+-/**/
+-    168,
+-/**/
+-    167,
+-/**/
+-    166,
+-/**/
+-    165,
+-/**/
+-    164,
+-/**/
+-    163,
+-/**/
+-    162,
+-/**/
+-    161,
+-/**/
+-    160,
+-/**/
+-    159,
+-/**/
+-    158,
+-/**/
+-    157,
+-/**/
+-    156,
+-/**/
+-    155,
+-/**/
+-    154,
+-/**/
+-    153,
+-/**/
+-    152,
+-/**/
+-    151,
+-/**/
+-    150,
+-/**/
+-    149,
+-/**/
+-    148,
+-/**/
+-    147,
+-/**/
+-    146,
+-/**/
+-    145,
+-/**/
+-    144,
+-/**/
+-    143,
+-/**/
+-    142,
+-/**/
+-    141,
+-/**/
+-    140,
+-/**/
+-    139,
+-/**/
+-    138,
+-/**/
+-    137,
+-/**/
+-    136,
+-/**/
+-    135,
+-/**/
+-    134,
+-/**/
+-    133,
+-/**/
+-    132,
+-/**/
+-    131,
+-/**/
+-    130,
+-/**/
+-    129,
+-/**/
+-    128,
+-/**/
+-    127,
+-/**/
+-    126,
+-/**/
+-    125,
+-/**/
+-    124,
+-/**/
+-    123,
+-/**/
+-    122,
+-/**/
+-    121,
+-/**/
+-    120,
+-/**/
+-    119,
+-/**/
+-    118,
+-/**/
+-    117,
+-/**/
+-    116,
+-/**/
+-    115,
+-/**/
+-    114,
+-/**/
+-    113,
+-/**/
+-    112,
+-/**/
+-    111,
+-/**/
+-    110,
+-/**/
+-    109,
+-/**/
+-    108,
+-/**/
+-    107,
+-/**/
+-    106,
+-/**/
+-    105,
+-/**/
+-    104,
+-/**/
+-    103,
+-/**/
+-    102,
+-/**/
+-    101,
+-/**/
+-    100,
+-/**/
+-    99,
+-/**/
+-    98,
+-/**/
+-    97,
+-/**/
+-    96,
+-/**/
+-    95,
+-/**/
+-    94,
+-/**/
+-    93,
+-/**/
+-    92,
+-/**/
+-    91,
+-/**/
+-    90,
+-/**/
+-    89,
+-/**/
+-    88,
+-/**/
+-    87,
+-/**/
+-    86,
+-/**/
+-    85,
+-/**/
+-    84,
+-/**/
+-    83,
+-/**/
+-    82,
+-/**/
+-    81,
+-/**/
+-    80,
+-/**/
+-    79,
+-/**/
+-    78,
+-/**/
+-    77,
+-/**/
+-    76,
+-/**/
+-    75,
+-/**/
+-    74,
+-/**/
+-    73,
+-/**/
+-    72,
+-/**/
+-    71,
+-/**/
+-    70,
+-/**/
+-    69,
+-/**/
+-    68,
+-/**/
+-    67,
+-/**/
+-    66,
+-/**/
+-    65,
+-/**/
+-    64,
+-/**/
+-    63,
+-/**/
+-    62,
+-/**/
+-    61,
+-/**/
+-    60,
+-/**/
+-    59,
+-/**/
+-    58,
+-/**/
+-    57,
+-/**/
+-    56,
+-/**/
+-    55,
+-/**/
+-    54,
+-/**/
+-    53,
+-/**/
+-    52,
+-/**/
+-    51,
+-/**/
+-    50,
+-/**/
+-    49,
+-/**/
+-    48,
+-/**/
+-    47,
+-/**/
+-    46,
+-/**/
+-    45,
+-/**/
+-    44,
+-/**/
+-    43,
+-/**/
+-    42,
+-/**/
+-    41,
+-/**/
+-    40,
+-/**/
+-    39,
+-/**/
+-    38,
+-/**/
+-    37,
+-/**/
+-    36,
+-/**/
+-    35,
+-/**/
+-    34,
+-/**/
+-    33,
+-/**/
+-    32,
+-/**/
+-    31,
+-/**/
+-    30,
+-/**/
+-    29,
+-/**/
+-    28,
+-/**/
+-    27,
+-/**/
+-    26,
+-/**/
+-    25,
+-/**/
+-    24,
+-/**/
+-    23,
+-/**/
+-    22,
+-/**/
+-    21,
+-/**/
+-    20,
+-/**/
+-    19,
+-/**/
+-    18,
+-/**/
+-    17,
+-/**/
+-    16,
+-/**/
+-    15,
+-/**/
+-    14,
+-/**/
+-    13,
+-/**/
+-    12,
+-/**/
+-    11,
+-/**/
+-    10,
+-/**/
+-    9,
+-/**/
+-    8,
+-/**/
+-    7,
+-/**/
+-    6,
+-/**/
+-    5,
+-/**/
+-    4,
+-/**/
+-    3,
+-/**/
+-    2,
+-/**/
+-    1,
+ /**/
+     0
+ };
+diff --git a/src/version.h b/src/version.h
+index 9c460ea98..b9c6d837f 100644
+--- a/src/version.h
++++ b/src/version.h
+@@ -17,10 +17,10 @@
+ 
+ // Values that change for a new release.
+ #define VIM_VERSION_MAJOR		9
+-#define VIM_VERSION_MINOR		0
+-#define VIM_VERSION_BUILD		284
+-#define VIM_VERSION_BUILD_BCD		0x11c
+-#define VIM_VERSION_DATE_ONLY		"2022 Jun 28"
++#define VIM_VERSION_MINOR		1
++#define VIM_VERSION_BUILD		285
++#define VIM_VERSION_BUILD_BCD		0x11d
++#define VIM_VERSION_DATE_ONLY		"2024 Jan 02"
+ 
+ // Values based on the above
+ #define VIM_VERSION_MAJOR_STR		VIM_TOSTR(VIM_VERSION_MAJOR)
+diff --git a/src/vim.manifest b/src/vim.manifest
+index ff30fbc38..0366dc5b2 100644
+--- a/src/vim.manifest
++++ b/src/vim.manifest
+@@ -8,7 +8,7 @@
+ <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3">
+   <assemblyIdentity
+     processorArchitecture="*"
+-    version="9.0.0.0"
++    version="9.1.0.0"
+     type="win32"
+     name="Vim"
+   />
