@@ -1,0 +1,79 @@
+name: Build Vim for Windows ARM
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-11-arm
+    env:
+      ARCH: x64
+      DEPENDENCIES: c:\dependencies
+      APPVEYOR_REPO_TAG: v9.1.1398
+      TAG_NAME: v9.1.1398
+      VCPKG_ROOT: c:\vcpkg
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up MSVC Dev tools
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: amd64_arm64
+
+#      - name: Append to $PATH
+#        run: echo "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build"  >> $GITHUB_PATH
+
+      - name: DEBUG
+        shell: cmd
+        run: |
+          pwd
+          dir
+          path
+          set
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            c:\dependencies
+            c:\vcpkg
+            downloads
+          key: ${{ runner.os }}
+
+      - name: Prepare Vim Build
+        shell: cmd
+        run: |
+          set "PATH=C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build;%PATH%"
+          call vcvarsall.bat x64_arm64
+          call appveyor.bat install
+
+      - name: Build Vim (ARM)
+        shell: cmd
+        run: |
+          call appveyor.bat build
+
+#      - name: Test Vim
+#        shell: cmd
+#        run: |
+#          call appveyor.bat test
+
+#      - name: Package Vim
+#        shell: cmd
+#        run: |
+#          call appveyor.bat package
+
+      - name: upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: vim-arm64-windows
+          path: |
+            gvim*.exe
+            gvim*.zip
+            unsigned-*.zip
+
