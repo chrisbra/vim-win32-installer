@@ -4,12 +4,14 @@ on:
   push:
     tags:
 
+permissions:
+  id-token: write # needed for attestion
+  attestations: write
+  contents: write  # needed for release update
+
 jobs:
   build:
     runs-on: windows-11-arm
-    permissions:
-      id-token: write
-      attestations: write
     env:
       ARCH: x64
       DEPENDENCIES: c:\dependencies
@@ -104,10 +106,10 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          for %%F in (*.exe) do (
+          for %%F in (gvim*.exe) do (
             gh release upload %GH_TAG_NAME% "%%F" --clobber
           )
-          for %%F in (*.exe) do (
+          for %%F in (*.zip) do (
             gh release upload %GH_TAG_NAME% "%%F" --clobber
           )
 
