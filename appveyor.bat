@@ -418,7 +418,7 @@ goto :eof
 cd %APPVEYOR_BUILD_FOLDER%
 
 @rem Check if we need to copy libgcc_s_sjlj-1.dll.
-if /I "%PLATFORM%"=="arm64" (
+if /I NOT "%PLATFORM%"=="arm64" (
 "%VCToolsInstallDir%bin\HostX86\x86\dumpbin.exe" ^
   /DEPENDENTS %DEPENDENCIES%\gettext32\libintl-8.dll | findstr ^
   /LC:"libgcc_s_sjlj-1.dll" && set "INCLUDE_LIBGCC=1" || set "INCLUDE_LIBGCC=0"
@@ -527,6 +527,7 @@ if /I "%ARCH%"=="x64" (
   set WIN64=0
 )
 
+dir ..\runtime
 nmake.exe -lf Make_mvc.mak "X=OutFile ..\..\gvim_%VER_NUM%_%CUSTOM%.exe" ^
   "GETTEXT=%DEPENDENCIES%" "VIMSRC=..\runtime" "VIMRT=..\runtime" ^
   "INCLUDE_LIBGCC=%INCLUDE_LIBGCC%" "SRC=..\runtime" "WIN64=%WIN64%" ^
