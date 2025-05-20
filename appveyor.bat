@@ -1,13 +1,17 @@
 @echo off
-:: Batch file for building/testing Vim on AppVeyor
+:: This batch file was supposed to be used to build Vim for Windows on Appveyor.
+:: However, now it will also be used for building an ARM64 version on Github CI,
+:: so the name is no longer hunderpercent correct.  Oh well....
 
 SetLocal
 
-if defined APPVEYOR_BUILD_FOLDER ( cd %APPVEYOR_BUILD_FOLDER% )
+if defined APPVEYOR_BUILD_FOLDER (
+  cd %APPVEYOR_BUILD_FOLDER%
+  set "DEPENDENCIES=%APPVEYOR_BUILD_FOLDER%\dependencies"
+)
 
 if not defined APPVEYOR_REPO_TAG_NAME (
   for /F %%I in ('git describe --tags --abbrev^=0') do set "TAG_NAME=%%I"
-  set "APPVEYOR_REPO_TAG_NAME=%TAG_NAME%"
 ) else (
   set "TAG_NAME=%APPVEYOR_REPO_TAG_NAME%"
 )
@@ -26,8 +30,6 @@ if /I "%ARCH%"=="x64" (
 ) else (
   set "BIT=32"
 )
-set "DEPENDENCIES=%APPVEYOR_BUILD_FOLDER%\dependencies"
-
 :: -------- setting variables ----------------------------------------------
 :: Download URLs, local dirs and versions
 
@@ -148,7 +150,6 @@ set "CYGWIN_DIR=c:\cygwin64"
 :: ----------------------------------------------------------------------
 
 @rem Update PATH
-
 path %PYTHON_DIR%;%PYTHON3_DIR%;%PERL_DIR%\bin;%LUA_DIR%;%RUBY_DIR%\bin;^
 %RUBY_DIR%\bin\ruby_builtin_dlls;%RACKET_DIR%;%RACKET_DIR%\lib;%TCL_DIR%;^
 %TCL_LIBRARY%;%Path%
@@ -168,7 +169,6 @@ exit 1
 :install_x64
 :: ----------- installing dependencies ------------------------------------------
 echo TAG_NAME: %TAG_NAME%
-@echo on
 
 @rem Get Vim source code
 git submodule update --init --depth 20
@@ -234,9 +234,9 @@ rem move /Y %DEPENDENCIES%\tcltk-%TCL_VER_LONG%.10-barebones-%ARCH% %TCL_DIR%
 rem call :mklink "vim\src\%TCL_DLL%" "%TCL_DIR%\bin\%TCL_DLL%"
 :skiptcl
 
-IF exist %PYTHON_DIR% goto :skippython2
 @rem Python2
-@rem To test on a local machine if Python 2.7 is not installed
+IF exist %PYTHON_DIR% goto :skippython2
+@rem only install if it is not installed
 call :downloadfile "%PYTHON_URL%" downloads\python-%BIT%.msi
 start "" /W downloads\python-%BIT%.msi ^
   /qn TARGETDIR=%PYTHON_DIR% ADDLOCAL=DefaultFeature,PrependPath
@@ -270,7 +270,6 @@ call :downloadfile "%RUBY_SRC_URL%" downloads\ruby_src.zip
 move ..\ruby-%RUBY_BRANCH% ..\ruby > nul || exit 1
 pushd ..\ruby
 call win32\configure.bat
-@echo on
 nmake.exe -l .config.h.time || exit 1
 xcopy /S /Y .ext\include %RUBY_DIR%\include\ruby-%RUBY_API_VER_LONG%
 popd
@@ -328,8 +327,7 @@ rem 7z.exe e -y downloads\upx.zip *\upx.exe -ovim\nsis > nul || exit 1
 call :downloadfile "%SHELLEXECASUSER_URL%" downloads\shellexecasuser.zip
 7z.exe x -y downloads\shellexecasuser.zip ^
   -o%DEPENDENCIES%\shellexecasuser > nul || exit 1
-call :mklink "%ProgramFiles(x86)%\NSIS\Plugins\x86-unicode\ShellExecAsUser.dll" ^
-  %DEPENDENCIES%\shellexecasuser\unicode\ShellExecAsUser.dll
+call :mklink "%ProgramFiles(x86)%\NSIS\Plugins\x86-unicode\ShellExecAsUser.dll" "%DEPENDENCIES%\shellexecasuser\unicode\ShellExecAsUser.dll"
 
 @rem Install Libsodium
 if /I NOT "%PLATFORM%" == "arm64" (
@@ -352,17 +350,12 @@ if /I NOT "%PLATFORM%" == "arm64" (
   call :mklink "vim\src\libsodium.dll" "%SODIUM_DIR%\bin\ARM64\Release\v143\dynamic\libsodium.dll"
 )
 
-@rem Show PATH for debugging
-@ echo:%Path:;=&echo:%
-
 @echo off
 goto :eof
-
 
 :build_x86
 :build_x64
 :: -------- building the program -------------------------------------------
-@echo on
 cd vim\src
 
 @ if not exist .\auto\nmake mkdir .\auto\nmake
@@ -407,15 +400,12 @@ type ver.txt
 start "" /W .\gvim.exe -u NONE -S ..\..\if_ver.vim -c quit
 type if_ver.txt
 
-@echo off
 goto :eof
 
 :package_x86
 :package_x64
 :: -------- creating packages ----------------------------------------------
-
-@echo on
-cd %APPVEYOR_BUILD_FOLDER%
+if defined APPVEYOR_BUILD_FOLDER ( cd %APPVEYOR_BUILD_FOLDER% )
 
 @rem Check if we need to copy libgcc_s_sjlj-1.dll.
 if /I NOT "%PLATFORM%"=="arm64" (
@@ -544,7 +534,6 @@ goto :eof
 :test_x86
 :test_x64
 :: -------- testing the build ----------------------------------------------
-@echo on
 
 set "PLTCOLLECTS=%RACKET_DIR%\collects"
 set "PLTCONFIGDIR=%RACKET_DIR%\etc"
