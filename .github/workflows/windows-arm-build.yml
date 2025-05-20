@@ -13,6 +13,7 @@ jobs:
     env:
       ARCH: x64
       DEPENDENCIES: c:\dependencies
+      GH_TAG_NAME: ${{ github.ref_name }}
 
     steps:
       - name: Checkout repository
@@ -99,6 +100,16 @@ jobs:
         with:
           subject-name: arm64-windows-zip-archive.zip
           subject-digest: sha256:${{ steps.upload-zip.outputs.artifact-digest }}
+
+      - name: Upload to Github Release
+        shell: cmd
+        run: |
+          for %%F in (*.exe) do (
+            gh release upload %GH_TAG_NAME% "%%F" --clobber
+          )
+          for %%F in (*.exe) do (
+            gh release upload %GH_TAG_NAME% "%%F" --clobber
+          )
 
 
 #      - name: Upload Signpath File
