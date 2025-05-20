@@ -5,7 +5,10 @@
 
 SetLocal
 
-if defined APPVEYOR_BUILD_FOLDER ( cd %APPVEYOR_BUILD_FOLDER% )
+if defined APPVEYOR_BUILD_FOLDER (
+  cd %APPVEYOR_BUILD_FOLDER%
+  set "DEPENDENCIES=%APPVEYOR_BUILD_FOLDER%\dependencies"
+)
 
 if not defined APPVEYOR_REPO_TAG_NAME (
   for /F %%I in ('git describe --tags --abbrev^=0') do set "TAG_NAME=%%I"
@@ -231,9 +234,9 @@ rem move /Y %DEPENDENCIES%\tcltk-%TCL_VER_LONG%.10-barebones-%ARCH% %TCL_DIR%
 rem call :mklink "vim\src\%TCL_DLL%" "%TCL_DIR%\bin\%TCL_DLL%"
 :skiptcl
 
-IF exist %PYTHON_DIR% goto :skippython2
 @rem Python2
-@rem To test on a local machine if Python 2.7 is not installed
+IF exist %PYTHON_DIR% goto :skippython2
+@rem only install if it is not installed
 call :downloadfile "%PYTHON_URL%" downloads\python-%BIT%.msi
 start "" /W downloads\python-%BIT%.msi ^
   /qn TARGETDIR=%PYTHON_DIR% ADDLOCAL=DefaultFeature,PrependPath
@@ -324,8 +327,7 @@ rem 7z.exe e -y downloads\upx.zip *\upx.exe -ovim\nsis > nul || exit 1
 call :downloadfile "%SHELLEXECASUSER_URL%" downloads\shellexecasuser.zip
 7z.exe x -y downloads\shellexecasuser.zip ^
   -o%DEPENDENCIES%\shellexecasuser > nul || exit 1
-call :mklink "%ProgramFiles(x86)%\NSIS\Plugins\x86-unicode\ShellExecAsUser.dll" ^
-  %DEPENDENCIES%\shellexecasuser\unicode\ShellExecAsUser.dll
+call :mklink "%ProgramFiles(x86)%\NSIS\Plugins\x86-unicode\ShellExecAsUser.dll" "%DEPENDENCIES%\shellexecasuser\unicode\ShellExecAsUser.dll"
 
 @rem Install Libsodium
 if /I NOT "%PLATFORM%" == "arm64" (
@@ -398,7 +400,6 @@ type ver.txt
 start "" /W .\gvim.exe -u NONE -S ..\..\if_ver.vim -c quit
 type if_ver.txt
 
-@echo off
 goto :eof
 
 :package_x86
