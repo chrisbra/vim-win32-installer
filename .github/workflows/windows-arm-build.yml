@@ -73,7 +73,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ github.event.release.upload_url }}
           name: arm64-windows-installer.exe
           path: |
             gvim*.exe
@@ -90,7 +89,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ github.event.release.upload_url }}
           name: arm64-windows-zip-archive.zip
           path: |
             gvim*.zip
@@ -103,6 +101,8 @@ jobs:
 
       - name: Upload to Github Release
         shell: cmd
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           for %%F in (*.exe) do (
             gh release upload %GH_TAG_NAME% "%%F" --clobber
