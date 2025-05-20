@@ -4,12 +4,18 @@ on:
   push:
     tags:
 
+permissions:
+  id-token: write # needed for attestion
+  attestations: write
+  contents: write  # needed for release update
+
 jobs:
   build:
     runs-on: windows-11-arm
     env:
       ARCH: x64
       DEPENDENCIES: c:\dependencies
+      GH_TAG_NAME: ${{ github.ref_name }}
 
     steps:
       - name: Checkout repository
@@ -64,24 +70,49 @@ jobs:
           call appveyor.bat package
 
       - name: upload Installer
+        id:   upload-installer
         uses: actions/upload-artifact@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ github.event.release.upload_url }}
-          name: arm64-windows-installer
+          name: arm64-windows-installer.exe
           path: |
             gvim*.exe
 
+      - name: Attest Installer
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-name: arm64-windows-installer.exe
+          subject-digest: sha256:${{ steps.upload-installer.outputs.artifact-digest }}
+
       - name: upload Zip File
+        id:   upload-zip
         uses: actions/upload-artifact@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ github.event.release.upload_url }}
-          name: arm64-windows-zip-archive
+          name: arm64-windows-zip-archive.zip
           path: |
             gvim*.zip
+
+      - name: Attest Zip File
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-name: arm64-windows-zip-archive.zip
+          subject-digest: sha256:${{ steps.upload-zip.outputs.artifact-digest }}
+
+      - name: Upload to Github Release
+        shell: cmd
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for %%F in (gvim*.exe) do (
+            gh release upload %GH_TAG_NAME% "%%F" --clobber
+          )
+          for %%F in (*.zip) do (
+            gh release upload %GH_TAG_NAME% "%%F" --clobber
+          )
+
 
 #      - name: Upload Signpath File
 #        uses: actions/upload-artifact@v4
@@ -91,4 +122,4 @@ jobs:
 #          upload_url: ${{ github.event.release.upload_url }}
 #          name: arm64-windows-signpath
 #          path: |
-            unsigned-*.zip
+#            unsigned-*.zip
