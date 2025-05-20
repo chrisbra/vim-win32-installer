@@ -50,8 +50,8 @@ jobs:
         shell: cmd
         run: |
           set "PATH=C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build;%PATH%"
-          set "VCPKG_ROOT=c:\vcpkg"
           call vcvarsall.bat x64_arm64
+          set "VCPKG_ROOT=c:\vcpkg"
           call appveyor.bat install
 
       - name: Build Vim (ARM)

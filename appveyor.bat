@@ -641,7 +641,7 @@ if ERRORLEVEL 1 (
 
 :vcpkg
 @rem call :vcpkg package
-vcpkg install %1:arm64-windows && exit /B
+vcpkg --vcpkg-root="%VCPKG_ROOT%" install %1:arm64-windows && exit /B
 @goto :eof
 
 :mklink
