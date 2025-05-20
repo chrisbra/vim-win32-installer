@@ -77,7 +77,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: vim-arm64-windows
+          name: arm64-windows-installer
           path: |
             gvim*.exe
 
@@ -86,7 +86,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: vim-arm64-windows
+          name: arm64-windows-zip-archive
           path: |
             gvim*.zip
 
@@ -95,6 +95,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: vim-arm64-windows
+          name: arm64-windows-signpath
           path: |
             unsigned-*.zip
