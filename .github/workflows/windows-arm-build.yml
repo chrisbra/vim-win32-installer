@@ -2,10 +2,7 @@ name: Build Vim for Windows ARM
 
 on:
   push:
-    branches:
-      - master
-  pull_request:
-  workflow_dispatch:
+    tags:
 
 jobs:
   build:
@@ -30,11 +27,8 @@ jobs:
         run: |
           git submodule init
           git submodule update
-          for /F %%I in ('git describe --tags --abbrev=0') do set "TAG_NAME=%%I"
+          for /F %%I in ('git describe --always --tags --abbrev=0') do set "TAG_NAME=%%I"
           echo "TAG_NAME=%TAG_NAME%" >> $GITHUB_ENV
-
-#      - name: Append to $PATH
-#        run: echo "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build"  >> $GITHUB_PATH
 
       - name: DEBUG
         shell: cmd
@@ -78,12 +72,29 @@ jobs:
           set "VCPKG_ROOT=c:\vcpkg"
           call appveyor.bat package
 
-      - name: upload artifacts
+      - name: upload Installer
         uses: actions/upload-artifact@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           name: vim-arm64-windows
           path: |
             gvim*.exe
-            gvim*.zip
-            unsigned-*.zip
 
+      - name: upload Zip File
+        uses: actions/upload-artifact@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          name: vim-arm64-windows
+          path: |
+            gvim*.zip
+
+      - name: Upload Signpath File
+        uses: actions/upload-artifact@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          name: vim-arm64-windows
+          path: |
+            unsigned-*.zip
