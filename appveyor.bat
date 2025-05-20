@@ -3,7 +3,7 @@
 
 SetLocal
 
-cd %APPVEYOR_BUILD_FOLDER%
+if defined APPVEYOR_BUILD_FOLDER ( cd %APPVEYOR_BUILD_FOLDER% )
 
 if not defined APPVEYOR_REPO_TAG_NAME (
   for /F %%I in ('git describe --tags --abbrev^=0') do set "TAG_NAME=%%I"
@@ -523,7 +523,6 @@ if /I "%ARCH%"=="x64" (
   set WIN64=0
 )
 
-dir ..\runtime
 nmake.exe -lf Make_mvc.mak "X=OutFile ..\..\gvim_%VER_NUM%_%CUSTOM%.exe" ^
   "GETTEXT=%DEPENDENCIES%" "VIMSRC=..\runtime" "VIMRT=..\runtime" ^
   "INCLUDE_LIBGCC=%INCLUDE_LIBGCC%" "SRC=..\runtime" "WIN64=%WIN64%" ^

@@ -10,8 +10,6 @@ jobs:
     env:
       ARCH: x64
       DEPENDENCIES: c:\dependencies
-      TAG_NAME: v9.1.1398
-      VCPKG_ROOT: c:\vcpkg
 
     steps:
       - name: Checkout repository
@@ -29,14 +27,6 @@ jobs:
           git submodule update
           for /F %%I in ('git describe --always --tags --abbrev=0') do set "TAG_NAME=%%I"
           echo "TAG_NAME=%TAG_NAME%" >> $GITHUB_ENV
-
-      - name: DEBUG
-        shell: cmd
-        run: |
-          pwd
-          dir
-          path
-          set
 
       - name: Cache dependencies
         uses: actions/cache@v4
@@ -58,6 +48,7 @@ jobs:
       - name: Build Vim (ARM)
         shell: cmd
         run: |
+          set "PATH=C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build;%PATH%"
           call vcvarsall.bat x64_arm64
           call appveyor.bat build
 
@@ -77,6 +68,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          upload_url: ${{ github.event.release.upload_url }}
           name: arm64-windows-installer
           path: |
             gvim*.exe
@@ -86,15 +78,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          upload_url: ${{ github.event.release.upload_url }}
           name: arm64-windows-zip-archive
           path: |
             gvim*.zip
 
-      - name: Upload Signpath File
-        uses: actions/upload-artifact@v4
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          name: arm64-windows-signpath
-          path: |
-            unsigned-*.zip
+#      - name: Upload Signpath File
+#        uses: actions/upload-artifact@v4
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          upload_url: ${{ github.event.release.upload_url }}
+#          name: arm64-windows-signpath
+#          path: |
+#            unsigned-*.zip
