@@ -6,7 +6,7 @@ SetLocal
 cd %APPVEYOR_BUILD_FOLDER%
 
 if not defined APPVEYOR_REPO_TAG_NAME (
-  for /F %%I in ('git --git-dir .git/modules/vim describe --tags --abbrev^=0') do set "TAG_NAME=%%I"
+  for /F %%I in ('git describe --tags --abbrev^=0') do set "TAG_NAME=%%I"
   set "APPVEYOR_REPO_TAG_NAME=%TAG_NAME%"
 ) else (
   set "TAG_NAME=%APPVEYOR_REPO_TAG_NAME%"
