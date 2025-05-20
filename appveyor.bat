@@ -431,19 +431,15 @@ if /I "%PLATFORM%"=="arm64" (
   @rem Building ARM64 version of gvimext.dll for the installer
   pushd vim\src\GvimExt
   nmake.exe -lf Make_mvc.mak clean all > ..\gvimext.log"
-  @rem The installer expects a gvimext.dll and gvimext64.dll
   popd
   type vim\src\gvimext.log
   call :mklink "vim\runtime\GvimExt64\gvimext.dll" "vim\src\GvimExt\gvimext.dll"
   call :mklink "vim\runtime\GvimExt64\README.txt" "vim\src\GvimExt\README.txt"
   call :mklink "vim\runtime\GvimExt64\gvimext.inf" "vim\src\GvimExt\gvimext.inf"
   call :mklink "vim\runtime\GvimExt64\GvimExt.reg" "vim\src\GvimExt\GvimExt.reg"
+  copy /Y vim\src\GvimExt\gvimext.dll vim\src\GvimExt\gvimext64.dll
 
-  dir %ICONV_VCPKG%\bin
-  echo copy /y %ICONV_VCPKG%\bin\iconv-2.dll vim\runtime\libiconv-2.dll
   copy /y %ICONV_VCPKG%\bin\iconv-2.dll vim\runtime\libiconv-2.dll
-  dir %INTL_VCPKG%\bin
-  echo copy /y %INTL_VCPKG%\bin\intl-8.dll vim\runtime\libintl-8.dll
   copy /y %INTL_VCPKG%\bin\intl-8.dll vim\runtime\libintl-8.dll
   call :mklink "vim\runtime\GvimExt64\libiconv-2.dll" "vim\runtime\libiconv-2.dll"
   call :mklink "vim\runtime\GvimExt64\libintl-8.dll" "vim\runtime\libintl-8.dll"
