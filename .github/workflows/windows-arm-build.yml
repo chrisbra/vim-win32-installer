@@ -13,7 +13,6 @@ jobs:
     env:
       ARCH: x64
       DEPENDENCIES: c:\dependencies
-      APPVEYOR_REPO_TAG: v9.1.1398
       TAG_NAME: v9.1.1398
       VCPKG_ROOT: c:\vcpkg
 
@@ -57,6 +56,7 @@ jobs:
       - name: Build Vim (ARM)
         shell: cmd
         run: |
+          call vcvarsall.bat x64_arm64
           call appveyor.bat build
 
 #      - name: Test Vim
@@ -67,6 +67,7 @@ jobs:
       - name: Package Vim
         shell: cmd
         run: |
+          set "VCPKG_ROOT=c:\vcpkg"
           call appveyor.bat package
 
       - name: upload artifacts
