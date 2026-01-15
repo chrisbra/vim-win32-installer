@@ -1,32 +1,20 @@
 diff --git a/src/if_ruby.c b/src/if_ruby.c
-index 60ca11188..23dbf0313 100644
+index 60ca11188..852634a80 100644
 --- a/src/if_ruby.c
 +++ b/src/if_ruby.c
-@@ -124,6 +124,12 @@
- #include <ruby.h>
- #include <ruby/encoding.h>
- 
-+#if defined(MSWIN) && defined(DYNAMIC_RUBY) && RUBY_VERSION >= 20
-+// Explicitly tell the compiler this name is NOT an import.
-+// This overrides the dllimport attribute inherited from ruby.h
-+extern void *rb_check_typeddata_stub(VALUE, const rb_data_type_t *);
-+#endif
-+
- #if defined(__GNUC__) || defined(__clang__)
- # pragma GCC diagnostic pop
- #endif
-@@ -603,13 +609,13 @@ rb_unexpected_type_stub(VALUE self, int t)
-     dll_rb_unexpected_type(self, t);
+@@ -604,9 +604,13 @@ rb_unexpected_type_stub(VALUE self, int t)
  }
  #  endif
-+#  endif // ifndef PROTO
  #  ifdef USE_TYPEDDATA
- void *rb_check_typeddata_stub(VALUE obj, const rb_data_type_t *data_type)
+-void *rb_check_typeddata_stub(VALUE obj, const rb_data_type_t *data_type)
++void *
++rb_check_typeddata_stub(VALUE obj, const rb_data_type_t *data_type)
  {
-     return dll_rb_check_typeddata(obj, data_type);
+-    return dll_rb_check_typeddata(obj, data_type);
++    void *result = dll_rb_check_typeddata(obj, data_type);
++    fprintf(stderr, "rb_check_typeddata_stub called, result=%p\n", result);
++    fflush(stderr);
++    return result;
  }
  #  endif
--# endif // ifndef PROTO
- 
- static HINSTANCE hinstRuby = NULL; // Instance of ruby.dll
- 
+ # endif // ifndef PROTO
