@@ -1,0 +1,22 @@
+diff --git a/src/if_ruby.c b/src/if_ruby.c
+index 60ca11188..216566e34 100644
+--- a/src/if_ruby.c
++++ b/src/if_ruby.c
+@@ -137,6 +137,17 @@
+ #undef EXTERN
+ #undef _
+ 
++#if defined(DYNAMIC_RUBY) && defined(MSWIN) && RUBY_VERSION >= 20
++// On Windows, ruby.h may have applied __declspec(dllimport) to our stub
++// via the macro. We must undef and re-define it to ensure the rest of
++// the file treats it as a local function, avoiding linkage conflicts
++// that cause rb_check_typeddata to fail in Ruby 3.2.
++# ifdef rb_check_typeddata
++#  undef rb_check_typeddata
++#  define rb_check_typeddata rb_check_typeddata_stub
++# endif
++#endif
++
+ // T_DATA defined both by Ruby and Mac header files, hack around it...
+ #if defined(MACOS_X)
+ # define __OPENTRANSPORT__
