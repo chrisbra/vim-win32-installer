@@ -1,0 +1,34 @@
+diff --git a/src/if_ruby.c b/src/if_ruby.c
+index 60ca11188..1f80a7e79 100644
+--- a/src/if_ruby.c
++++ b/src/if_ruby.c
+@@ -124,6 +124,14 @@
+ #include <ruby.h>
+ #include <ruby/encoding.h>
+ 
++/* On Windows, ruby.h applies dllimport to the stub name. 
++ * Undef/Redefine here to force local linkage for the rest of the file.
++ */
++#if defined(MSWIN) && defined(DYNAMIC_RUBY) && RUBY_VERSION >= 20
++# undef rb_check_typeddata
++# define rb_check_typeddata rb_check_typeddata_stub
++#endif
++
+ #if defined(__GNUC__) || defined(__clang__)
+ # pragma GCC diagnostic pop
+ #endif
+@@ -603,13 +611,13 @@ rb_unexpected_type_stub(VALUE self, int t)
+     dll_rb_unexpected_type(self, t);
+ }
+ #  endif
++# endif // ifndef PROTO
+ #  ifdef USE_TYPEDDATA
+ void *rb_check_typeddata_stub(VALUE obj, const rb_data_type_t *data_type)
+ {
+     return dll_rb_check_typeddata(obj, data_type);
+ }
+ #  endif
+-# endif // ifndef PROTO
+ 
+ static HINSTANCE hinstRuby = NULL; // Instance of ruby.dll
+ 
