@@ -397,6 +397,45 @@ if /I NOT "%PLATFORM%" == "arm64" (
 
 @rem Build GUI/CUI version
 nmake.exe -lf Make_mvc.mak @auto\nmake\vimdll-huge.cfg || exit 1
+@echo on
+
+echo --- Linkage Analysis ---
+for /r . %%i in ("if_ruby.obj") do (
+    if exist "%%i" (
+        echo.
+        echo === Checking Object: %%i ===
+
+        echo Checking Linker Directives (Look for /EXPORT or dllimport tags)
+        dumpbin /DIRECTIVES "%%i" | findstr "rb_check_typeddata_stub"
+
+        echo Checking for Symbol Presence (Raw Search)
+        dumpbin /ALL "%%i" | findstr "rb_check_typeddata_stub"
+
+        echo Checking if symbol leaked into global exports
+        @if exist vim64.dll dumpbin /EXPORTS vim64.dll | findstr "rb_check_typeddata_stub"
+    )
+)
+
+:: echo --- Preprocessor Inspection ---
+:: @rem 1. Run the specific compiler command to generate if_ruby.i
+:: @rem Note: We removed /GL and added /P /Fiif_ruby.i
+:: cl -c /W3 /GF /nologo -I. -Iproto -DHAVE_PATHDEF -DWIN32 -DHAVE_STDINT_H -DFEAT_CSCOPE -DFEAT_TERMINAL -DFEAT_SOUND -DFEAT_NETBEANS_INTG -DFEAT_XPM_W32 -DHAVE_SODIUM -DDYNAMIC_SODIUM -DDYNAMIC_SODIUM_DLL=\"libsodium.dll\" -I "C:\projects\vim-win32-installer-33v6e\dependencies\libsodium\include" -DFEAT_JOB_CHANNEL -DFEAT_IPV6 -DHAVE_INET_NTOP -DWINVER=0x0601 -D_WIN32_WINNT=0x0601 /source-charset:utf-8 /Ox /DNDEBUG /Zl /MT -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE -DVIMDLL -DFEAT_OLE -DFEAT_MBYTE_IME -DDYNAMIC_IME -DFEAT_GUI_MSWIN -DFEAT_DIRECTX -DDYNAMIC_DIRECTX -DFEAT_DIRECTX_COLOR_EMOJI -DDYNAMIC_ICONV -DDYNAMIC_GETTEXT -DFEAT_LUA -DDYNAMIC_LUA -DDYNAMIC_LUA_DLL=\"lua54.dll\" -DFEAT_PYTHON -DDYNAMIC_PYTHON -DDYNAMIC_PYTHON_DLL=\"python27.dll\" -DFEAT_PYTHON3 -DDYNAMIC_PYTHON3 -DDYNAMIC_PYTHON3_DLL=\"python3.dll\" -DDYNAMIC_PYTHON3_STABLE_ABI -DFEAT_MZSCHEME -I "C:\projects\vim-win32-installer-33v6e\dependencies\racket3m_dcgt6o-x64\include" -DMZ_PRECISE_GC -DDYNAMIC_MZSCHEME -DDYNAMIC_MZSCH_DLL=\"libracket3m_dcgt6o.dll\" -DDYNAMIC_MZGC_DLL=\"libracket3m_dcgt6o.dll\" -DFEAT_PERL -DPERL_IMPLICIT_CONTEXT -DPERL_IMPLICIT_SYS -DDYNAMIC_PERL -DDYNAMIC_PERL_DLL=\"perl532.dll\" -DFEAT_RUBY -DDYNAMIC_RUBY -DDYNAMIC_RUBY_DLL=\"x64-ucrt-ruby320.dll\" -DRUBY_VERSION=32 -DFEAT_HUGE /I "C:\projects\vim-win32-installer-33v6e\dependencies\Ruby32-x64\include\ruby-3.2.0" /I "C:\projects\vim-win32-installer-33v6e\dependencies\Ruby32-x64\include\ruby-3.2.0\x64-mswin64_140" /Fiif_ruby.i /P if_ruby.c
+:: 
+:: @rem 2. Inspect the output
+:: if exist if_ruby.i (
+::     echo [FOUND] if_ruby.i generated.
+::     echo Searching for rb_check_typeddata_stub declaration context...
+:: 
+::     @rem Look for the declaration and include 2 lines of context to see __declspec attributes
+::     findstr /n "rb_check_typeddata_stub" if_ruby.i | findstr /V "typedef"
+:: 
+::     echo.
+::     echo Searching for implementation body (to see if #ifndef PROTO is skipping it)...
+::     @rem If this returns nothing, the code is literally not being compiled
+::     findstr /n "return dll_rb_check_typeddata" if_ruby.i
+:: ) else (
+::     echo [ERROR] if_ruby.i was not generated. Check compiler paths.
+:: )
 
 @rem Build translations
 pushd po
