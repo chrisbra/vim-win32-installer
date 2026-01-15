@@ -1,20 +1,105 @@
+diff --git a/src/buffer.c b/src/buffer.c
+index 7f64bdaab..e12b6df30 100644
+--- a/src/buffer.c
++++ b/src/buffer.c
+@@ -2165,6 +2165,12 @@ buflist_new(
+ 	hash_init(&buf_hashtab);
+ 
+     fname_expand(curbuf, &ffname, &sfname);	// will allocate ffname
++    static int debug_done = 0;
++    if (!debug_done) {
++        fprintf(stderr, "[CORE DEBUG] sizeof(time_t): %zu\n", sizeof(time_t));
++        fprintf(stderr, "[CORE DEBUG] Offset of b_p_bl: %zu\n", (size_t)(&((buf_T*)0)->b_p_bl));
++        debug_done = 1;
++    }
+ 
+     /*
+      * If the file name already exists in the list, update the entry.
 diff --git a/src/if_ruby.c b/src/if_ruby.c
-index 60ca11188..555b73043 100644
+index 60ca11188..131f3e834 100644
 --- a/src/if_ruby.c
 +++ b/src/if_ruby.c
-@@ -604,9 +604,13 @@ rb_unexpected_type_stub(VALUE self, int t)
- }
- #  endif
+@@ -606,7 +606,11 @@ rb_unexpected_type_stub(VALUE self, int t)
  #  ifdef USE_TYPEDDATA
--void *rb_check_typeddata_stub(VALUE obj, const rb_data_type_t *data_type)
-+void *
-+rb_check_typeddata_stub(VALUE obj, const rb_data_type_t *data_type)
+ void *rb_check_typeddata_stub(VALUE obj, const rb_data_type_t *data_type)
  {
 -    return dll_rb_check_typeddata(obj, data_type);
++
 +    void *result = dll_rb_check_typeddata(obj, data_type);
-+    fprintf(stderr, "rb_check_typeddata_stub at %p called, result=%p\n", (void*)rb_check_typeddata_stub, result);
++    fprintf(stderr, "rb_check_typeddata_stub called: obj=%p, result=%p\n", (void*)obj, result);
 +    fflush(stderr);
 +    return result;
  }
  #  endif
  # endif // ifndef PROTO
+@@ -790,6 +794,10 @@ ruby_runtime_link_init(char *libname, int verbose)
+ 	    return FAIL;
+ 	}
+     }
++#ifdef USE_TYPEDDATA
++    fprintf(stderr, "DEBUG: dll_rb_check_typeddata loaded at %p\n", (void*)dll_rb_check_typeddata);
++    fflush(stderr);
++#endif
+     return OK;
+ }
+ 
+@@ -1304,9 +1312,22 @@ buffer_s_count(VALUE self UNUSED)
+ 
+     FOR_ALL_BUFFERS(b)
+     {
++        fprintf(stderr, "[RUBY DEBUG] sizeof(time_t): %zu\n", sizeof(time_t));
++        fprintf(stderr, "[RUBY DEBUG] Offset of b_p_bl: %zu\n", (size_t)(&((buf_T*)0)->b_p_bl));
++        fprintf(stderr, "[RUBY DEBUG] Value of b_p_bl: %d\n", b->b_p_bl);
++
++	fprintf(stderr, "[DEBUG] buffer_s_count: buf=%p, name=%s, b_p_bl=%d\n",
++		(void*)b, (b->b_fname ? (char *)b->b_fname : "(null)"), b->b_p_bl);
++	fprintf(stderr, "[DEBUG] buffer_s_count: buf=%p, b_fnum=%d, name=%s, b_p_bl=%d, &b_p_bl=%p\n",
++            (void*)b, b->b_fnum, (b->b_fname ? (char *)b->b_fname : "(null)"), 
++            b->b_p_bl, (void*)&b->b_p_bl);
++	// Also check what Vim thinks about this buffer
++	fprintf(stderr, "[DEBUG]   buf_valid=%d\n", buf_valid(b));
++#if 0
+ 	//  Deleted buffers should not be counted
+ 	//    SegPhault - 01/07/05
+ 	if (b->b_p_bl)
++#endif
+ 	    n++;
+     }
+ 
+@@ -1321,10 +1342,12 @@ buffer_s_aref(VALUE self UNUSED, VALUE num)
+ 
+     FOR_ALL_BUFFERS(b)
+     {
++#if 0
+ 	//  Deleted buffers should not be counted
+ 	//    SegPhault - 01/07/05
+ 	if (!b->b_p_bl)
+ 	    continue;
++#endif
+ 
+ 	if (n == 0)
+ 	    return buffer_new(b);
+diff --git a/src/testdir/test_ruby.vim b/src/testdir/test_ruby.vim
+index e5af66500..2f2f8d8f8 100644
+--- a/src/testdir/test_ruby.vim
++++ b/src/testdir/test_ruby.vim
+@@ -273,7 +273,9 @@ endfunc
+ " Test Vim::Buffer:.count (return the number of buffers)
+ func Test_ruby_Vim_buffer_count()
+   new Xfoo1
++  call assert_equal(1, &buflisted)
+   new Xfoo2
++  call assert_equal(1, &buflisted)
+   call assert_equal(3, rubyeval('Vim::Buffer.count'))
+   %bwipe
+   call assert_equal(1, rubyeval('Vim::Buffer.count'))
+@@ -282,7 +284,9 @@ endfunc
+ " Test Vim::buffer[n] (return the buffer object of buffer number n)
+ func Test_ruby_Vim_buffer_get()
+   new Xfoo1
++  call assert_equal(1, &buflisted)
+   new Xfoo2
++  call assert_equal(1, &buflisted)
+ 
+   " Index of Vim::Buffer[n] goes from 0 to the number of buffers.
+   call assert_equal(v:null,   rubyeval('Vim::Buffer[0].name'))
