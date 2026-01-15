@@ -1,5 +1,5 @@
 diff --git a/src/if_ruby.c b/src/if_ruby.c
-index 60ca11188..852634a80 100644
+index 60ca11188..555b73043 100644
 --- a/src/if_ruby.c
 +++ b/src/if_ruby.c
 @@ -604,9 +604,13 @@ rb_unexpected_type_stub(VALUE self, int t)
@@ -12,7 +12,7 @@ index 60ca11188..852634a80 100644
  {
 -    return dll_rb_check_typeddata(obj, data_type);
 +    void *result = dll_rb_check_typeddata(obj, data_type);
-+    fprintf(stderr, "rb_check_typeddata_stub called, result=%p\n", result);
++    fprintf(stderr, "rb_check_typeddata_stub at %p called, result=%p\n", (void*)rb_check_typeddata_stub, result);
 +    fflush(stderr);
 +    return result;
  }
