@@ -403,39 +403,17 @@ nmake.exe -lf Make_mvc.mak @auto\nmake\vimdll-huge.cfg || exit 1
 set "VIM_FLAGS=-I. -Iproto -DWIN32 -DFEAT_CSCOPE -DFEAT_TERMINAL -DFEAT_SOUND -DFEAT_NETBEANS_INTG -DFEAT_JOB_CHANNEL -DFEAT_IPV6 -DWINVER=0x0601 -D_WIN32_WINNT=0x0601 -DVIMDLL -DFEAT_OLE -DFEAT_GUI_MSWIN -DFEAT_HUGE -DRUBY_VERSION=32"
 set "RUBY_INC=/I C:\projects\vim-win32-installer-33v6e\dependencies\Ruby32-x64\include\ruby-3.2.0 /I C:\projects\vim-win32-installer-33v6e\dependencies\Ruby32-x64\include\ruby-3.2.0\x64-mswin64_140"
 
-@echo off
-echo -- SEARCHING FOR MACRO LEAK (CORE vs RUBY) --
+echo -- FINDING THE EXTRA OPTION NAME --
+:: Create a tiny probe that only looks at the BV_ enum names
+echo #include "vim.h" > bv_probe.c
+cl /E %VIM_FLAGS% bv_probe.c | findstr "BV_" > core_bv.txt
 
-:: 1. Check Core features
-echo #include "vim.h" > core_check.c
-cl /E %VIM_FLAGS% core_check.c | findstr "FEAT_TERMINAL FEAT_NETBEANS_INTG FEAT_JOB_CHANNEL FEAT_CRYPT" > core_features.txt
+echo #include "vim.h" > ruby_bv_probe.c
+echo #include ^<ruby.h^> >> ruby_bv_probe.c
+cl /E %VIM_FLAGS% %RUBY_INC% ruby_bv_probe.c | findstr "BV_" > ruby_bv.txt
 
-:: 2. Check Ruby features (including Ruby headers)
-echo #include "vim.h" > ruby_check.c
-echo #include ^<ruby.h^> >> ruby_check.c
-cl /E %VIM_FLAGS% %RUBY_INC% ruby_check.c | findstr "FEAT_TERMINAL FEAT_NETBEANS_INTG FEAT_JOB_CHANNEL FEAT_CRYPT" > ruby_features.txt
+fc /L /N core_bv.txt ruby_bv.txt
 
-echo -- FEATURE DIFFERENCES --
-fc core_features.txt ruby_features.txt
-
-:: :: Run this in your appveyor script to see the difference in options
-:: cl /E %VIM_FLAGS% %RUBY_INC% optiondefs.h > ruby_options.i
-:: cl /E %VIM_FLAGS% option.h > core_options.i
-:: 
-:: echo ---- DEBUG ruby_options.i
-:: type ruby_options.i
-:: 
-:: echo ---- DEBUG optiondefs.h
-:: type core_options.i
-:: 
-:: :: Filter for the enum values that define the buffer options
-:: :: We look for lines containing 'BV_' which is the typical naming convention
-:: findstr "BV_" core_options.i > core_bv_list.txt
-:: findstr "BV_" ruby_options.i > ruby_bv_list.txt
-:: 
-:: echo ---- DIFFERENCE IN BUFFER OPTIONS ----
-:: fc /L /N core_bv_list.txt ruby_bv_list.txt
-:: 
 exit 1
 
 :: Look for the enum or list that defines BV_COUNT
