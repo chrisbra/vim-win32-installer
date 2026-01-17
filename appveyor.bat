@@ -403,6 +403,29 @@ nmake.exe -lf Make_mvc.mak @auto\nmake\vimdll-huge.cfg || exit 1
 set "VIM_FLAGS=-I. -Iproto -DWIN32 -DFEAT_CSCOPE -DFEAT_TERMINAL -DFEAT_SOUND -DFEAT_NETBEANS_INTG -DFEAT_JOB_CHANNEL -DFEAT_IPV6 -DWINVER=0x0601 -D_WIN32_WINNT=0x0601 -DVIMDLL -DFEAT_OLE -DFEAT_GUI_MSWIN -DFEAT_HUGE -DRUBY_VERSION=32"
 set "RUBY_INC=/I C:\projects\vim-win32-installer-33v6e\dependencies\Ruby32-x64\include\ruby-3.2.0 /I C:\projects\vim-win32-installer-33v6e\dependencies\Ruby32-x64\include\ruby-3.2.0\x64-mswin64_140"
 
+:: Run this in your appveyor script to see the difference in options
+cl /E %VIM_FLAGS% %RUBY_INC% optiondefs.h > ruby_options.i
+cl /E %VIM_FLAGS% option.h > core_options.i
+
+echo ---- DEBUG ruby_options.i
+type ruby_options.i
+
+echo ---- DEBUG optiondefs.h
+type core_options.i
+
+:: Filter for the enum values that define the buffer options
+:: We look for lines containing 'BV_' which is the typical naming convention
+findstr "BV_" core_options.i > core_bv_list.txt
+findstr "BV_" ruby_options.i > ruby_bv_list.txt
+
+echo ---- DIFFERENCE IN BUFFER OPTIONS ----
+fc /L /N core_bv_list.txt ruby_bv_list.txt
+
+exit 1
+
+:: Look for the enum or list that defines BV_COUNT
+:: Often it's a list of WV_... or BV_... constants
+
 ::cl /E /nologo %VIM_FLAGS% buffer.c > core_expanded.txt
 ::cl /E /nologo %VIM_FLAGS% %RUBY_INC% if_ruby.c > ruby_expanded.txt
 
