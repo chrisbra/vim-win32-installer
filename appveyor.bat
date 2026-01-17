@@ -421,19 +421,18 @@ findstr "BV_" ruby_injected.i > ruby_bv.txt
 echo -- OFFSET-SHIFTING OPTION:
 fc /L /N core_bv.txt ruby_bv.txt
 
+::echo "EXTRACT THE BV definitions
+:::: Extract the last 10 lines of the BV_ definitions
+::powershell -Command "Get-Content core_bv.txt | Select-Object -Last 10" > core_tail.txt
+::powershell -Command "Get-Content ruby_bv.txt | Select-Object -Last 10" > ruby_tail.txt
+::
+::echo -- ENUM TAIL COMPARISON --
+::fc /L /N core_tail.txt ruby_tail.txt
+::
+::echo BV_COUNT
+::cl /E %VIM_FLAGS% %RUBY_INC% option.h | findstr /C:"BV_COUNT"
 
-echo "EXTRACT THE BV definitions
-:: Extract the last 10 lines of the BV_ definitions
-powershell -Command "Get-Content core_bv.txt | Select-Object -Last 10" > core_tail.txt
-powershell -Command "Get-Content ruby_bv.txt | Select-Object -Last 10" > ruby_tail.txt
-
-echo -- ENUM TAIL COMPARISON --
-fc /L /N core_tail.txt ruby_tail.txt
-
-echo BV_COUNT
-cl /E %VIM_FLAGS% %RUBY_INC% option.h | findstr /C:"BV_COUNT"
-
-exit 1
+::exit 1
 
 :: Look for the enum or list that defines BV_COUNT
 :: Often it's a list of WV_... or BV_... constants

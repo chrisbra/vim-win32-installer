@@ -28,52 +28,20 @@ index 7f64bdaab..f62cccd47 100644
      /*
       * If the file name already exists in the list, update the entry.
 diff --git a/src/if_ruby.c b/src/if_ruby.c
-index 60ca11188..5d7f583b5 100644
+index 60ca11188..522e2f19b 100644
 --- a/src/if_ruby.c
 +++ b/src/if_ruby.c
-@@ -121,9 +121,17 @@
- # pragma GCC diagnostic ignored "-Wdefault-const-init-field-unsafe"
+@@ -179,6 +179,9 @@
+ #ifdef HAVE_DUP
+ # undef HAVE_DUP
  #endif
- 
-+#ifdef _USE_32BIT_TIME_T
-+#error "_USE_32BIT_TIME_T is defined before Ruby headers"
++#ifdef HAVE_FSYNC
++# undef HAVE_FSYNC
 +#endif
-+
- #include <ruby.h>
- #include <ruby/encoding.h>
  
-+#ifdef _USE_32BIT_TIME_T  
-+#error "_USE_32BIT_TIME_T is defined after Ruby headers"
-+#endif
-+
- #if defined(__GNUC__) || defined(__clang__)
- # pragma GCC diagnostic pop
- #endif
-@@ -606,7 +614,11 @@ rb_unexpected_type_stub(VALUE self, int t)
- #  ifdef USE_TYPEDDATA
- void *rb_check_typeddata_stub(VALUE obj, const rb_data_type_t *data_type)
- {
--    return dll_rb_check_typeddata(obj, data_type);
-+
-+    void *result = dll_rb_check_typeddata(obj, data_type);
-+    fprintf(stderr, "rb_check_typeddata_stub called: obj=%p, result=%p\n", (void*)obj, result);
-+    fflush(stderr);
-+    return result;
- }
- #  endif
- # endif // ifndef PROTO
-@@ -790,6 +802,10 @@ ruby_runtime_link_init(char *libname, int verbose)
- 	    return FAIL;
- 	}
-     }
-+#ifdef USE_TYPEDDATA
-+    fprintf(stderr, "DEBUG: dll_rb_check_typeddata loaded at %p\n", (void*)dll_rb_check_typeddata);
-+    fflush(stderr);
-+#endif
-     return OK;
- }
- 
-@@ -1304,9 +1320,34 @@ buffer_s_count(VALUE self UNUSED)
+ // Avoid redefining TRUE/FALSE in vterm.h.
+ #ifdef TRUE
+@@ -1304,6 +1307,29 @@ buffer_s_count(VALUE self UNUSED)
  
      FOR_ALL_BUFFERS(b)
      {
@@ -100,48 +68,6 @@ index 60ca11188..5d7f583b5 100644
 +            b->b_p_bl, (void*)&b->b_p_bl);
 +	// Also check what Vim thinks about this buffer
 +	fprintf(stderr, "[DEBUG]   buf_valid=%d\n", buf_valid(b));
-+#if 0
  	//  Deleted buffers should not be counted
  	//    SegPhault - 01/07/05
  	if (b->b_p_bl)
-+#endif
- 	    n++;
-     }
- 
-@@ -1321,10 +1362,12 @@ buffer_s_aref(VALUE self UNUSED, VALUE num)
- 
-     FOR_ALL_BUFFERS(b)
-     {
-+#if 0
- 	//  Deleted buffers should not be counted
- 	//    SegPhault - 01/07/05
- 	if (!b->b_p_bl)
- 	    continue;
-+#endif
- 
- 	if (n == 0)
- 	    return buffer_new(b);
-diff --git a/src/testdir/test_ruby.vim b/src/testdir/test_ruby.vim
-index e5af66500..2f2f8d8f8 100644
---- a/src/testdir/test_ruby.vim
-+++ b/src/testdir/test_ruby.vim
-@@ -273,7 +273,9 @@ endfunc
- " Test Vim::Buffer:.count (return the number of buffers)
- func Test_ruby_Vim_buffer_count()
-   new Xfoo1
-+  call assert_equal(1, &buflisted)
-   new Xfoo2
-+  call assert_equal(1, &buflisted)
-   call assert_equal(3, rubyeval('Vim::Buffer.count'))
-   %bwipe
-   call assert_equal(1, rubyeval('Vim::Buffer.count'))
-@@ -282,7 +284,9 @@ endfunc
- " Test Vim::buffer[n] (return the buffer object of buffer number n)
- func Test_ruby_Vim_buffer_get()
-   new Xfoo1
-+  call assert_equal(1, &buflisted)
-   new Xfoo2
-+  call assert_equal(1, &buflisted)
- 
-   " Index of Vim::Buffer[n] goes from 0 to the number of buffers.
-   call assert_equal(v:null,   rubyeval('Vim::Buffer[0].name'))
