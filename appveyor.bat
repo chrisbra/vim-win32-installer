@@ -398,41 +398,41 @@ if /I NOT "%PLATFORM%" == "arm64" (
 @rem Build GUI/CUI version
 nmake.exe -lf Make_mvc.mak @auto\nmake\vimdll-huge.cfg || exit 1
 
-echo -- ANALYSIS OF OFFSETS
+::echo -- ANALYSIS OF OFFSETS
 :: Generate expanded files (Core vs Ruby)
 set "VIM_FLAGS=-I. -Iproto -DWIN32 -DFEAT_CSCOPE -DFEAT_TERMINAL -DFEAT_SOUND -DFEAT_NETBEANS_INTG -DFEAT_JOB_CHANNEL -DFEAT_IPV6 -DWINVER=0x0601 -D_WIN32_WINNT=0x0601 -DVIMDLL -DFEAT_OLE -DFEAT_GUI_MSWIN -DFEAT_HUGE -DRUBY_VERSION=32"
 set "RUBY_INC=/I C:\projects\vim-win32-installer-33v6e\dependencies\Ruby32-x64\include\ruby-3.2.0 /I C:\projects\vim-win32-installer-33v6e\dependencies\Ruby32-x64\include\ruby-3.2.0\x64-mswin64_140"
 
-cl /E /nologo %VIM_FLAGS% buffer.c > core_expanded.txt
-cl /E /nologo %VIM_FLAGS% %RUBY_INC% if_ruby.c > ruby_expanded.txt
+::cl /E /nologo %VIM_FLAGS% buffer.c > core_expanded.txt
+::cl /E /nologo %VIM_FLAGS% %RUBY_INC% if_ruby.c > ruby_expanded.txt
 
-echo -- EXTRACTING STRUCT DEFINITIONS
-powershell -Command "$c = Get-Content core_expanded.txt | Out-String; if ($c -match 'struct file_buffer\s*\{(.*?)\};') { $matches[0] }" > core_struct.txt
-powershell -Command "$r = Get-Content ruby_expanded.txt | Out-String; if ($r -match 'struct file_buffer\s*\{(.*?)\};') { $matches[0] }" > ruby_struct.txt
+::echo -- EXTRACTING STRUCT DEFINITIONS
+::powershell -Command "$c = Get-Content core_expanded.txt | Out-String; if ($c -match 'struct file_buffer\s*\{(.*?)\};') { $matches[0] }" > core_struct.txt
+::powershell -Command "$r = Get-Content ruby_expanded.txt | Out-String; if ($r -match 'struct file_buffer\s*\{(.*?)\};') { $matches[0] }" > ruby_struct.txt
 
-type core_struct.txt
-type ruby_struct.txt
+::type core_struct.txt
+::type ruby_struct.txt
 
-echo -- DIFFING THE STRUCTURES
-fc /L /N core_struct.txt ruby_struct.txt
+::echo -- DIFFING THE STRUCTURES
+::fc /L /N core_struct.txt ruby_struct.txt
 
 
-echo -- ANALYSIS OF ALIGNMENT
+::echo -- ANALYSIS OF ALIGNMENT
 :: This flag tells MSVC to print the memory layout of the struct to the console
-cl /c /d1reportSingleClassLayoutfile_buffer %VIM_FLAGS% buffer.c > core_layout.txt
-cl /c /d1reportSingleClassLayoutfile_buffer %VIM_FLAGS% %RUBY_INC% if_ruby.c > ruby_layout.txt
+::cl /c /d1reportSingleClassLayoutfile_buffer %VIM_FLAGS% buffer.c > core_layout.txt
+::cl /c /d1reportSingleClassLayoutfile_buffer %VIM_FLAGS% %RUBY_INC% if_ruby.c > ruby_layout.txt
 
 :: Extract just the table part
-findstr /C:"| " core_layout.txt > core_map.txt
-findstr /C:"| " ruby_layout.txt > ruby_map.txt
+::findstr /C:"| " core_layout.txt > core_map.txt
+::findstr /C:"| " ruby_layout.txt > ruby_map.txt
 
-type core_map.txt
-type ruby_map.txt
+::type core_map.txt
+::type ruby_map.txt
 
-echo -- DIFFING THE two maps
-fc /L /N core_map.txt ruby_map.txt
+::echo -- DIFFING THE two maps
+::fc /L /N core_map.txt ruby_map.txt
 
-exit 1
+::exit 1
 
 @rem Build translations
 pushd po
