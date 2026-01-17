@@ -397,22 +397,21 @@ if /I NOT "%PLATFORM%" == "arm64" (
 
 @rem Build GUI/CUI version
 nmake.exe -lf Make_mvc.mak @auto\nmake\vimdll-huge.cfg || exit 1
-@echo on
 
-echo --- Linkage Analysis ---
-@rem Flat loops without parentheses to avoid colon parsing errors
-for /r . %%i in (if_ruby.obj) do @if exist "%%i" dumpbin /DIRECTIVES "%%i" ^| findstr "rb_check_typeddata_stub"
-for /r . %%i in (if_ruby.obj) do @if exist "%%i" dumpbin /ALL "%%i" ^| findstr "rb_check_typeddata_stub"
+echo -- ANALYSIS OF OFFSETS
+:: Generate expanded files (Core vs Ruby)
+set "VIM_FLAGS=-I. -Iproto -DWIN32 -DFEAT_CSCOPE -DFEAT_TERMINAL -DFEAT_SOUND -DFEAT_NETBEANS_INTG -DFEAT_JOB_CHANNEL -DFEAT_IPV6 -DWINVER=0x0601 -D_WIN32_WINNT=0x0601 -DVIMDLL -DFEAT_OLE -DFEAT_GUI_MSWIN -DFEAT_HUGE -DRUBY_VERSION=32"
+set "RUBY_INC=/I C:\projects\vim-win32-installer-33v6e\dependencies\Ruby32-x64\include\ruby-3.2.0 /I C:\projects\vim-win32-installer-33v6e\dependencies\Ruby32-x64\include\ruby-3.2.0\x64-mswin64_140"
 
-echo --- Preprocessor Inspection ---
-@rem Removed non-ASCII dashes and ensured clean flags
-cl -c /W3 /GF /nologo -I. -Iproto -DHAVE_PATHDEF -DWIN32 -DHAVE_STDINT_H -DFEAT_CSCOPE -DFEAT_TERMINAL -DFEAT_SOUND -DFEAT_NETBEANS_INTG -DFEAT_XPM_W32 -DHAVE_SODIUM -DDYNAMIC_SODIUM -DDYNAMIC_SODIUM_DLL="libsodium.dll" -I "C:\projects\vim-win32-installer-33v6e\dependencies\libsodium\include" -DFEAT_JOB_CHANNEL -DFEAT_IPV6 -DHAVE_INET_NTOP -DWINVER=0x0601 -D_WIN32_WINNT=0x0601 /source-charset:utf-8 /Ox /DNDEBUG /Zl /MT -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE -DVIMDLL -DFEAT_OLE -DFEAT_MBYTE_IME -DDYNAMIC_IME -DFEAT_GUI_MSWIN -DFEAT_DIRECTX -DDYNAMIC_DIRECTX -DFEAT_DIRECTX_COLOR_EMOJI -DDYNAMIC_ICONV -DDYNAMIC_GETTEXT -DFEAT_LUA -DDYNAMIC_LUA -DDYNAMIC_LUA_DLL="lua54.dll" -DFEAT_PYTHON -DDYNAMIC_PYTHON -DDYNAMIC_PYTHON_DLL="python27.dll" -DFEAT_PYTHON3 -DDYNAMIC_PYTHON3 -DDYNAMIC_PYTHON3_DLL="python3.dll" -DDYNAMIC_PYTHON3_STABLE_ABI -DFEAT_MZSCHEME -I "C:\projects\vim-win32-installer-33v6e\dependencies\racket3m_dcgt6o-x64\include" -DMZ_PRECISE_GC -DDYNAMIC_MZSCHEME -DDYNAMIC_MZSCH_DLL="libracket3m_dcgt6o.dll" -DDYNAMIC_MZGC_DLL="libracket3m_dcgt6o.dll" -DFEAT_PERL -DPERL_IMPLICIT_CONTEXT -DPERL_IMPLICIT_SYS -DDYNAMIC_PERL -DDYNAMIC_PERL_DLL="perl532.dll" -DFEAT_RUBY -DDYNAMIC_RUBY -DDYNAMIC_RUBY_DLL="x64-ucrt-ruby320.dll" -DRUBY_VERSION=32 -DFEAT_HUGE /I "C:\projects\vim-win32-installer-33v6e\dependencies\Ruby32-x64\include\ruby-3.2.0" /I "C:\projects\vim-win32-installer-33v6e\dependencies\Ruby32-x64\include\ruby-3.2.0\x64-mswin64_140" /Fiif_ruby.i /P if_ruby.c
+cl /E /nologo %VIM_FLAGS% buffer.c > core_expanded.txt
+cl /E /nologo %VIM_FLAGS% %RUBY_INC% if_ruby.c > ruby_expanded.txt
 
-if exist if_ruby.i (
-    echo [FOUND] if_ruby.i
-    findstr /n "rb_check_typeddata_stub" if_ruby.i
-    findstr /n "return dll_rb_check_typeddata" if_ruby.i
-)
+echo -- EXTRACTING STRUCT DEFINITIONS
+powershell -Command "$c = Get-Content core_expanded.txt | Out-String; if ($c -match 'struct file_buffer\s*\{(.*?)\};') { $matches[0] }" > core_struct.txt
+powershell -Command "$r = Get-Content ruby_expanded.txt | Out-String; if ($r -match 'struct file_buffer\s*\{(.*?)\};') { $matches[0] }" > ruby_struct.txt
+
+echo -- DIFFING THE STRUCTURES
+fc /L /N core_struct.txt ruby_struct.txt
 
 @rem Build translations
 pushd po
