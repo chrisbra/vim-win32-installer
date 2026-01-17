@@ -16,10 +16,28 @@ index 7f64bdaab..e12b6df30 100644
      /*
       * If the file name already exists in the list, update the entry.
 diff --git a/src/if_ruby.c b/src/if_ruby.c
-index 60ca11188..131f3e834 100644
+index 60ca11188..d9c4ccb98 100644
 --- a/src/if_ruby.c
 +++ b/src/if_ruby.c
-@@ -606,7 +606,11 @@ rb_unexpected_type_stub(VALUE self, int t)
+@@ -121,9 +121,17 @@
+ # pragma GCC diagnostic ignored "-Wdefault-const-init-field-unsafe"
+ #endif
+ 
++#ifdef _USE_32BIT_TIME_T
++#error "_USE_32BIT_TIME_T is defined before Ruby headers"
++#endif
++
+ #include <ruby.h>
+ #include <ruby/encoding.h>
+ 
++#ifdef _USE_32BIT_TIME_T  
++#error "_USE_32BIT_TIME_T is defined after Ruby headers"
++#endif
++
+ #if defined(__GNUC__) || defined(__clang__)
+ # pragma GCC diagnostic pop
+ #endif
+@@ -606,7 +614,11 @@ rb_unexpected_type_stub(VALUE self, int t)
  #  ifdef USE_TYPEDDATA
  void *rb_check_typeddata_stub(VALUE obj, const rb_data_type_t *data_type)
  {
@@ -32,7 +50,7 @@ index 60ca11188..131f3e834 100644
  }
  #  endif
  # endif // ifndef PROTO
-@@ -790,6 +794,10 @@ ruby_runtime_link_init(char *libname, int verbose)
+@@ -790,6 +802,10 @@ ruby_runtime_link_init(char *libname, int verbose)
  	    return FAIL;
  	}
      }
@@ -43,7 +61,7 @@ index 60ca11188..131f3e834 100644
      return OK;
  }
  
-@@ -1304,9 +1312,22 @@ buffer_s_count(VALUE self UNUSED)
+@@ -1304,9 +1320,22 @@ buffer_s_count(VALUE self UNUSED)
  
      FOR_ALL_BUFFERS(b)
      {
@@ -66,7 +84,7 @@ index 60ca11188..131f3e834 100644
  	    n++;
      }
  
-@@ -1321,10 +1342,12 @@ buffer_s_aref(VALUE self UNUSED, VALUE num)
+@@ -1321,10 +1350,12 @@ buffer_s_aref(VALUE self UNUSED, VALUE num)
  
      FOR_ALL_BUFFERS(b)
      {

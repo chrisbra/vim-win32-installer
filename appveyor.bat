@@ -410,8 +410,29 @@ echo -- EXTRACTING STRUCT DEFINITIONS
 powershell -Command "$c = Get-Content core_expanded.txt | Out-String; if ($c -match 'struct file_buffer\s*\{(.*?)\};') { $matches[0] }" > core_struct.txt
 powershell -Command "$r = Get-Content ruby_expanded.txt | Out-String; if ($r -match 'struct file_buffer\s*\{(.*?)\};') { $matches[0] }" > ruby_struct.txt
 
+type core_struct.txt
+type ruby_struct.txt
+
 echo -- DIFFING THE STRUCTURES
 fc /L /N core_struct.txt ruby_struct.txt
+
+
+echo -- ANALYSIS OF ALIGNMENT
+:: This flag tells MSVC to print the memory layout of the struct to the console
+cl /c /d1reportSingleClassLayoutfile_buffer %VIM_FLAGS% buffer.c > core_layout.txt
+cl /c /d1reportSingleClassLayoutfile_buffer %VIM_FLAGS% %RUBY_INC% if_ruby.c > ruby_layout.txt
+
+:: Extract just the table part
+findstr /C:"| " core_layout.txt > core_map.txt
+findstr /C:"| " ruby_layout.txt > ruby_map.txt
+
+type core_map.txt
+type ruby_map.txt
+
+echo -- DIFFING THE two maps
+fc /L /N core_map.txt ruby_map.txt
+
+exit 1
 
 @rem Build translations
 pushd po
