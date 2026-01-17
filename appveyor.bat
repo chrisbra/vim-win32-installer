@@ -403,16 +403,35 @@ nmake.exe -lf Make_mvc.mak @auto\nmake\vimdll-huge.cfg || exit 1
 set "VIM_FLAGS=-I. -Iproto -DWIN32 -DFEAT_CSCOPE -DFEAT_TERMINAL -DFEAT_SOUND -DFEAT_NETBEANS_INTG -DFEAT_JOB_CHANNEL -DFEAT_IPV6 -DWINVER=0x0601 -D_WIN32_WINNT=0x0601 -DVIMDLL -DFEAT_OLE -DFEAT_GUI_MSWIN -DFEAT_HUGE -DRUBY_VERSION=32"
 set "RUBY_INC=/I C:\projects\vim-win32-installer-33v6e\dependencies\Ruby32-x64\include\ruby-3.2.0 /I C:\projects\vim-win32-installer-33v6e\dependencies\Ruby32-x64\include\ruby-3.2.0\x64-mswin64_140"
 
-echo -- FINDING THE EXTRA OPTION NAME --
-:: Create a tiny probe that only looks at the BV_ enum names
-echo #include "vim.h" > bv_probe.c
-cl /E %VIM_FLAGS% bv_probe.c | findstr "BV_" > core_bv.txt
+echo -- CHECKING MACRO INJECTION (RUBY-FIRST vs VIM-ONLY) --
 
-echo #include "vim.h" > ruby_bv_probe.c
-echo #include ^<ruby.h^> >> ruby_bv_probe.c
-cl /E %VIM_FLAGS% %RUBY_INC% ruby_bv_probe.c | findstr "BV_" > ruby_bv.txt
+:: 1. Core Vim (Pure environment)
+echo #include "vim.h" > pure_vim.c
+cl /E %VIM_FLAGS% pure_vim.c > pure_vim.i
 
+:: 2. Ruby-Injected Vim (Matches your if_ruby.c order)
+echo #include ^<ruby.h^> > ruby_injected.c
+echo #include "vim.h" >> ruby_injected.c
+cl /E %VIM_FLAGS% %RUBY_INC% ruby_injected.c > ruby_injected.i
+
+:: 3. Compare the BV_ list again
+findstr "BV_" pure_vim.i > core_bv.txt
+findstr "BV_" ruby_injected.i > ruby_bv.txt
+
+echo -- OFFSET-SHIFTING OPTION:
 fc /L /N core_bv.txt ruby_bv.txt
+
+
+echo "EXTRACT THE BV definitions
+:: Extract the last 10 lines of the BV_ definitions
+powershell -Command "Get-Content core_bv.txt | Select-Object -Last 10" > core_tail.txt
+powershell -Command "Get-Content ruby_bv.txt | Select-Object -Last 10" > ruby_tail.txt
+
+echo -- ENUM TAIL COMPARISON --
+fc /L /N core_tail.txt ruby_tail.txt
+
+echo BV_COUNT
+cl /E %VIM_FLAGS% %RUBY_INC% option.h | findstr /C:"BV_COUNT"
 
 exit 1
 
