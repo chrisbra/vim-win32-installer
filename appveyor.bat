@@ -17,6 +17,7 @@ if not defined APPVEYOR_REPO_TAG_NAME (
 ) else (
   set "TAG_NAME=%APPVEYOR_REPO_TAG_NAME%"
 )
+set "TAG_NAME=v9.2.0000"
 :: Strip the first "v" from the tag name.
 set "VER_NUM=%TAG_NAME:~1%"
 
